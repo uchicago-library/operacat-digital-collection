@@ -1,0 +1,240 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-16 21:17+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: operacat_app/settings/base.py:128
+msgid "English"
+msgstr "Inglese"
+
+msgid "Homepage"
+msgstr "Homepage" 
+
+msgid "Go"
+msgstr "Partire"
+
+#: operacat_app/settings/base.py:129
+msgid "Italian"
+msgstr "Itiano"
+
+#: operacat_app/templates/base.html:58
+msgid "Toggle navigation"
+msgstr ""
+
+#: operacat_app/templates/base.html:63
+msgid "Operacat"
+msgstr ""
+
+#: operacat_app/templates/base.html:67
+msgid "Home"
+msgstr "Case"
+
+#: operacat_app/templates/base.html:69
+msgid "About"
+msgstr "Di"
+
+#: operacat_app/templates/base.html:71
+msgid "Project Description"
+msgstr "descrizione del progetto"
+
+
+#: operacat_app/templates/base.html:72
+msgid "Supporting Institutions"
+msgstr "istituzioni di supporto"
+
+#: operacat_app/templates/base.html:73
+msgid "Contributing individuals"
+msgstr "individui che contribuisconoh"
+
+#: operacat_app/templates/base.html:77
+msgid "Help"
+msgstr "Aiuto"
+
+#: operacat_app/templates/base.html:79
+msgid "User's Guide"
+msgstr "Guida dell'utente"
+
+msgid "User's guide"
+msgstr "guida dell'utente"
+
+#: operacat_app/templates/base.html:82
+msgid "Contact Us"
+msgstr "Contattaci"
+
+#: operacat_app/templates/base.html:86
+msgid "Logout"
+msgstr ""
+
+#: operacat_app/templates/base.html:88
+msgid "Sign Up"
+msgstr "Registrazione"
+
+#: operacat_app/templates/base.html:89
+msgid "Sign In"
+msgstr "Registrati"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:10
+msgid "Related items"
+msgstr "Articoli Correlati"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:23
+msgid "Catalog"
+msgstr "Catalogare"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:34
+#: search/templates/search/search_form.html:34
+msgid "Item Type"
+msgstr "tipo di elemento"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:45
+#: search/templates/search/search_form.html:23
+msgid "Composer"
+msgstr "Compositore"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:52
+#: search/templates/search/search_form.html:50
+msgid "Place"
+msgstr "Posto"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:59
+msgid "Author or Responsible"
+msgstr "Autore o responsabili"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:67
+msgid "Recipient or Dedicatee"
+msgstr "Destinatario o Dedicatario"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:74
+msgid "Item Description"
+msgstr "descrizione dell'articolo"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:79
+msgid "Field Notes"
+msgstr "note di campo"
+
+#: operacat_app/templates/catalogitems/catalog_item_page.html:85
+msgid "Images"
+msgstr "immagini"
+
+#: operacat_app/templates/operacatmessages/form_page.html:23
+msgid "Send message"
+msgstr "invia messaggio"
+
+#: operacat_app/templates/operacatmessages/form_page_landing.html:5
+msgid "Thanks for your submission. We'll get back to you soon."
+msgstr "Grazie per la vostra presentazione ti risponderemo al più presto."
+
+#: search/templates/search/search.html:7
+#: search/templates/search/search_form.html:2
+#: search/templates/search/search_form.html:8
+#: search/templates/search/search_form.html:14
+#: search/templates/search/search_form.html:66
+msgid "Search"
+msgstr "Cersa"
+
+#: search/templates/search/search.html:18
+msgid "place"
+msgstr "posto"
+
+#: search/templates/search/search.html:18
+msgid "date"
+msgstr "data"
+
+#: search/templates/search/search.html:18
+msgid "recipient/dedicatee"
+msgstr "destinatario/dedicatario"
+
+#: search/templates/search/search.html:19
+msgid "item type"
+msgstr "tipo di elemento"
+
+#: search/templates/search/search.html:31
+msgid "Previous"
+msgstr "Precedente"
+
+#: search/templates/search/search.html:35
+msgid "Next"
+msgstr "Il prossimo"
+
+#: search/templates/search/search.html:38
+msgid "No results found"
+msgstr "nessun risultato trovato"
+
+#: search/templates/search/search_form.html:2
+msgid "or"
+msgstr "o"
+
+#: search/templates/search/search_form.html:2
+#: search/templates/search/search_form.html:21
+msgid "Advanced Search"
+msgstr "Ricerca avanzata"
+
+#: search/templates/search/search_form.html:10
+msgid "Keywords"
+msgstr "Parola chiave"
+
+#: search/templates/search/search_form.html:37
+msgid "musical manuscript"
+msgstr "manoscritto muscale"
+
+#: search/templates/search/search_form.html:38
+msgid "letter"
+msgstr "lettera"
+
+#: search/templates/search/search_form.html:39
+msgid "document"
+msgstr "documento"
+
+#: search/templates/search/search_form.html:40
+msgid "picture"
+msgstr "immagine"
+
+#: search/templates/search/search_form.html:41
+msgid "printed music"
+msgstr "musica stampata"
+
+#: search/templates/search/search_form.html:42
+msgid "musical quotation"
+msgstr "citzione musicale"
+
+#: search/templates/search/search_form.html:46
+msgid "Title"
+msgstr "Titolo"
+
+#: search/templates/search/search_form.html:56
+msgid "Start Year"
+msgstr "Inizio anno"
+
+#: search/templates/search/search_form.html:60
+msgid "End Year"
+msgstr "Fine anno"
+
+msgid "Contact us"
+msgstr "Contattaci"
+
+msgid "Your email address"
+msgstr "Il tuo indirizzo di posta elettronica"
+
+msgid "Subject of your message"
+msgstr "Oggetto del messaggio"
+
+msgid "Your message"
+msgstr "Il tuo messagio"
+
+msgid "This is a contact form. Please fill out the form and click submit and we'll get back to you in 2-5 days. Thanks!"
+msgstr "Si tratta di un modulo di contatto. Si prega di compilare il modulo e fare clic su Invia e noi arriveremo di nuovo a voi in 2-5 giorni. Grazie!"

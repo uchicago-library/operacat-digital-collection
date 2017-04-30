@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="get" action="/sign-in/" class="form-group">
+    <div class="form-group">
+        <label for="username">Email Address</label>
+        <input type="text" id="username" name="username" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="employer">Your Employer</label>
+        <input type="text" id="employer" name="employer" class="form-control"/>
+    </div>
+    <div class="form-group">
+        <label for="occupation">Your Occupation</label>
+        <input type="text" id="occupation" name="occupation" class="form-control"/>
+    </div>
+    <div class="form-group">
+         <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control"/>
+    </div>
+    <div class="form-group">
+         <label for="confirm-password">Confirm Password</label>
+        <input type="password" id="confirm-password" name="confirm-password" class="form-control"/>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Sign In</button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,29 @@
+from django.shortcuts import render
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+
+from wagtail.wagtailsearch.models import Query
+
+from catalogitems.models import CatalogItemPage, Dealer
+
+# Create your views here.
+
+def default(request, dealer_id):
+    dealer = Dealer.objects.filter(id=dealer_id)[0]
+    search_results = CatalogItemPage.objects.filter(item_dealer=dealer).order_by('title')
+    query = Query.get(dealer_id)
+    query.add_hit()
+    paginator = Paginator(search_results, 100)
+    page_num = int(request.GET.get("page", 1))
+    try:
+        search_results = paginator.page(page_num)
+    except EmptyPage:
+        search_results = []
+    return render(request,
+                  'dealerview/single.html',
+                  {'dealer': "{}".format(dealer.dealer_name),
+                   'search_results': search_results}
+                 )
+
+def browse(request):
+    items = Dealer.objects.all().order_by('dealer_name')
+    return render(request, "dealerview/browse.html", {'results':items})

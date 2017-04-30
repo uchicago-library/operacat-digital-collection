@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-searchresults{% endblock %}
+
+{% block title %}{% trans 'Search' %}{% endblock %}
+
+{% block content %}
+    {% include 'search/search_form.html' %}
+    {% if search_results %}
+	    {% if search_results.has_other_pages %} 
+	    <ul class="pagination">
+		{% if search_results.has_previous %}
+		    <li><a href="?page={{ search_results.previous_page_number }}&query={{ search_query }}">&laquo;</a></li>
+		{% endif %}
+
+		{% for i in search_results.paginator.page_range %}
+		   {% if search_results.number == i %}
+		       <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+		   {% else %}
+		       <li><a href="?page={{ i }}&query={{ search_query }}">{{ i }}</a></li>
+		   {% endif %}
+		{% endfor %}
+		{% if search_results.has_next %}
+		    <li><a href="?page={{ search_results.next_page_number }}&query={{ search_query }}">&raquo;</a></li>
+		{% else %}
+		    <li class="disabled"><span>&raquo;</span></li>		
+		{% endif %}
+	    </ul>
+	    {% endif %}
+            <table class="table table-striped table-results">
+                <h2>Search Results</h2>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Author</th>
+                        <th>Recipient</th>
+                        <th>Place</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+            	<tbody>
+		{% for result in search_results %}
+	        <tr>
+	    <td><a href="{% pageurl result %}" class="identifier">{{ result.title }}</a>
+       	    	<span class="composer">{{ result.item_composer.last_name }}, {{ result.item_composer.first_name }}</span>
+            	<span class="date">7/10/1834</span>
+            	<span class="description">{{ result.item_description|truncatechars:150 }}
+            	<td data-title="Author">
+		  <ul>
+		  {% for author in result.item_authororesposibles.all %}
+		     <li>{{ author.an_author.author_name }}</li>
+		  {% endfor %}
+		  </ul>
+	    </td>
+            <td data-title="Recipient">
+		  <ul>
+		  {% for recipient in result.item_recipientordedicatees.all %}
+		     <li>{{ recipient.a_recipient.recipient_name }}</li>
+		  {% endfor %}
+		  </ul>
+	    </td>
+            <td data-title="Place">
+		{% if result.item_places %}
+		<ul>
+		    {% for a_place in result.item_places.all %}
+			<li>{{ a_place.a_place.place_name }}</li>
+		    {% endfor %}
+		</ul>	
+		{% endif %}	
+	    </td>
+            <td data-title="Type">
+		{% if result.item_types %} 
+		<ul>
+		    {% for a_type in result.item_types.all %}
+			<li>{{ a_type.a_type.type_name }}</li>
+		    {% endfor %}
+		</ul>
+		{% endif %}
+	    </td>
+	</tr>
+
+		{% endfor %}
+	    	</tbody>
+	    </table>
+    	{% if search_results.has_other_pages %} 
+        <ul class="pagination">
+	    {% if search_results.has_previous %}
+	        <li><a href="?page={{ search_results.previous_page_number }}">&laquo;</a></li>
+	    {% endif %}
+	    {% for i in search_results.paginator.page_range %}
+	       {% if search_results.number == i %}
+	           <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+	       {% else %}
+	          <li><a href="?page={{ i }}">{{ i }}</a></li>
+	       {% endif %}
+	    {% endfor %}
+	    {% if search_results.has_next %}
+	       <li><a href="?page={{ search_results.next_page_number }}">&raquo;</a></li>
+	    {% else %}
+	       <li class="disabled"><span>&raquo;</span></li>		
+	    {% endif %}
+	</ul>
+        {% endif %}
+
+    {% else %}
+	<p>No results found.</p>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block extra %}
+
+$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+    event.preventDefault();
+    $(this).ekkoLightbox();
+});
+
+{% endblock %}

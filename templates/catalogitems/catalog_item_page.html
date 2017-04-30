@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% load comments %}
+{% load comments_xtd %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+{% load i18n %}
+
+{% block content %}
+
+<div class="row"> <!-- // START main row -->
+    <div class="col-xs-12 col-sm-offset-1 col-sm-8 main-content"> <!-- // START center div -->
+		<h1>
+		{{ page.title }}
+		</h1>
+
+		{% if page.item_titles %}
+		<h2>
+		<ul>
+		{% for title in page.item_titles.all %}
+		 <li>{{ title.a_title.name }}</li>
+		{% endfor %}	
+		</ul>
+		</h2>
+		{% endif %}
+		
+               	{{ page.item_description|richtext }} 
+
+                <h2>Field Notes</h2>
+		{{ page.field_notes|richtext }}
+
+                <h2>Images</h2>
+                <div class="item-img">
+                    <a href="#"><img src="http://placehold.it/100x150"></a>
+                    <a href="#"><img src="http://placehold.it/250x300"></a>
+                </div>
+		{% if request.user.is_authenticated %}
+    			{% get_comment_form for self as make_comment %}
+    			<form action="{% comment_form_target %}" method="post">
+			    {% csrf_token %}
+			    {{ make_comment.honeypot }}
+			    {{ make_comment.content_type }}
+			    {{ make_comment.object_pk }}
+			    {{ make_comment.timestamp }}
+			    {{ make_comment.security_hash }}
+			    {% for field in make_comment %}
+			        {% if field.name == 'comment' %}
+				    <div class="form-group">
+					<label for="{{ field.name }}">{{ field.label }}</label>
+					<textarea class="form-control" id="{{ field.name }}" name="{{ field.name }}"></textarea>
+				    </div>
+			   	{% elif field.name == 'name' %}
+				    <div class="form-group">
+					<label for="{{ field.name }}">{{ field.label }}</label>
+					<input type="text" class="form-control" id="{{ field.name }}" name="{{ field.name }}" value="{{ request.user.username }}"/>
+				    </div>
+				{% elif field.name == 'email' %}
+				    <div class="form-group">
+					<input type="hidden" class="form-control" id="{{ field.name }}" name="{{ field.name }}"/>
+				    </div>
+				{% endif %}
+			    {% endfor %}       
+			    <input type="hidden" name="next" value="{% pageurl page.catalogitempage %}" />
+				    <div class="form-group">
+				        <button type="submit" class="btn btn-primary">Post Comment</button>
+				    </div>
+		        </form>
+    			{% render_comment_list for self %}
+	        {% else %}
+		        <p>Please <a href="/login/">login</a> or <a href="/accounts/register/">sign up</a> to leave a comment.</p>
+	        {% endif %}
+    </div> <!-- // END center div -->
+    <div class="col-xs-12 col-sm-3 sidebar"> <!-- // START Sidebar -->
+       <h2>Composer</h2>
+       <ul>
+          <li><a href="{% url 'composer-browse' composer_id=page.item_composer.id %}">{{ page.item_composer.last_name }}, {{ page.item_composer.first_name }}</a></li>
+       </ul>
+       {% if page.item_authororesposibles %}
+       <h2>Author or Responsible</h2>
+       <ul>
+	{% for author in page.item_authororesposibles.all %}
+	<li>{{ author.an_author.author_name }}</li>
+	{% endfor %}
+       </ul>
+       {% endif %}
+       <h2>Recipient or Dedicatee</h2>
+       <ul>
+	{% for recipient in page.item_recipientordedicatees.all %}
+	<li>{{ recipient.a_recipient.recipient_name }}</li>
+	{% endfor %}
+
+       </ul>
+       <h2>Dealer</h2>
+       <ul>
+	   <li><a href="{% url 'dealer-browse' dealer_id=page.item_dealer.id %}">{{ page.item_dealer.dealer_name }}</a></li>
+       </ul>
+       <h2>Catalog</h2>
+       <ul>
+	   <li><a href="{% url 'catalog-view' catalog_id=page.item_catalog.id %}">{{ page.item_catalog.catalog_name }}</a></li>
+       </ul>
+       <h2>Lot</h2>
+       <ul>
+          <li>{{ page.lot }}</li>
+       </ul>
+       {% if page.item_places %}
+       <h2>Place</h2>
+       <ul>
+	 {% for place in page.item_places.all %}	
+		<li>{{ place.a_place.place_name }}</li>
+	 {% endfor %}
+       </ul>
+       {% endif %}
+	
+       <h2>Dates</h2>
+       <ul>
+	{% for n in page.date_information %}
+		<li>{{ n }}</li>
+	{% endfor %}
+       </ul>
+       <h2>Type</h2>
+       <ul>
+	 {% for a_type in page.item_types.all %}
+          <li>{{ a_type.a_type.type_name }}</li>
+	{% endfor %}
+       </ul>
+	{% if page.related_items %}
+       <h2>Related Items</h2>
+       <ul>
+	{% for an_item in page.related_items %}
+	<li>{{ an_item }}</li>
+	{% endfor %}
+       </ul>
+	{% endif %}
+   </div> <!-- // END Sidebar -->
+</div> <!-- // END mian row --> 
+
+{% endblock %}
