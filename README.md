@@ -6,5 +6,5 @@ This repo contains the source code for the Operacat website. This is a migration
 Core contributors
 =================
 
-Tyler Danstrom <tdanstrom@uchicago.edu> doing backed development
-Kathy Zadrozny <kzadrozny@uchicago.edu> doing frontend development
+- Tyler Danstrom <tdanstrom@uchicago.edu> doing backed development
+- Kathy Zadrozny <kzadrozny@uchicago.edu> doing frontend development
