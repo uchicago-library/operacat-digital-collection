@@ -10,6 +10,11 @@ from search import views as search_views
 from composerview import views as composer_view
 from dealerview import views as dealer_view
 from catalogview import views as catalog_view
+from placeview import views as place_view
+from itemtypeview import views as itemtype_view
+from titleview import views as title_view
+from recipientview import views as recipient_view
+from authorview import views as author_view
 
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtailcore import urls as wagtail_urls
@@ -33,6 +38,11 @@ urlpatterns += i18n_patterns(url(r'^search/$', search_views.search, name='search
                              url('^composerview/(?P<composer_id>[0-9]+)$', composer_view.default, name='composer-browse'),
                              url('^dealerview/(?P<dealer_id>[0-9]+)$', dealer_view.default, name='dealer-browse'),
                              url('^catalogview/(?P<catalog_id>[0-9]+)$', catalog_view.default, name='catalog-view'),
+                             url('^placeview/(?P<place_id>[0-9]+)$', place_view.default, name='place-view'),
+                             url('^itemtypeview/(?P<type_id>[0-9]+)$', itemtype_view.default, name='item-type-view'),
+                             url('^titleview/(?P<title_id>[0-9]+)$', title_view.default, name='title_view'),
+                             url('^authorview/(?P<author_id>[0-9]+)$', author_view.default, name='author_view'),
+                             url('^recipientview/(?P<recipient_id>[0-9]+)$', recipient_view.default, name='recipient_view'),
                              url('^dealerbrowse/$', dealer_view.browse, name='dealer-browse'),
                              url(r'', include(wagtail_urls))
 )

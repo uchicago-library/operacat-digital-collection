@@ -35,7 +35,10 @@ INSTALLED_APPS = [
     'operacatmessages',
     'composerview',
     'dealerview',
-
+    'itemtypeview',
+    'placeview',
+    'catalogview',
+    'titleview',
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
@@ -110,7 +113,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'operacat',
         'USER': 'wagtail',
-        'PASSWORD': "askme",
+        'PASSWORD': "Kss4DKPtrxTP",
         'HOST': 'localhost'
     }
 }
