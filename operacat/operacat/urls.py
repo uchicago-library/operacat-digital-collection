@@ -36,14 +36,15 @@ urlpatterns = [
 urlpatterns += i18n_patterns(url(r'^search/$', search_views.search, name='search'),
                              url(r'^advanced_search/', search_views.advanced_search, name="advanced_search"),
                              url('^composerview/(?P<composer_id>[0-9]+)$', composer_view.default, name='composer-browse'),
-                             url('^dealerview/(?P<dealer_id>[0-9]+)$', dealer_view.default, name='dealer-browse'),
+                             url('^dealerview/(?P<dealer_id>[0-9]+)$', dealer_view.default, name='dealer-view'),
                              url('^catalogview/(?P<catalog_id>[0-9]+)$', catalog_view.default, name='catalog-view'),
                              url('^placeview/(?P<place_id>[0-9]+)$', place_view.default, name='place-view'),
                              url('^itemtypeview/(?P<type_id>[0-9]+)$', itemtype_view.default, name='item-type-view'),
                              url('^titleview/(?P<title_id>[0-9]+)$', title_view.default, name='title_view'),
                              url('^authorview/(?P<author_id>[0-9]+)$', author_view.default, name='author_view'),
                              url('^recipientview/(?P<recipient_id>[0-9]+)$', recipient_view.default, name='recipient_view'),
-                             url('^dealerbrowse/$', dealer_view.browse, name='dealer-browse'),
+                             url('^dealerquery/', dealer_view.search_by_keyword, name='dealer-query'),
+                             url('^dealerbrowse/', dealer_view.browse, name='dealer-browse'),
                              url(r'', include(wagtail_urls))
 )
 
