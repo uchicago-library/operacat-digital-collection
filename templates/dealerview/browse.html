@@ -17,7 +17,7 @@
     <tbody>
 	{% for result in results %}
         <tr>
-	    <td><a href="{% url 'dealer-browse' dealer_id=result.id %}">{{ result.dealer_name }}</a></td>
+	    <td><a href="{% url 'dealer-view' dealer_id=result.id %}">{{ result.dealer_name }}</a></td>
 	</tr>
 	{% endfor %}
     </tbody>
