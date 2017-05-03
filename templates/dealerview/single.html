@@ -14,9 +14,9 @@
 
 		{% for i in search_results.paginator.page_range %}
 		   {% if search_results.number == i %}
-		       <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+		       <li class="active"><a href="?page={{ i }}{% if query %}&query={{ query }}{% endif %}">{{ i }}</a></li>
 		   {% else %}
-		       <li><a href="?page={{ i }}">{{ i }}</a></li>
+		       <li><a href="?page={{ i }}{% if query %}&query={{ query }}{% endif %}">{{ i }}</a></li>
 		   {% endif %}
 		{% endfor %}
 		{% if search_results.has_next %}
@@ -90,9 +90,9 @@
 
 		{% for i in search_results.paginator.page_range %}
 		   {% if search_results.number == i %}
-		       <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+		       <li class="active"><a href="?page={{ i }}{% if query %}&query={{ query }}{% endif %}">{{ i }}</a></li>
 		   {% else %}
-		       <li><a href="?page={{ i }}">{{ i }}</a></li>
+		       <li><a href="?page={{ i }}{% if query %}&query={{ query }}{% endif %}">{{ i }}</a></li>
 		   {% endif %}
 		{% endfor %}
 		{% if search_results.has_next %}
