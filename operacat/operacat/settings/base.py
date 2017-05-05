@@ -115,7 +115,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'operacat',
         'USER': 'wagtail',
-        'PASSWORD': "Kss4DKPtrxTP",
+        'PASSWORD': "ask_me",
         'HOST': 'localhost'
     }
 }
