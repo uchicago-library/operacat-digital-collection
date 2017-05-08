@@ -20,9 +20,6 @@ import os
 
 ALLOWED_HOSTS = ['operacat.lib.uchicago.edu']
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -84,39 +81,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'operacat.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join('/data/recitative/sites', 'templates'),
-        ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
 WSGI_APPLICATION = 'operacat.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'operacat',
-        'USER': 'wagtail',
-        'PASSWORD': "ask_me",
-        'HOST': 'localhost'
-    }
-}
 
 DEFAULT_INDEX_TABLESPACE = ""
 
@@ -136,28 +102,6 @@ USE_TZ = True
 LANGAUGES = [("en", _("English")),
              ("it", _("Italian"))
             ]
-
-LOCALE_PATHS = (
-    os.path.join(BASE_DIR, "locale"),
-)
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.10/howto/static-files/
-
-STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-]
-
-STATICFILES_DIRS = [
-    #os.path.join('/data/recitative/sites', 'static'),
-]
-
-STATIC_ROOT = os.path.join('/data/recitative/sites', 'static')
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join('/data/recitative/sites', 'media')
-MEDIA_URL = '/media/'
 
 # Wagtail search backend 
 
