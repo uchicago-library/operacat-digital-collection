@@ -52,10 +52,8 @@ INSTALLED_APPS = [
     'wagtail.wagtailsearch',
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
-
     'modelcluster',
     'taggit',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sites',
@@ -182,5 +180,5 @@ WAGTAIL_SITE_NAME = "operacat"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 
 SITE_ID = 1
-BASE_URL = 'http://operacat.lib.uchicago.edu'
+BASE_URL = 'http://operacat.lib.uchicago.edu/'
 
