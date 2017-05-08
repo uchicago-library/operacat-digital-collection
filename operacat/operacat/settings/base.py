@@ -103,6 +103,19 @@ LANGAUGES = [("en", _("English")),
              ("it", _("Italian"))
             ]
 
+# static file configuration
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+]
+
+STATIC_URL = '/static/'
+
+# media file url configuration
+
+MEDIA_URL = '/media/'
+
 # Wagtail search backend 
 
 WAGTAILSEARCH_BACKENDS = {
