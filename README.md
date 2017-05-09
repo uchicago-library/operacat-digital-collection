@@ -9,7 +9,6 @@ Quickstart Instructions
 1. git clone https://github.com/uchicago-library/operacat/
 2. create file locals.py in operacat/operacat/settings/ directory
 3. generate a secret key
-4. add the followiing configuration definition to new locals.py file
 
 TIP: to generate a new secret key open a python interpreter shell and run the code below. You can copy the output generated and paste it as the value of your SECRET_KEY variable.
 
@@ -21,7 +20,11 @@ b'\askdlfjaklsdfjlkasdf\'
 >> exit()
 ```
 
+4. add the followiing configuration definition to new locals.py file
+
 ```
+from .base import * 
+
 PROJECT_DIR = os.path.dirname([absolute_path_to_top_level_repo_directory])
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
