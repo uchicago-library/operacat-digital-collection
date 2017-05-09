@@ -2,4 +2,4 @@ Django>=1.10,<1.11
 wagtail>=1.9,<1.10
 django-contrib-comments
 django_comment_xtd
-registration
+django-registration-redux
