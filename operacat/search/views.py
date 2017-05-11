@@ -12,7 +12,7 @@ from wagtail.wagtailsearch.backends import get_search_backend
 from catalogitems.models import *
 
 def search(request):
-    search_query = request.GET.get('query', None)
+    search_query = request.GET.get.get('query', None)
     if search_query:
         search_results = CatalogItemPage.objects.order_by('title').live().search(search_query)
         query = Query.get(search_query)
@@ -20,7 +20,7 @@ def search(request):
     else:
         search_results = CatalogItemPage.objects.none()
     paginator = Paginator(search_results, 100)
-    page_num = int(request.GET.get("page", 1))
+    page_num = int(request.GET.get.get("page", 1))
     try:
         search_results = paginator.page(page_num)
     except EmptyPage:
@@ -34,15 +34,29 @@ def search(request):
 
 
 def advanced_search(request):
-    composer_query = request.GET.get('composer-query', None)
-    dealer_query = request.GET.get('dealer-query', None)
-    catalog_query = request.GET.get('catalog-query', None)
-    place_query = request.GET.get('place-query', None)
-    title_query = request.GET.get('title-query', None)
-    item_type_query = request.GET.get('item-type-query', None)
-
+    if not request.GET.get('composer-query', None) or request.GET.get('composer-query', None) != '---':
+        composer_query = request.GET.get('composer-query', None)
+    if not request.GET.get('dealer-query', None) or request.GET.get('dealer-query', None) != '---':
+        dealer_query = request.GET.get('dealer-query', None)
+    else:
+        dealer_query = None
+    if not request.GET.get('catalog-query', None) or request.GET.get('catalog-query', None) != '---':
+        catalog_query = request.GET.get('catalog-query', None)
+    else:
+        catalog_query = None
+    if not request.GET.get('place-query', None) or request.GET.get('place-query', None) != '---':
+        place_query = request.GET.get('place-query', None)
+    else:
+        place_query = None
+    if not request.GET.get('title-query', None) or request.GET.get('title-query', None) != '---':
+        title_query = request.GET.get('title-query', None)
+    else:
+        title_query = None
+    if not request.GET.get('item-type-query', None) or request.GET.get('item-type-query', None) != '---':
+        item_type_query = request.GET.get('item-type-query', None)
+    else:
+        item_type_query = None
     page_num = int(request.GET.get("page", 1))
-
     search_results = CatalogItemPage.objects.all()
     if composer_query:
         composer = Composer.objects.filter(last_name=composer_query)
@@ -73,7 +87,6 @@ def advanced_search(request):
         search_results = paginator.page(page_num)
     except EmptyPage:
         search_results = []
-
     return render(request,
                   'search/search.html',
                   {'search_results': search_results,
