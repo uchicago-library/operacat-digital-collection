@@ -17,6 +17,9 @@ from django.utils.translation import ugettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+# instantiating project directory variable
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 ALLOWED_HOSTS = ['operacat.lib.uchicago.edu']
 
@@ -102,6 +105,31 @@ USE_TZ = True
 LANGAUGES = [("en", _("English")),
              ("it", _("Italian"))
             ]
+
+# start of locales path configuration
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, "locale"),
+    )
+
+# template configuration; to change the location change the path pointed to in DIRS key
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 # static file configuration
 

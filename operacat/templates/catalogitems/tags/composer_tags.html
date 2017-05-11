@@ -1,0 +1,7 @@
+{% for composer in composers %}
+    <li>
+        <a href="{% url 'composer-browse' composer_id=composer.id %}">
+            {{ composer.last_name }}, {{ composer.first_name }}
+        </a>
+    </li>
+{% endfor %}

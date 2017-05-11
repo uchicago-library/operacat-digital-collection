@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+  <h2>Login</h2>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id }}">{{ field.label }}</label>
+        {% if field.name == 'password' %}
+        <input type="password" class="form-control" name="{{ field.name }}" id="{{field.name }}"/>
+        {% else %}
+        <input type="{{ field.type }}" class="form-control" name="{{ field.name }}" id="{{field.name }}"/>
+        {% endif %}
+    </div>  
+    {% endfor %}
+    <div class="form-group">
+        <button class="btn btn-primary" type="submit">Login</button>
+    </div>
+  </form>
+  <p>If you do not already have an account, please use the <a href="/accounts/register/">Sign Up</a> form to create one and you will be automatically logged in after you complete the form.</p>
+{% endblock %}

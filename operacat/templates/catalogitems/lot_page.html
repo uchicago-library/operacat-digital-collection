@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load i18n %}
+
+{% block sidebar %}
+<div class="row">
+   <h3>Items in this Lot</h3>
+   <dl>
+   {% for page in self.get_children.specific %}
+    <dt><a href="{{ page.url }}">{{ page.title }}</a></dt>
+   {% endfor %}
+   </dl>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="col-lg-4">
+    <p><strong>Lot Identifier</strong></p>
+</div>
+<div class="col-lg-8">
+    <p>{{ page.title }}</p>
+</div>
+
+
+{% endblock %}
