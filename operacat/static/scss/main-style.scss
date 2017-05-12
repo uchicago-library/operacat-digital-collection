@@ -1,0 +1,342 @@
+/*------------------------------------------------------------------
+[Table of contents]
+
+Navbar
+Right Sidebar
+Tables
+Footer
+
+-------------------------------------------------------------------*/
+
+@import "base.scss";
+
+/*
+ * Navbar
+ * --------------------------------------------------
+ */
+
+.navbar {
+	border-radius: 0;
+	.navbar-brand {
+		color: $hover;	
+		font-family: 'Tangerine', cursive;
+		font-size: 3em;
+		&:hover, &:focus {
+	    	color: #fff;
+	    }
+	}
+	.dropdown-menu {
+		color: #fff;
+		background-color: $accent;
+		&>li>a {
+		    color: #fff;
+		    &:hover, &:focus {
+		    	color: $primary;
+		    	background-color: $hover;
+		    }
+		}
+	}
+}
+
+.navbar-default {
+    background-color: $primary;
+    border-color: $accent;
+    .navbar-nav {
+    	&>li>a {
+		    color: #fff;
+		    &:hover, &:focus {
+		    	color: $hover;
+		    }
+		}
+	    &>.open>a, &>.open>a:focus, &>.open>a:hover, .open .dropdown-menu, .open .dropdown-menu>li>a {
+		    color: #fff;
+	    	background-color: $accent;
+	    }
+	}
+}
+
+li>form {
+	padding-top: 15px;
+}
+
+
+/*
+ * Main Content (Center)
+ * --------------------------------------------------
+ */
+
+.main-content {
+	padding-right: 3em;
+	a {
+		text-decoration: underline;
+	}
+}
+
+.splash {
+	display: flex;
+	img {
+		display: block;
+        max-width: 100%;
+	    max-height: 90px;
+	}
+}
+
+.item-img {
+	display: flex;
+	img {
+		display: block;
+        max-width: 100%;
+	    max-height: 150px;
+	}
+	a + a {
+		margin-left: 1em;
+	}
+}
+
+.quote {
+	padding-top: 1em;
+}
+
+blockquote {
+  margin: 0 1em;
+  padding: 0;
+  text-indent: -1em;
+  quotes: "\201C""\201D""\2018""\2019";
+  line-height: 1.6em;
+  border-left: 0px;
+  font-size: 1em;
+  &:before {
+    color: $secondary;
+    content: open-quote;
+    font-size: 2em;
+    line-height: 0.1em;
+    margin-right: 0.1em;
+    vertical-align: -0.4em;
+  }
+  &:after{
+    color: $secondary;
+    content: close-quote;
+    font-size: 2em;
+    line-height: 0.5em;
+    margin-left: 0.1em;
+    vertical-align: -0.4em;
+  }
+  & p {
+    display: inline;
+  }
+}
+
+.citation {
+  color: $secondary;
+  font-size: .9em;
+  margin: 0.5em 0 2em 6em;
+}
+
+.about p {
+	font-size: 1.2em;
+}
+
+
+/*
+ * Search Box
+ * --------------------------------------------------
+ */
+
+#search-form {
+	max-width: 800px;
+	background-color: $background;
+	padding: 1em 2em 1em;
+	margin-bottom: 1em;
+	overflow: auto;
+	h1 {
+		padding-left: 0.5em;
+		border-bottom: none;
+	}
+	.btn-link {
+		float: right!important;
+		&::after {
+		    content: "";
+		    clear: both;
+		    display: table;
+		}
+	}
+}
+
+fieldset {
+	.form-group {
+		padding-right: 0.25em;
+		padding-left: 0.25em;
+		.btn {
+			background-color: #642822;
+			border-color: $primary;
+			width: 100%;
+		}
+	}
+}
+
+
+
+/*
+ * Right Sidebar
+ * --------------------------------------------------
+ */
+
+.sidebar {
+	border-top: 1px solid $hover;
+	border-left: 0;
+	margin: 0.75em 0;
+	padding: 0 1.5em;
+	h2 {
+		font-weight: 400;
+		margin: 1em 0 0.5em;
+		padding-bottom: 5px;
+		color: $accent;
+		font-size: 1.1em;
+		border-bottom: 1px dotted $accent;
+		&:first-child {
+			@include respond-to(small) {
+				margin-top: 0;
+			}
+		}
+	}
+	@include respond-to(medium) {
+		border-left: 1px solid $hover;
+		border-top: 0;
+		margin: 0;
+		padding: 0 15px;
+	}
+	@include respond-to(large) {
+		max-width: 30em;
+	}
+	.btn-morelink {
+		margin-bottom: 10px;
+	}
+	ul {
+		padding-left: 0;
+		&>li {
+		  	list-style: none;
+		}
+	}
+}
+
+
+/*
+ * Buttons and Fancy Links 
+ * --------------------------------------------------
+ */
+
+.browse {
+    font-style: italic;
+	&:after {
+	    font-family: 'Glyphicons Halflings';
+	    content: "\e080";
+	    padding-left: 0.5em;
+	    font-size: 0.65em;
+	}
+}
+
+fieldset.btn-primary[value] { // Prepends "data-title" to the contents of the table cell
+		    display: none;
+		}
+
+
+/*
+ * Tables 
+ * --------------------------------------------------
+ */
+
+// ** START mobile friendly magic
+// Documentation: http://blog.apps.npr.org/2014/05/09/responsive-data-tables.html
+table.table-striped, .table-striped>tbody {
+  @include respond-to(smallonly) {
+    display: block;
+    width: 100%;
+    & thead {
+    	display: none;
+    }
+    & tr, & th, & td {
+		display: block;
+		padding: 0;
+		text-align: left;
+		white-space: normal;
+		&[data-title]:before { // Prepends "data-title" to the contents of the table cell
+		    content: attr(data-title) ":\00A0";
+		    font-weight: bold;
+		    color: $accent;
+		}
+    }
+    & tr {
+      border-bottom: 1px solid $accent;
+    }
+    & td {
+      border: none;
+      margin-bottom: 6px;
+      color: #444;
+      &:empty { // Hides empty table cells
+      	display: none;
+      }
+      &:first-child:before {
+      	content: '';
+      }
+    }
+  }
+}
+// ** END mobile friendly magic
+
+
+table.table-results {
+    border-bottom: 1px solid $accent;
+	thead {
+		font-size: 1.1em;
+	    font-weight: 600;
+	    color: $accent;
+		tr>th {
+			border-color: $accent;
+		}
+	}
+	tbody>tr {
+		span, a {
+			display: block;
+		}
+		td {
+			span.description {
+		      	padding-top: 1em;
+		    }
+		    .identifier, span.title {
+		    	font-weight: 700;
+		    }
+			&:first-child {
+				@include respond-to(small) {
+					width: 40%;
+				}
+			}
+		}
+		&:nth-of-type(odd) {
+			background-color: #fbf9f5;
+		}
+	}
+  @include respond-to(smallonly) {
+    margin-top: 15px;
+  }
+}
+
+
+/*
+ * Footer
+ * --------------------------------------------------
+ */
+
+ footer {
+	color: #fff;
+	background-color: $primary;
+    width: 100%;
+    padding: 1em 0;
+    .container {
+    	text-align: center;
+    }
+    a {
+    	color: #fff;
+    	text-decoration: underline;
+    }
+ }
+
