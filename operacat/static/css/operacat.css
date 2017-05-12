@@ -206,23 +206,24 @@ li > form {
   padding-top: 1em; }
 
 blockquote {
-  margin: 0 50px;
+  margin: 0 1em;
   padding: 0;
-  text-indent: -2em;
+  text-indent: -1em;
   quotes: "“" "”" "‘" "’";
-  line-height: 2.2em;
-  border-left: 0px; }
+  line-height: 1.6em;
+  border-left: 0px;
+  font-size: 1em; }
   blockquote:before {
     color: #565656;
     content: open-quote;
-    font-size: 4em;
+    font-size: 2em;
     line-height: 0.1em;
     margin-right: 0.1em;
     vertical-align: -0.4em; }
   blockquote:after {
     color: #565656;
     content: close-quote;
-    font-size: 4em;
+    font-size: 2em;
     line-height: 0.5em;
     margin-left: 0.1em;
     vertical-align: -0.4em; }
@@ -232,7 +233,10 @@ blockquote {
 .citation {
   color: #565656;
   font-size: .9em;
-  margin: 0 0 2em 4em; }
+  margin: 0.5em 0 2em 6em; }
+
+.about p {
+  font-size: 1.2em; }
 
 /*
  * Search Box

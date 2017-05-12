@@ -6,3 +6,6 @@ operacat/operacat/settings/locals.py
 build/*
 dist/*
 *egg-info*
+node_modules
+gulpfile.js
+package.json
