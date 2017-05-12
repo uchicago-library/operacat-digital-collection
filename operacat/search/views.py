@@ -12,15 +12,15 @@ from wagtail.wagtailsearch.backends import get_search_backend
 from catalogitems.models import *
 
 def search(request):
-    search_query = request.GET.get.get('query', None)
+    search_query = request.GET.get('query', None)
     if search_query:
         search_results = CatalogItemPage.objects.order_by('title').live().search(search_query)
-        query = Query.get(search_query)
-        query.add_hit()
+        #query = Query.get(search_query)
+        #query.add_hit()
     else:
         search_results = CatalogItemPage.objects.none()
     paginator = Paginator(search_results, 100)
-    page_num = int(request.GET.get.get("page", 1))
+    page_num = int(request.GET.get("page", 1))
     try:
         search_results = paginator.page(page_num)
     except EmptyPage:
@@ -28,31 +28,36 @@ def search(request):
     return render(request,
                   'search/search.html',
                   {'search_query': search_query,
+                   'composers': Composer.objects.all().order_by('last_name'),
+                   'item_types': ItemType.objects.all().order_by('type_name'),
+                   'titles': PieceTitle.objects.all().order_by('name'),
+                   'places': Place.objects.all().order_by('place_name'),
                    'search_results': search_results}
-
                  )
 
-
 def advanced_search(request):
-    if not request.GET.get('composer-query', None) or request.GET.get('composer-query', None) != '---':
+    if not request.GET.get('composer-query', None) or request.GET.get('composer-query', None) != 'none':
         composer_query = request.GET.get('composer-query', None)
-    if not request.GET.get('dealer-query', None) or request.GET.get('dealer-query', None) != '---':
+    else:
+        composer_query = None
+    if not request.GET.get('dealer-query', None) or request.GET.get('dealer-query', None) != 'none':
         dealer_query = request.GET.get('dealer-query', None)
     else:
         dealer_query = None
-    if not request.GET.get('catalog-query', None) or request.GET.get('catalog-query', None) != '---':
+    if not request.GET.get('catalog-query', None) or request.GET.get('catalog-query', None) != 'none':
         catalog_query = request.GET.get('catalog-query', None)
     else:
         catalog_query = None
-    if not request.GET.get('place-query', None) or request.GET.get('place-query', None) != '---':
+    if not request.GET.get('place-query', None) or request.GET.get('place-query', None) != 'none':
         place_query = request.GET.get('place-query', None)
     else:
         place_query = None
-    if not request.GET.get('title-query', None) or request.GET.get('title-query', None) != '---':
+    if not request.GET.get('title-query', None) or request.GET.get('title-query', None) != 'none':
+        stderr.write("testing 1 2 3\n")
         title_query = request.GET.get('title-query', None)
     else:
         title_query = None
-    if not request.GET.get('item-type-query', None) or request.GET.get('item-type-query', None) != '---':
+    if not request.GET.get('item-type-query', None) or request.GET.get('item-type-query', None) != 'none':
         item_type_query = request.GET.get('item-type-query', None)
     else:
         item_type_query = None
@@ -69,16 +74,16 @@ def advanced_search(request):
         search_results = search_results.filter(item_catalog=catalog[0])
     if place_query:
         places = Place.objects.filter(place_name=place_query)[0]
-        places = PlaceOrderable.objects.filter(a_place=places)[0]
-        search_results = search_results.filter(item_places=composer)
+        places = PlaceOrderable.objects.filter(a_place=places)
+        search_results = search_results.filter(item_places__in=places)
     if title_query:
         titles = PieceTitle.objects.filter(name__contains=title_query)[0]
-        titles = PieceTitleOrderable.objects.filter(a_title=titles)[0]
-        search_results = search_results.filter(item_titles=titles)
+        titles = PieceTitleOrderable.objects.filter(a_title=titles)
+        search_results = search_results.filter(item_titles__in=titles)
     if item_type_query:
         item_types = ItemType.objects.filter(type_name=item_type_query)[0]
-        item_types = ItemTypeOrderable.objects.filter(a_type=item_types)[0]
-        search_results = search_results.filter(item_types=item_types)
+        item_types = ItemTypeOrderable.objects.filter(a_type=item_types)
+        search_results = search_results.filter(item_types__in=item_types)
     search_query = "{},{},{},{},{},{}".format(composer_query, dealer_query, catalog_query, place_query, title_query, item_type_query)
     query = Query.get(search_query)
     query.add_hit()
@@ -90,6 +95,10 @@ def advanced_search(request):
     return render(request,
                   'search/search.html',
                   {'search_results': search_results,
+                   'composer': Composer.objects.all().order_by('last_name'),
+                   'item_types': ItemType.objects.all().order_by('type_name'),
+                   'titles': PieceTitle.objects.all().order_by('name'),
+                   'places': Place.objects.all().order_by('place_name'),
                    'composer_query': composer_query,
                    'dealer_query': dealer_query,
                    'catalog_query': catalog_query,

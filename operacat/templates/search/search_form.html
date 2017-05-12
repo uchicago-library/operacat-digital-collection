@@ -21,33 +21,66 @@
             <div class="form-group">
                <label for="composer-query">Composer</label>
                <select class="form-control" id="composer-query" name="composer-query">
-               	   <option value="none">---</option>
-                   <option value="Bellini">Bellni</option>
-               	   <option value="Donizetti">Donizetti</option>
-               	   <option value="Puccini">Puccini</option>
-               	   <option value="Rossini">Rossini</option>
-               	   <option value="Verdi">Verdi</option>
+               	   <option value="none">Select...</option>
+                   {% if page.composers %}
+                   {% for composer in page.composers %}
+                        <option value="{{ composer.last_name }}">{{ composer.last_name }}</option>
+                   {% endfor %}
+
+                   {% else %}
+                   {% for composer in composers %}
+                        <option value="{{ composer.last_name }}">{{ composer.last_name }}</option>
+                   {% endfor %}
+                   {% endif %}
                </select>
             </div>
             <div class="form-group">
                        <label for="item-type-query">Item Type</label>
                        <select class="form-control" id="item-type-query" name="item-type-query">
-                	   <option value="none">---</option>
-                	   <option value="musical manuscript">musical manuscript</option>
-                	   <option value="letter">letter</option>
-                	   <option value="document">document</option>
-                	   <option value="picture">picture</option>
-                	   <option value="printed music">printed music</option>
-                	   <option value="musical quotation">musical quotation</option>
+                	   <option value="none">Select...<option>
+                   {% if page.item_types %}
+                   {% for a_type in page.item_types %}
+                        <option value="{{ a_type.type_name }}">{{ a_type.type_name }}</option>
+                   {% endfor %}
+
+                   {% else %}
+                   {% for a_type in item_types %}
+                        <option value="{{ a_type.type_name }}">{{ a_type.type_name }}</option>
+                   {% endfor %}
+                   {% endif %}
                        </select>
             </div>
             <div class="form-group">
                        <label for="title-query">Title</label>
-                       <input type="text" id="title-query" class="form-control" name="title-query"/>
+                       <select class="form-control" id="title-query" name="title-query">
+                	   <option value="none">Select...<option>
+                   {% if page.piece_titles %}
+                   {% for a_title in page.piece_titles %}
+                        <option value="{{ a_title.name }}">{{ a_title.name }}</option>
+                   {% endfor %}
+
+                   {% else %}
+                   {% for a_title in titles %}
+                        <option value="{{ a_title.name }}">{{ a_title.name }}</option>
+                   {% endfor %}
+                   {% endif %}
+                       </select>
             </div>
             <div class="form-group">
                       <label for="start-date-query">Place</label>
-                       <input type="text" id="place-query" class="form-control" name="place-query"/>
+                      <select class="form-control" id="place-query" name="place-query">
+                	   <option value="none">Select...</option>
+                   {% if page.composers %}
+                   {% for place in page.places %}
+                        <option value="{{ place.place_name }}">{{ place.place_name }}</option>
+                   {% endfor %}
+
+                   {% else %}
+                   {% for place in places %}
+                        <option value="{{ place.place_name }}">{{ place.place_name }}</option>
+                   {% endfor %}
+                   {% endif %}
+                      </select>
             </div>
             <div class="form-group">
                 <div class="row">
