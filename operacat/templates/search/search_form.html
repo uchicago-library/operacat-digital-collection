@@ -19,6 +19,10 @@
         <fieldset>
             <legend class="is-vishidden">Advanced Search</legend>
             <div class="form-group">
+                <label for="keyword-query">Keyword</label>
+                <input class="form-control" type="text" id="keyword-query" name="keyword-query" placeholder="something">
+            </div>    
+            <div class="form-group">
                <label for="composer-query">Composer</label>
                <select class="form-control" id="composer-query" name="composer-query">
                	   <option value="none">Select...</option>
@@ -82,8 +86,6 @@
                    {% endif %}
                        </select>
             </div>
-
-
             <div class="form-group">
                        <label for="title-query">Title</label>
                        <select class="form-control" id="title-query" name="title-query">

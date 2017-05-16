@@ -13,6 +13,10 @@
 		{% if search_results.has_previous %}
 		    <li>
 			<a href="?page={{ search_results.previous_page_number }}
+			{% if keyword_query %}
+			&keyword-query={{ keyword_query }}
+			{% endif %}	
+
 			{% if simple_query %}
 			&query={{ simple_query }}
 			{% endif %}
@@ -41,6 +45,9 @@
 		   {% if search_results.number == i %}
 		       <li class="active">
 			<a href="?page={{ i }}
+			{% if keyword_query %}
+			&keyword-query={{ keyword_query }}
+			{% endif %}	
 			{% if simple_query %}
 			&query={{ simple_query }}
 			{% endif %}
@@ -64,6 +71,9 @@
 			{% endif %}">{{ i }}</a></li>
 		   {% else %}
 		       <li><a href="?page={{ i }}
+			{% if keyword_query %}
+			&keyword-query={{ keyword_query }}
+			{% endif %}	
 			{% if simple_query %}
 			&query={{ simple_query }}
 			{% endif %}
@@ -89,6 +99,9 @@
 		{% endfor %}
 		{% if search_results.has_next %}
 		    <li><a href="?page={{ search_results.next_page_number }}
+			{% if keyword_query %}
+			&keyword-query={{ keyword_query }}
+			{% endif %}	
 			{% if simple_query %}
 			query={{ simple_query }}
 			{% endif %}
@@ -211,6 +224,9 @@
 		   {% if search_results.number == i %}
 		       <li class="active">
 			<a href="?page={{ i }}
+			{% if keyword_query %}
+			&keyword-query={{ keyword_query }}
+			{% endif %}	
 			{% if simple_query %}
 			&query={{ simple_query }}
 			{% endif %}
@@ -234,6 +250,9 @@
 			{% endif %}">{{ i }}</a></li>
 		   {% else %}
 		       <li><a href="?page={{ i }}
+			{% if keyword_query %}
+			&keyword-query={{ keyword_query }}
+			{% endif %}	
 			{% if simple_query %}
 			&query={{ simple_query }}
 			{% endif %}
@@ -259,6 +278,10 @@
 		{% endfor %}
 		{% if search_results.has_next %}
 		    <li><a href="?page={{ search_results.next_page_number }}
+			{% if keyword_query %}
+			&keyword-query={{ keyword_query }}
+			{% endif %}	
+
 			{% if simple_query %}
 			&query={{ simple_query }}
 			{% endif %}

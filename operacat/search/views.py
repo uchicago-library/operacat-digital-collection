@@ -1,5 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.db.models import Q
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 
@@ -50,6 +51,10 @@ def search(request):
                  )
 
 def advanced_search(request):
+    if not request.GET.get('keyword-query', None) or request.GET.get('keyword-query', None) != 'none':
+        keyword_query = request.GET.get('keyword-query', None)
+    else:
+        keyword_query = None
     if not request.GET.get('composer-query', None) or request.GET.get('composer-query', None) != 'none':
         composer_query = request.GET.get('composer-query', None)
     else:
@@ -114,27 +119,31 @@ def advanced_search(request):
         item_types = ItemType.objects.filter(type_name=item_type_query)[0]
         item_types = ItemTypeOrderable.objects.filter(a_type=item_types)
         search_results = search_results.filter(item_types__in=item_types)
+    if keyword_query:
+        search_results = search_results.filter(Q(item_description__in=keyword_query) | Q(field_notes__in=keyword_query))
 
 
     search_query = ""
+    if keyword_query:
+        search_query += "full_text=" + keyword_query
     if composer_query:
-        search_query += "composer=" + composer_query
+        search_query += " and composer=" + composer_query
     if dealer_query:
-        search_query += "dealer=" + dealer_query
+        search_query += "and dealer=" + dealer_query
     if catalog_query:
-        search_query += "catalog=" + catalog_query
+        search_query += "and catalog=" + catalog_query
     if place_query:
-        search_query += "place=" + place_query
+        search_query += "and place=" + place_query
     if place_query:
-        search_query += "place=" + place_query
+        search_query += "and place=" + place_query
     if title_query:
-        search_query += "title=" + title_query
+        search_query += "and title=" + title_query
     if title_query:
-        search_query += "item_type=" + item_type_query
+        search_query += "and item type=" + item_type_query
     if author_responsible_query:
-        search_query += "author_or_responsible=" + author_responsible_query
+        search_query += "and author or responsible=" + author_responsible_query
     if recipient_dedicatee_query:
-        search_query += "recipient_dedicatee=" + recipient_dedicatee_query
+        search_query += "and recipient or dedicatee=" + recipient_dedicatee_query
     query = Query.get(search_query)
     query.add_hit()
     total_results = search_results.count()
@@ -165,6 +174,7 @@ def advanced_search(request):
                    'item_types': ItemType.objects.all().order_by('type_name'),
                    'titles': PieceTitle.objects.all().order_by('name'),
                    'places': Place.objects.all().order_by('place_name'),
+                   'keyword_query': keyword_query,
                    'composer_query': composer_query,
                    'dealer_query': dealer_query,
                    'catalog_query': catalog_query,
