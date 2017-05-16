@@ -7,30 +7,117 @@
 {% block title %}{% trans 'Search' %}{% endblock %}
 
 {% block content %}
-    {% include 'search/search_form.html' %}
     {% if search_results %}
 	    {% if search_results.has_other_pages %} 
 	    <ul class="pagination">
 		{% if search_results.has_previous %}
-		    <li><a href="?page={{ search_results.previous_page_number }}&query={{ search_query }}">&laquo;</a></li>
+		    <li>
+			<a href="?page={{ search_results.previous_page_number }}
+			{% if simple_query %}
+			&query={{ simple_query }}
+			{% endif %}
+			{% if composer_query %} 
+			&composer-query={{ composer_query }}
+			{% endif %}
+			{% if dealer_query %} 
+			&dealer-query={{ dealer_query }}
+			{% endif %}
+			{% if catalog_query %} 
+			&catalog-query={{ catalog_query }}
+			{% endif %}
+			{% if place_query %} 
+			&place-query={{ place_query }}
+			{% endif %}
+			{% if title_query %} 
+			&title-query={{ title_query }}
+			{% endif %}
+			{% if item_type_query %}
+			&item-type-query={{ item_type_query }}
+			{% endif %}
+			">&laquo;</a></li>
 		{% endif %}
 
 		{% for i in search_results.paginator.page_range %}
 		   {% if search_results.number == i %}
-		       <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
+		       <li class="active">
+			<a href="?page={{ i }}
+			{% if simple_query %}
+			&query={{ simple_query }}
+			{% endif %}
+			{% if composer_query %} 
+			&composer-query={{ composer_query }}
+			{% endif %}
+			{% if dealer_query %} 
+			&dealer-query={{ dealer_query }}
+			{% endif %}
+			{% if catalog_query %} 
+			&catalog-query={{ catalog_query }}
+			{% endif %}
+			{% if place_query %} 
+			&place-query={{ place_query }}
+			{% endif %}
+			{% if title_query %} 
+			&title-query={{ title_query }}
+			{% endif %}
+			{% if item_type_query %}
+			&item-type-query={{ item_type_query }}
+			{% endif %}">{{ i }}</a></li>
 		   {% else %}
-		       <li><a href="?page={{ i }}&query={{ search_query }}">{{ i }}</a></li>
+		       <li><a href="?page={{ i }}
+			{% if simple_query %}
+			&query={{ simple_query }}
+			{% endif %}
+			{% if composer_query %} 
+			&composer-query={{ composer_query }}
+			{% endif %}
+			{% if dealer_query %} 
+			&dealer-query={{ dealer_query }}
+			{% endif %}
+			{% if catalog_query %} 
+			&catalog-query={{ catalog_query }}
+			{% endif %}
+			{% if place_query %} 
+			&place-query={{ place_query }}
+			{% endif %}
+			{% if title_query %} 
+			&title-query={{ title_query }}
+			{% endif %}
+			{% if item_type_query %}
+			&item-type-query={{ item_type_query }}
+			{% endif %}">{{ i }}</a></li>
 		   {% endif %}
 		{% endfor %}
 		{% if search_results.has_next %}
-		    <li><a href="?page={{ search_results.next_page_number }}&query={{ search_query }}">&raquo;</a></li>
+		    <li><a href="?page={{ search_results.next_page_number }}
+			{% if simple_query %}
+			query={{ simple_query }}
+			{% endif %}
+			{% if composer_query %} 
+			&composer-query={{ composer_query }}
+			{% endif %}
+			{% if dealer_query %} 
+			&dealer-query={{ dealer_query }}
+			{% endif %}
+			{% if catalog_query %} 
+			&catalog-query={{ catalog_query }}
+			{% endif %}
+			{% if place_query %} 
+			&place-query={{ place_query }}
+			{% endif %}
+			{% if title_query %} 
+			&title-query={{ title_query }}
+			{% endif %}
+			{% if item_type_query %}
+			&item-type-query={{ item_type_query }}
+			{% endif %}">&raquo;</a></li>
 		{% else %}
 		    <li class="disabled"><span>&raquo;</span></li>		
 		{% endif %}
 	    </ul>
 	    {% endif %}
             <table class="table table-striped table-results">
-                <h2>Search Results</h2>
+                <h2> Search Result {{ start_pointer }} to {{ end_pointer }} from {{ total_results }} item{% if total_results > 1 %}s{% else %}{% endif %}</h2>
+		<p>Your query was: {{ search_query }}. <a href="{% slugurl 'home' %}">New Search</a></p>
                 <thead>
                     <tr>
                         <th>Item</th>
@@ -43,86 +130,170 @@
             	<tbody>
 		{% for result in search_results %}
 	        <tr>
-	    <td><a href="{% pageurl result %}" class="identifier">{{ result.title }}</a>
-       	    	<span class="composer">{{ result.item_composer.last_name }}, {{ result.item_composer.first_name }}</span>
-
-            	<span class="date">{% for block in result.date_information %}
-		  {% if block.block_type == 'date_label' %}
-		  {{ block.value }}
-		  {% else %}
-		  {% endif %}
-		{% endfor %}</span>
-
-            	<span class="description">{{ result.item_description|truncatechars:150 }}
-            	<td data-title="Author">
-		  <ul>
-		  {% for author in result.item_authororesposibles.all %}
-		     <li>{{ author.an_author.author_name }}</li>
-		  {% endfor %}
-		  </ul>
-	    </td>
-            <td data-title="Recipient">
-		  <ul>
-		  {% for recipient in result.item_recipientordedicatees.all %}
-		     <li>{{ recipient.a_recipient.recipient_name }}</li>
-		  {% endfor %}
-		  </ul>
-	    </td>
-            <td data-title="Place">
-		{% if result.item_places %}
-		<ul>
-		    {% for a_place in result.item_places.all %}
+		    <td><a href="{% pageurl result %}" class="identifier">{{ result.title }}</a>
+       	    		<span class="composer">{{ result.item_composer.last_name }}, {{ result.item_composer.first_name }}</span>
+            		<span class="date">
+				{% for block in result.date_information %}
+		  			{% if block.block_type == 'date_label' %}
+				  	{{ block.value }}
+				  	{% else %}
+		  			{% endif %}
+				{% endfor %}
+			</span>
+            		<span class="description">{{ result.item_description|truncatechars:150 }}
+            	   </td> 
+	    	   <td data-title="Author">
+		  	<ul>
+		  	{% for author in result.item_authororesposibles.all %}
+		     	<li>{{ author.an_author.author_name }}</li>
+		  	{% endfor %}
+		  	</ul>
+	    	   </td>
+            	   <td data-title="Recipient">
+		  	<ul>
+		  	{% for recipient in result.item_recipientordedicatees.all %}
+		     	<li>{{ recipient.a_recipient.recipient_name }}</li>
+		  	{% endfor %}
+		  	</ul>
+	    	   </td>
+	           <td data-title="Place">
+			{% if result.item_places %}
+			<ul>
+		    	{% for a_place in result.item_places.all %}
 			<li>{{ a_place.a_place.place_name }}</li>
-		    {% endfor %}
-		</ul>	
-		{% endif %}	
-	    </td>
-            <td data-title="Type">
-		{% if result.item_types %} 
-		<ul>
-		    {% for a_type in result.item_types.all %}
+		    	{% endfor %}
+			</ul>	
+			{% endif %}	
+	    	   </td>
+            	  <td data-title="Type">
+			{% if result.item_types %} 
+			<ul>
+		    	{% for a_type in result.item_types.all %}
 			<li>{{ a_type.a_type.type_name }}</li>
-		    {% endfor %}
-		</ul>
-		{% endif %}
-	    </td>
-	</tr>
-
+		    	{% endfor %}
+			</ul>
+			{% endif %}
+	    	  </td>
+	        </tr>
 		{% endfor %}
 	    	</tbody>
 	    </table>
-    	{% if search_results.has_other_pages %} 
-        <ul class="pagination">
-	    {% if search_results.has_previous %}
-	        <li><a href="?page={{ search_results.previous_page_number }}">&laquo;</a></li>
-	    {% endif %}
-	    {% for i in search_results.paginator.page_range %}
-	       {% if search_results.number == i %}
-	           <li class="active"><a href="?page={{ i }}">{{ i }}</a></li>
-	       {% else %}
-	          <li><a href="?page={{ i }}">{{ i }}</a></li>
-	       {% endif %}
-	    {% endfor %}
-	    {% if search_results.has_next %}
-	       <li><a href="?page={{ search_results.next_page_number }}">&raquo;</a></li>
-	    {% else %}
-	       <li class="disabled"><span>&raquo;</span></li>		
-	    {% endif %}
-	</ul>
-        {% endif %}
+    	   {% if search_results.has_other_pages %} 
+       		<ul class="pagination">
+		{% if search_results.has_previous %}
+		    <li>
+			<a href="?page={{ search_results.previous_page_number }}
+			{% if simple_query %}
+			query={{ simple_query }}
+			{% endif %}
+			{% if composer_query %} 
+			&composer={{ composer_query }}
+			{% endif %}
+			{% if dealer_query %} 
+			&dealer={{ dealer_query }}
+			{% endif %}
+			{% if catalog_query %} 
+			&catalog={{ catalog_query }}
+			{% endif %}
+			{% if place_query %} 
+			&place={{ place_query }}
+			{% endif %}
+			{% if title_query %} 
+			&title={{ title_query }}
+			{% endif %}
+			{% if item_type_query %}
+			&item_type={{ item_type_query }}
+			{% endif %}
+			">&laquo;</a></li>
+		{% endif %}
 
-    {% else %}
-	<p>No results found.</p>
+		{% for i in search_results.paginator.page_range %}
+		   {% if search_results.number == i %}
+		       <li class="active">
+			<a href="?page={{ i }}
+			{% if simple_query %}
+			&query={{ simple_query }}
+			{% endif %}
+			{% if composer_query %} 
+			&composer-query={{ composer_query }}
+			{% endif %}
+			{% if dealer_query %} 
+			&dealer-query={{ dealer_query }}
+			{% endif %}
+			{% if catalog_query %} 
+			&catalog-query={{ catalog_query }}
+			{% endif %}
+			{% if place_query %} 
+			&place-query={{ place_query }}
+			{% endif %}
+			{% if title_query %} 
+			&title-query={{ title_query }}
+			{% endif %}
+			{% if item_type_query %}
+			&item-type-query={{ item_type_query }}
+			{% endif %}">{{ i }}</a></li>
+		   {% else %}
+		       <li><a href="?page={{ i }}
+			{% if simple_query %}
+			&query={{ simple_query }}
+			{% endif %}
+			{% if composer_query %} 
+			&composer-query={{ composer_query }}
+			{% endif %}
+			{% if dealer_query %} 
+			&dealer-query={{ dealer_query }}
+			{% endif %}
+			{% if catalog_query %} 
+			&catalog-query={{ catalog_query }}
+			{% endif %}
+			{% if place_query %} 
+			&place-query={{ place_query }}
+			{% endif %}
+			{% if title_query %} 
+			&title-query={{ title_query }}
+			{% endif %}
+			{% if item_type_query %}
+			&item-type-query={{ item_type_query }}
+			{% endif %}">{{ i }}</a></li>
+		   {% endif %}
+		{% endfor %}
+		{% if search_results.has_next %}
+		    <li><a href="?page={{ search_results.next_page_number }}
+			{% if simple_query %}
+			&query={{ simple_query }}
+			{% endif %}
+			{% if composer_query %} 
+			&composer-query={{ composer_query }}
+			{% endif %}
+			{% if dealer_query %} 
+			&dealer-query={{ dealer_query }}
+			{% endif %}
+			{% if catalog_query %} 
+			&catalog-query={{ catalog_query }}
+			{% endif %}
+			{% if place_query %} 
+			&place-query={{ place_query }}
+			{% endif %}
+			{% if title_query %} 
+			&title-query={{ title_query }}
+			{% endif %}
+			{% if item_type_query %}
+			&item-type-query={{ item_type_query }}
+			{% endif %}">&raquo;</a></li>
+		{% else %}
+		    <li class="disabled"><span>&raquo;</span></li>		
+		{% endif %}
+		</ul>
 
-    {% endif %}
-
+           {% endif %}
+    	   {% else %}
+		<p>No results found.</p>
+    	   {% endif %}
 {% endblock %}
 
 {% block extra %}
-
 $(document).on('click', '[data-toggle="lightbox"]', function(event) {
     event.preventDefault();
     $(this).ekkoLightbox();
 });
-
 {% endblock %}

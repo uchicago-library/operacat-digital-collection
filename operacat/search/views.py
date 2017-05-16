@@ -13,14 +13,24 @@ from catalogitems.models import *
 
 def search(request):
     search_query = request.GET.get('query', None)
+    page_num = int(request.GET.get("page", 1))
     if search_query:
         search_results = CatalogItemPage.objects.order_by('title').live().search(search_query)
         #query = Query.get(search_query)
         #query.add_hit()
     else:
         search_results = CatalogItemPage.objects.none()
+    total_results = search_results.count()
     paginator = Paginator(search_results, 100)
-    page_num = int(request.GET.get("page", 1))
+    if page_num == 1:
+        start_pointer = 1
+        end_pointer = 100
+    elif total_results - ((page_num * 100) - 100) < 100:
+        start_pointer = (page_num * 100) - 100
+        end_pointer = total_results
+    else:
+        start_pointer = (page_num * 100) - 100
+        end_pointer = start_pointer + 100
     try:
         search_results = paginator.page(page_num)
     except EmptyPage:
@@ -28,6 +38,10 @@ def search(request):
     return render(request,
                   'search/search.html',
                   {'search_query': search_query,
+                   'simple_query': search_query,
+                   'total_results': total_results,
+                   'start_pointer': start_pointer,
+                   'end_pointer': end_pointer,
                    'composers': Composer.objects.all().order_by('last_name'),
                    'item_types': ItemType.objects.all().order_by('type_name'),
                    'titles': PieceTitle.objects.all().order_by('name'),
@@ -53,15 +67,22 @@ def advanced_search(request):
     else:
         place_query = None
     if not request.GET.get('title-query', None) or request.GET.get('title-query', None) != 'none':
-        stderr.write("testing 1 2 3\n")
         title_query = request.GET.get('title-query', None)
     else:
         title_query = None
+    if not request.GET.get('author-or-responsible-query', None) or request.GET.get('author-or-responsible-query', None) != 'none':
+        author_responsible_query = request.GET.get('author-or-responsible-query', None)
+    else:
+        author_responsible_query = None
+    if not request.GET.get('recipient-or-dedicatee-query', None) or request.GET.get('recipient-or-dedicatee-query', None) != 'none':
+        recipient_dedicatee_query = request.GET.get('recipient-or-dedicatee-query', None)
+    else:
+        recipient_dedicatee_query = None
     if not request.GET.get('item-type-query', None) or request.GET.get('item-type-query', None) != 'none':
         item_type_query = request.GET.get('item-type-query', None)
     else:
         item_type_query = None
-    page_num = int(request.GET.get("page", 1))
+
     search_results = CatalogItemPage.objects.all()
     if composer_query:
         composer = Composer.objects.filter(last_name=composer_query)
@@ -72,6 +93,15 @@ def advanced_search(request):
     if catalog_query:
         catalog = Catalog.objects.filter(catalog_name=catalog_query)
         search_results = search_results.filter(item_catalog=catalog[0])
+    if author_responsible_query:
+        author = AuthorOrResponsible.objects.filter(author_name=author_responsible_query)[0]
+        authors = AuthorOrResponsibleOrderable.objects.filter(an_author=author)[0]
+        search_results = search_results.filter(item_authororesposibles=authors)
+    if recipient_dedicatee_query:
+        recipient = RecipientOrDedicatee.objects.filter(recipient_name=recipient_dedicatee_query)[0]
+        recipients = RecipientOrDedicateeOderable.objects.filter(a_recipient=recipient)[0]
+        search_results = search_results.filter(item_recipients=recipients)
+
     if place_query:
         places = Place.objects.filter(place_name=place_query)[0]
         places = PlaceOrderable.objects.filter(a_place=places)
@@ -84,10 +114,41 @@ def advanced_search(request):
         item_types = ItemType.objects.filter(type_name=item_type_query)[0]
         item_types = ItemTypeOrderable.objects.filter(a_type=item_types)
         search_results = search_results.filter(item_types__in=item_types)
-    search_query = "{},{},{},{},{},{}".format(composer_query, dealer_query, catalog_query, place_query, title_query, item_type_query)
+
+
+    search_query = ""
+    if composer_query:
+        search_query += "composer=" + composer_query
+    if dealer_query:
+        search_query += "dealer=" + dealer_query
+    if catalog_query:
+        search_query += "catalog=" + catalog_query
+    if place_query:
+        search_query += "place=" + place_query
+    if place_query:
+        search_query += "place=" + place_query
+    if title_query:
+        search_query += "title=" + title_query
+    if title_query:
+        search_query += "item_type=" + item_type_query
+    if author_responsible_query:
+        search_query += "author_or_responsible=" + author_responsible_query
+    if recipient_dedicatee_query:
+        search_query += "recipient_dedicatee=" + recipient_dedicatee_query
     query = Query.get(search_query)
     query.add_hit()
+    total_results = search_results.count()
+    page_num = int(request.GET.get("page", 1))
     paginator = Paginator(search_results, 100)
+    if page_num == 1:
+        start_pointer = 1
+        end_pointer = 100
+    elif total_results - ((page_num * 100) - 100) < 100:
+        start_pointer = (page_num * 100) - 100
+        end_pointer = total_results
+    else:
+        start_pointer = (page_num * 100) - 100
+        end_pointer = start_pointer + 100
     try:
         search_results = paginator.page(page_num)
     except EmptyPage:
@@ -95,6 +156,11 @@ def advanced_search(request):
     return render(request,
                   'search/search.html',
                   {'search_results': search_results,
+                   'search_query': search_query,
+                   'total_results': total_results,
+                   'page_num': page_num,
+                   'start_pointer': start_pointer,
+                   'end_pointer': end_pointer,
                    'composer': Composer.objects.all().order_by('last_name'),
                    'item_types': ItemType.objects.all().order_by('type_name'),
                    'titles': PieceTitle.objects.all().order_by('name'),
