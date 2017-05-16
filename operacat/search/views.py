@@ -120,30 +120,31 @@ def advanced_search(request):
         item_types = ItemTypeOrderable.objects.filter(a_type=item_types)
         search_results = search_results.filter(item_types__in=item_types)
     if keyword_query:
-        search_results = search_results.filter(Q(item_description__in=keyword_query) | Q(field_notes__in=keyword_query))
-
-
-    search_query = ""
+        search_results = search_results.filter(item_description=keyword_query)
+    search_query = []
     if keyword_query:
-        search_query += "full_text=" + keyword_query
+        search_query.append("full text=" + keyword_query)
     if composer_query:
-        search_query += " and composer=" + composer_query
+        search_query.append("composer=" + composer_query)
     if dealer_query:
-        search_query += "and dealer=" + dealer_query
+        search_query.append("dealer=" + dealer_query)
     if catalog_query:
-        search_query += "and catalog=" + catalog_query
+        search_query.append("catalog=" + catalog_query)
     if place_query:
-        search_query += "and place=" + place_query
+        search_query.append("place=" + place_query)
     if place_query:
-        search_query += "and place=" + place_query
+        search_query.append("place=" + place_query)
     if title_query:
-        search_query += "and title=" + title_query
-    if title_query:
-        search_query += "and item type=" + item_type_query
+        search_query.append("title=" + title_query)
+    if item_type_query:
+        search_query.append("item type=" + item_type_query)
+
+
     if author_responsible_query:
-        search_query += "and author or responsible=" + author_responsible_query
+        search_query.append("author or responsible=" + author_responsible_query)
     if recipient_dedicatee_query:
-        search_query += "and recipient or dedicatee=" + recipient_dedicatee_query
+        search_query.append("recipient or dedicatee=" + recipient_dedicatee_query)
+    search_query = " and ".join(search_query)
     query = Query.get(search_query)
     query.add_hit()
     total_results = search_results.count()
