@@ -145,12 +145,12 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-# Wagtail search backend 
+# Wagtail search backend
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
-        'URLS': ['http://localhost:9200/'],
+        'URLS': [os.environ['ELASTIC_SEARCH_ADDRESS']],
         'INDEX': 'wagtail',
         'TIMEOUT': 5,
         'OPTIONS': {},

@@ -7,5 +7,11 @@ setup(
     packages=['operacat'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=['Flask', 'django-contrib-comments', 'django-registration-redux', 'django-comments-xtd']
+    install_requires=[
+        'Django>=1.10,<1.11',
+        'wagtail>=1.9,<1.10',
+        'django-contrib-comments',
+        'django-comments-xtd',
+        'django-registration-redux'
+    ]
 )
