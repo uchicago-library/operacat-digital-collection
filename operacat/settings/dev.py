@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from .base import *
+from .locals import SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

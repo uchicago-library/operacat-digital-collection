@@ -1,0 +1,15 @@
+version: '2'
+services:
+    elasticsearch:
+        image: elasticsearch
+    operacat:
+        build:
+            context: .
+            args:
+                OPERACAT_SECRET_KEY: "superdupersecret"
+                OPERACAT_BASE_URL: "/"
+                ELASTIC_SEARCH_ADDRESS: "elasticsearch:9200"
+        ports:
+            - "8000:8000"
+        depends_on:
+            - elasticsearch

@@ -29,16 +29,16 @@ LOGIN_REDIRECT_URL = "/"
 # Application definition
 
 INSTALLED_APPS = [
-    'home',
-    'search',
-    'catalogitems',
-    'operacatmessages',
-    'composerview',
-    'dealerview',
-    'itemtypeview',
-    'placeview',
-    'catalogview',
-    'titleview',
+    'operacat.home',
+    'operacat.search',
+    'operacat.catalogitems',
+    'operacat.operacatmessages',
+    'operacat.composerview',
+    'operacat.dealerview',
+    'operacat.itemtypeview',
+    'operacat.placeview',
+    'operacat.catalogview',
+    'operacat.titleview',
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
@@ -166,5 +166,4 @@ WAGTAIL_SITE_NAME = "operacat"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 
 SITE_ID = 1
-BASE_URL = 'http://operacat.lib.uchicago.edu/'
-
+BASE_URL = os.environ['OPERACAT_BASE_URL']

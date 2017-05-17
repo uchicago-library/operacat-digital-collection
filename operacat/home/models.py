@@ -6,7 +6,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
-from catalogitems.models import PieceTitle, Place, ItemType, Composer, AuthorOrResponsible, RecipientOrDedicatee
+from operacat.catalogitems.models import PieceTitle, Place, ItemType, Composer, AuthorOrResponsible, RecipientOrDedicatee
 
 class TranslatedField(object):
     def __init__(self, en_field, it_field):
