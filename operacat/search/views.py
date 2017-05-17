@@ -28,7 +28,7 @@ def search(request):
         if total_results - ((page_num * 100) - 100) < 100:
             end_pointer = total_results
         else:
-            end_pointer = 100
+             end_pointer = 100
     elif total_results - ((page_num * 100) - 100) < 100:
         start_pointer = (page_num * 100) - 100
         end_pointer = total_results
@@ -122,7 +122,9 @@ def advanced_search(request):
         item_types = ItemTypeOrderable.objects.filter(a_type=item_types)
         search_results = search_results.filter(item_types__in=item_types)
     if keyword_query:
-        search_results = search_results.filter(item_description=keyword_query)
+        search_results = search_results.filter(Q(item_description__contains=keyword_query) |\
+                                               Q(field_notes__contains=keyword_query) |\
+                                               Q(title__contains=keyword_query))
     search_query = []
     if keyword_query:
         search_query.append("full text=" + keyword_query)
