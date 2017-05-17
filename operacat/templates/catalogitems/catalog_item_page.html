@@ -85,7 +85,7 @@
        {% if page.item_composer %}
        <h2>Composer</h2>
        <ul>
-          <li><a href="{% url 'composer-browse' composer_id=page.item_composer.id %}">{{ page.item_composer.last_name }}, {{ page.item_composer.first_name }}</a></li>
+          <li><a href="{% url 'advanced_search' %}?composer-query={{ page.item_composer.last_name }}">{{ page.item_composer.last_name }}, {{ page.item_composer.first_name }}</a></li>
        </ul>
        {% endif %}
 
@@ -93,7 +93,7 @@
        <h2>Author or Responsible</h2>
        <ul>
 	{% for author in page.item_authororesposibles.all %}
-	<li><a href="{% url 'author_view' author_id=author.an_author.id %}">{{ author.an_author.author_name }}</li>
+	<li><a href="{% url 'advanced_search' %}?author-or-responsible-query={{ author.an_author.author_name }}">{{ author.an_author.author_name }}</li>
 	{% endfor %}
        </ul>
        {% endif %}
@@ -102,7 +102,7 @@
        <h2>Recipient or Dedicatee</h2>
        <ul>
 	{% for recipient in page.item_recipientordedicatees.all %}
-	<li><a href="{% url 'recipient_view' recipient_id=recipient.a_recipient.id %}">{{ recipient.a_recipient.recipient_name }}</li>
+	<li><a href="{% url 'advanced_search' %}?recipient-or-dedicatee-query={{ recipient.a_recipient.recipient_name }}">{{ recipient.a_recipient.recipient_name }}</li>
 	{% endfor %}
        </ul>
        {% endif %}
@@ -111,7 +111,7 @@
        <h2>Type</h2>
        <ul>
 	  {% for a_type in page.item_types.all %}
-              <li><a href="{% url 'item-type-view' type_id=a_type.a_type.id %}">{{ a_type.a_type.type_name }}</a></li>
+              <li><a href="{% url 'advanced_search' %}?item-type-query={{ a_type.a_type.type_name }}">{{ a_type.a_type.type_name }}</a></li>
 	 {% endfor %}
        </ul>
        {% endif %}
@@ -121,7 +121,7 @@
        <ul>
 	 {% for place in page.item_places.all %}	
 	      <li>
-		<a href="{% url 'place-view' place_id=place.a_place.id %}">{{ place.a_place.place_name }}</a>
+		<a href="{% url 'advanced_search' %}?place-query={{ place.a_place.place_name }}">{{ place.a_place.place_name }}</a>
 	     </li>
 	 {% endfor %}
        </ul>
@@ -140,7 +140,7 @@
 	<h2>Title</h2>
 	<ul>
 	    {% for title in page.item_titles.all %}
-	        <li><a href="{% url 'title_view' title_id=title.a_title.id %}">{{ title.a_title.name }}</a></li>
+	        <li><a href="{% url 'advanced_search' %}?title-query={{ title.a_title.name }}">{{ title.a_title.name }}</a></li>
 	    {% endfor %}	
 	</ul>
 	</h2>
@@ -157,11 +157,11 @@
 
        <h2>Dealer</h2>
        <ul>
-	   <li><a href="{% url 'dealer-view' dealer_id=page.item_dealer.id %}">{{ page.item_dealer.dealer_name }}</a></li>
+	   <li><a href="{% url 'advanced_search' %}?dealer-query={{  page.item_dealer.dealer_name }}">{{ page.item_dealer.dealer_name }}</a></li>
        </ul>
        <h2>Catalog</h2>
        <ul>
-	   <li><a href="{% url 'catalog-view' catalog_id=page.item_catalog.id %}">{{ page.item_catalog.catalog_name }}</a></li>
+	   <li><a href="{% url 'advanced_search' %}?catalog-query={{ page.item_catalog.catalog_name }}">{{ page.item_catalog.catalog_name }}</a></li>
        </ul>
        <h2>Lot</h2>
        <ul>
