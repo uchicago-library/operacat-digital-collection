@@ -2,6 +2,11 @@ version: '2'
 services:
     elasticsearch:
         image: elasticsearch
+    postgres:
+        image: postgres
+        environment:
+            - POSTGRES_USER=testuser
+            - POSTGRES_PASSWORD=testpass
     operacat:
         build:
             context: .
@@ -13,3 +18,4 @@ services:
             - "8000:8000"
         depends_on:
             - elasticsearch
+            - postgres
