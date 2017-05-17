@@ -25,7 +25,10 @@ def search(request):
     paginator = Paginator(search_results, 100)
     if page_num == 1:
         start_pointer = 1
-        end_pointer = 100
+        if total_results - ((page_num * 100) - 100) < 100:
+            end_pointer = total_results
+        else:
+            end_pointer = 100
     elif total_results - ((page_num * 100) - 100) < 100:
         start_pointer = (page_num * 100) - 100
         end_pointer = total_results
@@ -93,7 +96,7 @@ def advanced_search(request):
         composer = Composer.objects.filter(last_name=composer_query)
         search_results = search_results.filter(item_composer=composer[0])
     if dealer_query:
-        dealer = Dealer.objects.filter(dealer_name=dealer_query)
+        dealer = Dealer.objects.filter(dealer_name__contains=dealer_query)
         search_results = search_results.filter(item_dealer=dealer[0])
     if catalog_query:
         catalog = Catalog.objects.filter(catalog_name=catalog_query)
@@ -106,7 +109,6 @@ def advanced_search(request):
         recipient = RecipientOrDedicatee.objects.filter(recipient_name=recipient_dedicatee_query)[0]
         recipients = RecipientOrDedicateeOderable.objects.filter(a_recipient=recipient)[0]
         search_results = search_results.filter(item_recipients=recipients)
-
     if place_query:
         places = Place.objects.filter(place_name=place_query)[0]
         places = PlaceOrderable.objects.filter(a_place=places)
@@ -138,8 +140,6 @@ def advanced_search(request):
         search_query.append("title=" + title_query)
     if item_type_query:
         search_query.append("item type=" + item_type_query)
-
-
     if author_responsible_query:
         search_query.append("author or responsible=" + author_responsible_query)
     if recipient_dedicatee_query:
@@ -152,7 +152,10 @@ def advanced_search(request):
     paginator = Paginator(search_results, 100)
     if page_num == 1:
         start_pointer = 1
-        end_pointer = 100
+        if total_results - ((page_num * 100) - 100) < 100:
+            end_pointer = total_results
+        else:
+            end_pointer = 100
     elif total_results - ((page_num * 100) - 100) < 100:
         start_pointer = (page_num * 100) - 100
         end_pointer = total_results
@@ -183,5 +186,4 @@ def advanced_search(request):
                    'title_query': title_query,
                    'item_type_query': item_type_query}
                  )
-
 
