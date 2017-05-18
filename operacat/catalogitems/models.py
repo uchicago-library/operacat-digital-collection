@@ -205,12 +205,14 @@ class DateEntryBlock(StructBlock):
 
     class Meta:
         icon = 'date'
+        template = 'blocks/date_entry_block.html'
 
 class DateLabelEntryBlock(StructBlock):
     date_label = CharBlock(max_length=100)
 
     class Meta:
         icon = 'date'
+        template = 'blocks/datelabel_entry_block.html'
 
 class CatalogItemPage(Page):
     item_catalog = models.ForeignKey('catalogitems.Catalog',

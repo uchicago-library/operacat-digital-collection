@@ -107,7 +107,7 @@
        </ul>
        {% endif %}
 
-       {% if page.item_types.alll %}
+       {% if page.item_types.all %}
        <h2>Type</h2>
        <ul>
 	  {% for a_type in page.item_types.all %}
@@ -128,12 +128,13 @@
        {% endif %}
 
        {% if page.date_information %}	
-       <h2>Dates</h2>
-       <ul>
-           {% for n in page.date_information %}
-              <li>{{ n }}</li>
-           {% endfor %}
-       </ul>
+        <h2>Dates</h2>
+         {% for block in page.date_information %} 
+                {% if block.block_type == 'date_label' %}
+                        {% include_block block %}
+                
+                {% endif %}
+         {% endfor %}
        {% endif %}
 
        {% if page.item_titles.all %}
