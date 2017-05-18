@@ -1,9 +1,10 @@
 {% load i18n %}
+
 <div id="search-form">
     <form id="simple-search" action="/en/search/" method="get">
         <h1>Search</h1>
         <fieldset>
-          <legend class="is-vishidden">Search</legend>
+          <legend class="is-vishidden">{% trans 'Search' %}</legend>
           <div class="form-group col-xs-10">
              <input class="form-control" type="text" name="query" placeholder="Donizetti">
           </div>
@@ -12,12 +13,12 @@
           </div>
         </fieldset>
     </form>
-    <button class="btn btn-link" id="show-advanced-search">Advanced Search</button>
-    <button class="btn btn-link" id="show-simple-search">Simple Search</button> 
+    <button class="btn btn-link" id="show-advanced-search">{% trans 'Advanced Search' %}</button>
+    <button class="btn btn-link" id="show-simple-search">{% trans 'Simple Search' %}</button> 
     <form id="advanced-search" action="/en/advanced_search/" method="get">
         <h1>Advanced Search</h1>
         <fieldset>
-            <legend class="is-vishidden">Advanced Search</legend>
+            <legend class="is-vishidden">{% trans 'Advanced Search' %]</legend>
             <div class="form-group">
                 <label for="keyword-query">Keyword</label>
                 <input class="form-control" type="text" id="keyword-query" name="keyword-query" placeholder="something">
@@ -39,9 +40,9 @@
                </select>
             </div>
             <div class="form-group">
-                       <label for="item-type-query">Item Type</label>
+                       <label for="item-type-query">{% trans 'Item Type' %}</label>
                        <select class="form-control" id="item-type-query" name="item-type-query">
-                	   <option value="none">Select...<option>
+                	   <option value="none">{% trens 'Select' %}...<option>
                    {% if page.item_types %}
                    {% for a_type in page.item_types %}
                         <option value="{{ a_type.type_name }}">{{ a_type.type_name }}</option>
@@ -55,9 +56,9 @@
                        </select>
             </div>
             <div class="form-group">
-                       <label for="title-query">Author Or Responsible</label>
+                       <label for="title-query">{% blocktrans %}Author Or Responsible{% endblocktrans %}</label>
                        <select class="form-control" id="author-or-responsible-query" name="author-or-responsible-query">
-                	   <option value="none">Select...<option>
+                	   <option value="none">{% trans 'Select' %}...<option>
                    {% if page.piece_titles %}
                    {% for a_title in page.authors_responsibles %}
                         <option value="{{ a_title.author_name }}">{{ a_title.author_name }}</option>
@@ -71,9 +72,9 @@
                        </select>
             </div>
             <div class="form-group">
-                       <label for="title-query">Recipient Or Dedicatee</label>
+                       <label for="title-query">{% blocktrans %}Recipient Or Dedicatee{% endblocktrans %}</label>
                        <select class="form-control" id="recipient-or-dedicatee-query" name="recipient-or-dedicatee-query">
-                	   <option value="none">Select...<option>
+                	   <option value="none">{% trans 'Select' %}...<option>
                    {% if page.piece_titles %}
                    {% for a_title in page.recipients_dedicatees %}
                         <option value="{{ a_title.recipient_name }}">{{ a_title.recipient_name }}</option>
@@ -87,9 +88,9 @@
                        </select>
             </div>
             <div class="form-group">
-                       <label for="title-query">Title</label>
+                       <label for="title-query">{% trans 'Title' %}</label>
                        <select class="form-control" id="title-query" name="title-query">
-                	   <option value="none">Select...<option>
+                	   <option value="none">{% trans 'Select' %}...<option>
                    {% if page.piece_titles %}
                    {% for a_title in page.piece_titles %}
                         <option value="{{ a_title.name }}">{{ a_title.name }}</option>
@@ -103,9 +104,9 @@
                        </select>
             </div>
             <div class="form-group">
-                      <label for="start-date-query">Place</label>
+                      <label for="start-date-query">{% trans 'Place' %}</label>
                       <select class="form-control" id="place-query" name="place-query">
-                	   <option value="none">Select...</option>
+                	   <option value="none">{% trans 'Select' %}...</option>
                    {% if page.composers %}
                    {% for place in page.places %}
                         <option value="{{ place.place_name }}">{{ place.place_name }}</option>
@@ -121,11 +122,11 @@
             <div class="form-group">
                 <div class="row">
                     <div class="col-lg-6">
-                        <label for="start-year-query">Start Year</label>
+                        <label for="start-year-query">{% trans 'Start Year' %}</label>
                         <input type="text" id="start-year-query" class="form-control" name="start-year-query"/>
                	    </div>
                     <div class="col-lg-6">
-                        <label for="end-year-query">End Year</label>
+                        <label for="end-year-query">{% trans 'End Year' %}</label>
                         <input type="text" id="end-year-query" class="form-control" name="end-year-query"/>
                     </div>	
                 </div>

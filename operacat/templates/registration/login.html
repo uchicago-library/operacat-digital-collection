@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load wagtailcore_tags %}
+{% load i18n %}
 
-{% block title %}Login{% endblock %}
+{% block title %}{% trans 'Login' %}{% endblock %}
 
 {% block content %}
-  <h2>Login</h2>
+  <h2>{% trans 'Login %}</h2>
   <form method="post">
     {% csrf_token %}
     {% for field in form %}
@@ -18,8 +19,8 @@
     </div>  
     {% endfor %}
     <div class="form-group">
-        <button class="btn btn-primary" type="submit">Login</button>
+        <button class="btn btn-primary" type="submit">{% trans 'Login' %}</button>
     </div>
   </form>
-  <p>If you do not already have an account, please use the <a href="/accounts/register/">Sign Up</a> form to create one and you will be automatically logged in after you complete the form.</p>
+  <p>{% blocktrans %}If you do not already have an account, please use the{% endblocktrans %} <a href="/accounts/register/">{% trans 'Sign Up' %}</a> {% blocktrans %}form to create one and you will be automatically logged in after you complete the form{% endblocktrans %}.</p>
 {% endblock %}

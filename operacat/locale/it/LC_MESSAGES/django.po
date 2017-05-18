@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-16 21:17+0000\n"
+"POT-Creation-Date: 2017-05-18 15:16-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,223 +18,398 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: operacat_app/settings/base.py:128
+#: operacat/settings/base.py:98
 msgid "English"
 msgstr "Inglese"
 
-msgid "Homepage"
-msgstr "Homepage" 
-
-msgid "Go"
-msgstr "Partire"
-
-#: operacat_app/settings/base.py:129
+#: operacat/settings/base.py:99
 msgid "Italian"
 msgstr "Itiano"
 
-#: operacat_app/templates/base.html:58
+#: templates/404.html:7
+msgid "Page not found"
+msgstr ""
+
+#: templates/404.html:9
+msgid "Sorry, this page could not be found"
+msgstr ""
+
+#: templates/500.html:9 templates/500.html:13
+msgid "Internal server error"
+msgstr ""
+
+#: templates/500.html:15
+msgid "Sorry, there seems to be an error. Please try again soon"
+msgstr ""
+
+#: templates/base.html:52
 msgid "Toggle navigation"
 msgstr ""
 
-#: operacat_app/templates/base.html:63
-msgid "Operacat"
+#: templates/base.html:57
+msgid "OperaCat"
 msgstr ""
 
-#: operacat_app/templates/base.html:67
-msgid "Home"
-msgstr "Case"
-
-#: operacat_app/templates/base.html:69
-msgid "About"
-msgstr "Di"
-
-#: operacat_app/templates/base.html:71
-msgid "Project Description"
-msgstr "descrizione del progetto"
-
-
-#: operacat_app/templates/base.html:72
-msgid "Supporting Institutions"
-msgstr "istituzioni di supporto"
-
-#: operacat_app/templates/base.html:73
-msgid "Contributing individuals"
-msgstr "individui che contribuisconoh"
-
-#: operacat_app/templates/base.html:77
-msgid "Help"
-msgstr "Aiuto"
-
-#: operacat_app/templates/base.html:79
-msgid "User's Guide"
-msgstr "Guida dell'utente"
-
-msgid "User's guide"
-msgstr "guida dell'utente"
-
-#: operacat_app/templates/base.html:82
-msgid "Contact Us"
-msgstr "Contattaci"
-
-#: operacat_app/templates/base.html:86
-msgid "Logout"
-msgstr ""
-
-#: operacat_app/templates/base.html:88
-msgid "Sign Up"
-msgstr "Registrazione"
-
-#: operacat_app/templates/base.html:89
-msgid "Sign In"
-msgstr "Registrati"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:10
-msgid "Related items"
-msgstr "Articoli Correlati"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:23
-msgid "Catalog"
-msgstr "Catalogare"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:34
-#: search/templates/search/search_form.html:34
-msgid "Item Type"
-msgstr "tipo di elemento"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:45
-#: search/templates/search/search_form.html:23
-msgid "Composer"
-msgstr "Compositore"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:52
-#: search/templates/search/search_form.html:50
-msgid "Place"
-msgstr "Posto"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:59
-msgid "Author or Responsible"
-msgstr "Autore o responsabili"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:67
-msgid "Recipient or Dedicatee"
-msgstr "Destinatario o Dedicatario"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:74
-msgid "Item Description"
-msgstr "descrizione dell'articolo"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:79
-msgid "Field Notes"
-msgstr "note di campo"
-
-#: operacat_app/templates/catalogitems/catalog_item_page.html:85
-msgid "Images"
-msgstr "immagini"
-
-#: operacat_app/templates/operacatmessages/form_page.html:23
-msgid "Send message"
-msgstr "invia messaggio"
-
-#: operacat_app/templates/operacatmessages/form_page_landing.html:5
-msgid "Thanks for your submission. We'll get back to you soon."
-msgstr "Grazie per la vostra presentazione ti risponderemo al più presto."
-
-#: search/templates/search/search.html:7
-#: search/templates/search/search_form.html:2
-#: search/templates/search/search_form.html:8
-#: search/templates/search/search_form.html:14
-#: search/templates/search/search_form.html:66
+#: templates/base.html:61 templates/search/search.html:9
+#: templates/search/search_form.html:7
 msgid "Search"
 msgstr "Cersa"
 
-#: search/templates/search/search.html:18
-msgid "place"
-msgstr "posto"
+#: templates/base.html:63
+msgid "About"
+msgstr "Di"
 
-#: search/templates/search/search.html:18
-msgid "date"
-msgstr "data"
+#: templates/base.html:65
+msgid "Project Description"
+msgstr "descrizione del progetto"
 
-#: search/templates/search/search.html:18
-msgid "recipient/dedicatee"
-msgstr "destinatario/dedicatario"
+#: templates/base.html:66
+msgid "Supporting Institutions"
+msgstr "istituzioni di supporto"
 
-#: search/templates/search/search.html:19
-msgid "item type"
-msgstr "tipo di elemento"
+#: templates/base.html:67
+msgid "Contributing individuals"
+msgstr "individui che contribuisconoh"
 
-#: search/templates/search/search.html:31
-msgid "Previous"
-msgstr "Precedente"
+#: templates/base.html:71
+msgid "Help"
+msgstr "Aiuto"
 
-#: search/templates/search/search.html:35
-msgid "Next"
-msgstr "Il prossimo"
+#: templates/base.html:73
+msgid "User's guide"
+msgstr "guida dell'utente"
 
-#: search/templates/search/search.html:38
-msgid "No results found"
-msgstr "nessun risultato trovato"
+#: templates/base.html:77
+msgid "Contact Us"
+msgstr "Contattaci"
 
-#: search/templates/search/search_form.html:2
+#: templates/base.html:94
+msgid "Go"
+msgstr "Partire"
+
+#: templates/base.html:97 templates/registration/logged_out.html:4
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:99
+msgid "Log In"
+msgstr ""
+
+#: templates/base.html:114
+msgid "University of Chicago"
+msgstr ""
+
+#: templates/base.html:115
+msgid "Center for Italian Opera Studies"
+msgstr ""
+
+#: templates/catalogitems/catalog_item_page.html:9
+msgid "Viewing a Catalog Item Record"
+msgstr ""
+
+#: templates/catalogitems/catalog_item_page.html:23
+msgid "Field Notes"
+msgstr "note di campo"
+
+#: templates/catalogitems/catalog_item_page.html:28
+msgid "Images"
+msgstr "immagini"
+
+#: templates/catalogitems/catalog_item_page.html:76
+msgid "Post Comment"
+msgstr ""
+
+#: templates/catalogitems/catalog_item_page.html:81
+#, fuzzy
+#| msgid "document"
+msgid "Comments"
+msgstr "documento"
+
+#: templates/catalogitems/catalog_item_page.html:82
+msgid "Please"
+msgstr ""
+
+#: templates/catalogitems/catalog_item_page.html:82
 msgid "or"
 msgstr "o"
 
-#: search/templates/search/search_form.html:2
-#: search/templates/search/search_form.html:21
-msgid "Advanced Search"
-msgstr "Ricerca avanzata"
+#: templates/catalogitems/catalog_item_page.html:82
+msgid "to leave a comment"
+msgstr ""
 
-#: search/templates/search/search_form.html:10
-msgid "Keywords"
-msgstr "Parola chiave"
+#: templates/catalogitems/catalog_item_page.html:88
+msgid "Composer"
+msgstr "Compositore"
 
-#: search/templates/search/search_form.html:37
-msgid "musical manuscript"
-msgstr "manoscritto muscale"
+#: templates/catalogitems/catalog_item_page.html:95
+msgid "Author or Responsible"
+msgstr "Autore o responsabili"
 
-#: search/templates/search/search_form.html:38
-msgid "letter"
-msgstr "lettera"
+#: templates/catalogitems/catalog_item_page.html:104
+msgid "Recipient or Dedicatee"
+msgstr "Destinatario o Dedicatario"
 
-#: search/templates/search/search_form.html:39
-msgid "document"
-msgstr "documento"
+#: templates/catalogitems/catalog_item_page.html:113
+#: templates/search/search_form.html:43
+msgid "Item Type"
+msgstr "tipo di elemento"
 
-#: search/templates/search/search_form.html:40
-msgid "picture"
-msgstr "immagine"
+#: templates/catalogitems/catalog_item_page.html:122
+#: templates/search/search_form.html:107
+msgid "Place"
+msgstr "Posto"
 
-#: search/templates/search/search_form.html:41
-msgid "printed music"
-msgstr "musica stampata"
+#: templates/catalogitems/catalog_item_page.html:133
+msgid "Dates"
+msgstr ""
 
-#: search/templates/search/search_form.html:42
-msgid "musical quotation"
-msgstr "citzione musicale"
-
-#: search/templates/search/search_form.html:46
+#: templates/catalogitems/catalog_item_page.html:142
+#: templates/search/search_form.html:91
 msgid "Title"
 msgstr "Titolo"
 
-#: search/templates/search/search_form.html:56
+#: templates/catalogitems/catalog_item_page.html:152
+#, fuzzy
+#| msgid "Related items"
+msgid "Related Items"
+msgstr "Articoli Correlati"
+
+#: templates/catalogitems/catalog_item_page.html:160
+#: templates/dealerview/browse.html:16
+msgid "Dealer"
+msgstr ""
+
+#: templates/catalogitems/catalog_item_page.html:164
+msgid "Catalog"
+msgstr "Catalogare"
+
+#: templates/catalogitems/catalog_item_page.html:168
+msgid "Lot"
+msgstr ""
+
+#: templates/dealerview/browse.html:6
+msgid "Browsing Dealers;"
+msgstr ""
+
+#: templates/dealerview/browse.html:28
+msgid "There are no items"
+msgstr ""
+
+#: templates/home/home_page.html:20
+msgid ""
+"My wish is that my Drawings, my Prints, my Curiosities, my Books-in a word "
+"these things of art which have been the joy of my life-shall not be "
+"consigned to the cold tomb of a museum, and subjected to the stupid glance "
+"of the careless passer-by; but I require that they shall all be dispersed "
+"under the hammer of the Auctioneer, so that the pleasure which the acquiring "
+"of each one of them has given me shall be given again, in each case, to some "
+"inheritor of my tastes."
+msgstr ""
+
+#: templates/home/home_page.html:21
+msgid "From the will of Edmond de Goncourt"
+msgstr ""
+
+#: templates/home/home_page.html:25
+msgid ""
+"OperaCat is a project focusing on manuscript materials of musical interest "
+"sold at auction, as well as through music antiquarian catalogues, pertaining "
+"to the major composers of nineteenth-century Italian Opera: Gioachino "
+"Rossini (1792-1868), Gaetano Donizetti (1797-1848), Vincenzo Bellini "
+"(1801-1835), Giuseppe Verdi (1813-1901), and Giacomo Puccini (1858-1924)."
+msgstr ""
+
+#: templates/operacatmessages/form_page.html:8
+#, python-format
+msgid "%(page.intro|richtext)s"
+msgstr ""
+
+#: templates/operacatmessages/form_page.html:23
+msgid "Send message"
+msgstr "invia messaggio"
+
+#: templates/operacatmessages/form_page_landing.html:7
+msgid "Thanks for your submission. We'll get back to you soon."
+msgstr "Grazie per la vostra presentazione ti risponderemo al più presto."
+
+#: templates/registration/logged_out.html:7
+msgid "Thanks for using our website today"
+msgstr ""
+
+#: templates/registration/login.html:5 templates/registration/login.html:22
+msgid "Login"
+msgstr ""
+
+#: templates/registration/login.html:25
+msgid "If you do not already have an account, please use the"
+msgstr ""
+
+#: templates/registration/login.html:25
+msgid "Sign Up"
+msgstr "Registrazione"
+
+#: templates/registration/login.html:25
+msgid ""
+"form to create one and you will be automatically logged in after you "
+"complete the form"
+msgstr ""
+
+#: templates/registration/registration_form.html:24
+msgid "Submit"
+msgstr ""
+
+#: templates/search/search.html:5
+#, fuzzy
+#| msgid "Search"
+msgid "Search Results"
+msgstr "Cersa"
+
+#: templates/search/search.html:134
+#, fuzzy
+#| msgid "Search"
+msgid "Search Result"
+msgstr "Cersa"
+
+#: templates/search/search.html:135
+msgid "Your query was"
+msgstr ""
+
+#: templates/search/search.html:135
+#, fuzzy
+#| msgid "Search"
+msgid "New Search"
+msgstr "Cersa"
+
+#: templates/search/search.html:138
+#, fuzzy
+#| msgid "Item Type"
+msgid "Item"
+msgstr "tipo di elemento"
+
+#: templates/search/search.html:139
+#, fuzzy
+#| msgid "Author or Responsible"
+msgid "Author/Responsible"
+msgstr "Autore o responsabili"
+
+#: templates/search/search.html:140
+#, fuzzy
+#| msgid "recipient/dedicatee"
+msgid "Recipient/Dedicatee"
+msgstr "destinatario/dedicatario"
+
+#: templates/search/search.html:141
+#, fuzzy
+#| msgid "Place"
+msgid "Places"
+msgstr "Posto"
+
+#: templates/search/search.html:142
+msgid "Types"
+msgstr ""
+
+#: templates/search/search.html:312
+msgid "No results found"
+msgstr "nessun risultato trovato"
+
+#: templates/search/search_form.html:16
+msgid "Advanced Search"
+msgstr "Ricerca avanzata"
+
+#: templates/search/search_form.html:17
+#, fuzzy
+#| msgid "Search"
+msgid "Simple Search"
+msgstr "Cersa"
+
+#: templates/search/search_form.html:59
+#, fuzzy
+#| msgid "Author or Responsible"
+msgid "Author Or Responsible"
+msgstr "Autore o responsabili"
+
+#: templates/search/search_form.html:61 templates/search/search_form.html:77
+#: templates/search/search_form.html:93 templates/search/search_form.html:109
+msgid "Select"
+msgstr ""
+
+#: templates/search/search_form.html:75
+#, fuzzy
+#| msgid "Recipient or Dedicatee"
+msgid "Recipient Or Dedicatee"
+msgstr "Destinatario o Dedicatario"
+
+#: templates/search/search_form.html:125
 msgid "Start Year"
 msgstr "Inizio anno"
 
-#: search/templates/search/search_form.html:60
+#: templates/search/search_form.html:129
 msgid "End Year"
 msgstr "Fine anno"
 
-msgid "Contact us"
-msgstr "Contattaci"
+#~ msgid "Homepage"
+#~ msgstr "Homepage"
 
-msgid "Your email address"
-msgstr "Il tuo indirizzo di posta elettronica"
+#~ msgid "Home"
+#~ msgstr "Case"
 
-msgid "Subject of your message"
-msgstr "Oggetto del messaggio"
+#~ msgid "User's Guide"
+#~ msgstr "Guida dell'utente"
 
-msgid "Your message"
-msgstr "Il tuo messagio"
+#~ msgid "Sign In"
+#~ msgstr "Registrati"
 
-msgid "This is a contact form. Please fill out the form and click submit and we'll get back to you in 2-5 days. Thanks!"
-msgstr "Si tratta di un modulo di contatto. Si prega di compilare il modulo e fare clic su Invia e noi arriveremo di nuovo a voi in 2-5 giorni. Grazie!"
+#~ msgid "Item Description"
+#~ msgstr "descrizione dell'articolo"
+
+#~ msgid "place"
+#~ msgstr "posto"
+
+#~ msgid "date"
+#~ msgstr "data"
+
+#~ msgid "item type"
+#~ msgstr "tipo di elemento"
+
+#~ msgid "Previous"
+#~ msgstr "Precedente"
+
+#~ msgid "Next"
+#~ msgstr "Il prossimo"
+
+#~ msgid "Keywords"
+#~ msgstr "Parola chiave"
+
+#~ msgid "musical manuscript"
+#~ msgstr "manoscritto muscale"
+
+#~ msgid "letter"
+#~ msgstr "lettera"
+
+#~ msgid "picture"
+#~ msgstr "immagine"
+
+#~ msgid "printed music"
+#~ msgstr "musica stampata"
+
+#~ msgid "musical quotation"
+#~ msgstr "citzione musicale"
+
+#~ msgid "Contact us"
+#~ msgstr "Contattaci"
+
+#~ msgid "Your email address"
+#~ msgstr "Il tuo indirizzo di posta elettronica"
+
+#~ msgid "Subject of your message"
+#~ msgstr "Oggetto del messaggio"
+
+#~ msgid "Your message"
+#~ msgstr "Il tuo messagio"
+
+#~ msgid ""
+#~ "This is a contact form. Please fill out the form and click submit and "
+#~ "we'll get back to you in 2-5 days. Thanks!"
+#~ msgstr ""
+#~ "Si tratta di un modulo di contatto. Si prega di compilare il modulo e "
+#~ "fare clic su Invia e noi arriveremo di nuovo a voi in 2-5 giorni. Grazie!"

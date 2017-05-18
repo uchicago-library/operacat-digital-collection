@@ -2,6 +2,8 @@
 {% load i18n %}
 {% load static wagtailcore_tags %}
 
+{% block title %}{% trans 'Search Results' %}{% endblock %}
+
 {% block body_class %}template-searchresults{% endblock %}
 
 {% block title %}{% trans 'Search' %}{% endblock %}
@@ -129,15 +131,15 @@
 	    </ul>
 	    {% endif %}
             <table class="table table-striped table-results">
-                <h2> Search Result {{ start_pointer }} to {{ end_pointer }} from {{ total_results }} item{% if total_results > 1 %}s{% else %}{% endif %}</h2>
-		<p>Your query was: {{ search_query }}. <a href="{% slugurl 'home' %}">New Search</a></p>
+                <h2>{% trans 'Search Result' %} {{ start_pointer }} to {{ end_pointer }} from {{ total_results }} item{% if total_results > 1 %}s{% else %}{% endif %}</h2>
+		<p>{% blocktrans %}Your query was{% endblocktrans %}: {{ search_query }}. <a href="{% slugurl 'home' %}">{% trans 'New Search' %}</a></p>
                 <thead>
                     <tr>
-                        <th>Item</th>
-                        <th>Author/Responsible</th>
-                        <th>Recipient/Dedicatee</th>
-                        <th>Places</th>
-                        <th>Types</th>
+                        <th>{% trans 'Item' %}</th>
+                        <th>{% trans 'Author/Responsible' %}</th>
+                        <th>{% trans 'Recipient/Dedicatee' %}</th>
+                        <th>{% trans 'Places' %}</th>
+                        <th>{% trans 'Types' %}</th>
                     </tr>
                 </thead>
             	<tbody>
@@ -307,7 +309,7 @@
 
            {% endif %}
     	   {% else %}
-		<p>No results found.</p>
+		<p>{% blocktrans %}No results found{% endblocktrans %}.</p>
     	   {% endif %}
 {% endblock %}
 
