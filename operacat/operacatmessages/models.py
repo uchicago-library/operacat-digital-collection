@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.mail import send_mail
+from datetime import date
 
 from modelcluster.fields import ParentalKey
 from wagtail.wagtailadmin.edit_handlers import (FieldPanel, FieldRowPanel,
@@ -28,3 +30,21 @@ class FormPage(AbstractEmailForm):
             FieldPanel('subject'),
         ], "Email"),
     ]
+
+    def send_mail(self, form):
+        addresses = [x.strip() for x in self.to_address.split(',')]
+        print(addresses)
+        content = []
+        for field in form:
+            value = field.value()
+            if isinstance(value, list):
+                value = ', '.join(value)
+            content.append('{}: {}'.format(field.label, value))
+        submitted_date_str = date.today().strftime('%x')
+        content.append('{}: {}'.format(
+            'Submitted', submitted_date_str))
+        content.append('{}: {}'.format(
+            'Submitted Via', self.full_url))
+        content = '\n'.join(content)
+        subject = self.subject + " - " + submitted_date_str
+        send_mail(subject, content, self.from_address, addresses)

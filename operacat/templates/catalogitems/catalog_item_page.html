@@ -44,8 +44,9 @@
 		    </a>
 		</div>
 		{% endif %}
-
+                <h2>{% trans 'Comments' %}</2h>
 		{% if request.user.is_authenticated %}
+
     			{% get_comment_form for self as make_comment %}
     			<form action="{% comment_form_target %}" method="post">
 			    {% csrf_token %}
@@ -78,7 +79,6 @@
 		        </form>
     			{% render_comment_list for self %}
 	        {% else %}
-                        <h1>{% trans 'Comments' %}</h1>
 		        <p>{% trans 'Please' %} <a href="/login/">login</a> {% trans 'or' %} <a href="/accounts/register/">sign up</a> {% blocktrans %}to leave a comment{% endblocktrans %}.</p>
 	        {% endif %}
     </div> <!-- // END center div -->

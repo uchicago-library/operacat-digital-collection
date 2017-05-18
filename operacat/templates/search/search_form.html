@@ -42,7 +42,7 @@
             <div class="form-group">
                        <label for="item-type-query">{% trans 'Item Type' %}</label>
                        <select class="form-control" id="item-type-query" name="item-type-query">
-                	   <option value="none">{% trens 'Select' %}...<option>
+                	   <option value="none">{% trans 'Select' %}...<option>
                    {% if page.item_types %}
                    {% for a_type in page.item_types %}
                         <option value="{{ a_type.type_name }}">{{ a_type.type_name }}</option>
