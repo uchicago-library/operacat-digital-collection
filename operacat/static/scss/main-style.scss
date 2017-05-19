@@ -294,25 +294,35 @@ table.table-results {
 			border-color: $accent;
 		}
 	}
-	tbody>tr {
-		span, a {
-			display: block;
+	tbody {
+		ul {
+			list-style: none;
+		    padding-left: 1em;
+		    text-indent: -1em;
+		    li {
+	    	    margin-bottom: 0.5em;
+		    }
 		}
-		td {
-			span.description {
-		      	padding-top: 1em;
-		    }
-		    .identifier, span.title {
-		    	font-weight: 700;
-		    }
-			&:first-child {
-				@include respond-to(small) {
-					width: 40%;
+		&>tr {
+			span, a {
+				display: block;
+			}
+			td {
+				span.description {
+			      	padding-top: 1em;
+			    }
+			    .identifier, span.title {
+			    	font-weight: 700;
+			    }
+				&:first-child {
+					@include respond-to(small) {
+						width: 40%;
+					}
 				}
 			}
-		}
-		&:nth-of-type(odd) {
-			background-color: #fbf9f5;
+			&:nth-of-type(odd) {
+				background-color: #fbf9f5;
+			}
 		}
 	}
   @include respond-to(smallonly) {
@@ -331,6 +341,7 @@ table.table-results {
 	background-color: $primary;
     width: 100%;
     padding: 1em 0;
+    margin-top: 2em;
     .container {
     	text-align: center;
     }
