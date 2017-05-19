@@ -354,6 +354,12 @@ table.table-results {
     color: #B1746F; }
     table.table-results thead tr > th {
       border-color: #B1746F; }
+  table.table-results tbody ul {
+    list-style: none;
+    padding-left: 1em;
+    text-indent: -1em; }
+    table.table-results tbody ul li {
+      margin-bottom: 0.5em; }
   table.table-results tbody > tr span, table.table-results tbody > tr a {
     display: block; }
   table.table-results tbody > tr td span.description {
@@ -377,7 +383,8 @@ footer {
   color: #fff;
   background-color: #800000;
   width: 100%;
-  padding: 1em 0; }
+  padding: 1em 0;
+  margin-top: 2em; }
   footer .container {
     text-align: center; }
   footer a {
