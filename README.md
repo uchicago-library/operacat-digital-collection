@@ -25,9 +25,6 @@ b'\askdlfjaklsdfjlkasdf\'
 ```
 from .base import * 
 
-PROJECT_DIR = os.path.dirname([absolute_path_to_top_level_repo_directory])
-BASE_DIR = os.path.dirname(PROJECT_DIR)
-
 # secret key configuration value
 SECRET_KEY = your_secret_key
 
@@ -38,39 +35,6 @@ DATABASES = {
         'NAME': os.path.join(PROJECT_DIR, 'operacat_dabase'),
     }
 }
-
-# location to find static files; to change the location of static files modify STATIC_ROOT variable
-
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
-
-# location to find media files
-
-MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media')
-
-# template configuration; to change the location change the path pointed to in DIRS key
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join('/data/recitative/sites', 'templates'),
-        ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-# start of locales path configuration
-LOCALE_PATHS = (
-    os.path.join(PROJECT_DIR, "locale"),
-)
 ```
 
 Core contributors
