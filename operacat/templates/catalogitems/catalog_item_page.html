@@ -6,6 +6,7 @@
 {% load wagtailimages_tags %}
 {% load i18n %}
 
+{% block title %}{% blocktrans %}Viewing a Catalog Item Record{% endblocktrans %}{% endblock %}
 {% block content %}
 
 <div class="row"> <!-- // START main row -->
@@ -19,12 +20,12 @@
 		{% endif %}
 
 		{% if page.field_notes %}
-                <h2>Field Notes</h2>
+                <h2>{% trans 'Field Notes' %}</h2>
 		{{ page.field_notes|richtext }}
 		{% endif %}
 
 		{% if page.images.all %}
-                <h2>Images</h2>
+                <h2>{% trans 'Images' %}</h2>
 
 		<div class="row">
 		    {% for block in page.images %}
@@ -43,8 +44,9 @@
 		    </a>
 		</div>
 		{% endif %}
-
+                <h2>{% trans 'Comments' %}</h2>
 		{% if request.user.is_authenticated %}
+
     			{% get_comment_form for self as make_comment %}
     			<form action="{% comment_form_target %}" method="post">
 			    {% csrf_token %}
@@ -72,82 +74,82 @@
 			    {% endfor %}       
 			    <input type="hidden" name="next" value="{% pageurl page.catalogitempage %}" />
 				    <div class="form-group">
-				        <button type="submit" class="btn btn-primary">Post Comment</button>
+				        <button type="submit" class="btn btn-primary">{% trans 'Post Comment' %}</button>
 				    </div>
 		        </form>
     			{% render_comment_list for self %}
 	        {% else %}
-		        <p>Please <a href="/login/">login</a> or <a href="/accounts/register/">sign up</a> to leave a comment.</p>
+		        <p>{% trans 'Please' %} <a href="/login/">login</a> {% trans 'or' %} <a href="/accounts/register/">sign up</a> {% blocktrans %}to leave a comment{% endblocktrans %}.</p>
 	        {% endif %}
     </div> <!-- // END center div -->
     <div class="col-xs-12 col-sm-3 sidebar"> <!-- // START Sidebar -->
 
        {% if page.item_composer %}
-       <h2>Composer</h2>
+       <h2>{% trans 'Composer' %}</h2>
        <ul>
-          <li><a href="{% url 'composer-browse' composer_id=page.item_composer.id %}">{{ page.item_composer.last_name }}, {{ page.item_composer.first_name }}</a></li>
+          <li><a href="{% url 'advanced_search' %}?composer-query={{ page.item_composer.last_name }}">{{ page.item_composer.last_name }}, {{ page.item_composer.first_name }}</a></li>
        </ul>
        {% endif %}
 
        {% if page.item_authororesposibles.all %}
-       <h2>Author or Responsible</h2>
+       <h2>{% blocktrans %}Author or Responsible{% endblocktrans %}</h2>
        <ul>
 	{% for author in page.item_authororesposibles.all %}
-	<li><a href="{% url 'author_view' author_id=author.an_author.id %}">{{ author.an_author.author_name }}</li>
+	<li><a href="{% url 'advanced_search' %}?author-or-responsible-query={{ author.an_author.author_name }}">{{ author.an_author.author_name }}</li>
 	{% endfor %}
        </ul>
        {% endif %}
 
        {% if page.item_recipientordedicatees.all %}
-       <h2>Recipient or Dedicatee</h2>
+       <h2>{% blocktrans %}Recipient or Dedicatee{% endblocktrans %}</h2>
        <ul>
 	{% for recipient in page.item_recipientordedicatees.all %}
-	<li><a href="{% url 'recipient_view' recipient_id=recipient.a_recipient.id %}">{{ recipient.a_recipient.recipient_name }}</li>
+	<li><a href="{% url 'advanced_search' %}?recipient-or-dedicatee-query={{ recipient.a_recipient.recipient_name }}">{{ recipient.a_recipient.recipient_name }}</li>
 	{% endfor %}
        </ul>
        {% endif %}
 
-       {% if page.item_types.alll %}
-       <h2>Type</h2>
+       {% if page.item_types.all %}
+       <h2>{% trans 'Item Type' %}</h2>
        <ul>
 	  {% for a_type in page.item_types.all %}
-              <li><a href="{% url 'item-type-view' type_id=a_type.a_type.id %}">{{ a_type.a_type.type_name }}</a></li>
+              <li><a href="{% url 'advanced_search' %}?item-type-query={{ a_type.a_type.type_name }}">{{ a_type.a_type.type_name }}</a></li>
 	 {% endfor %}
        </ul>
        {% endif %}
 
        {% if page.item_places.all %}
-       <h2>Place</h2>
+       <h2>{% trans 'Place' %}</h2>
        <ul>
 	 {% for place in page.item_places.all %}	
 	      <li>
-		<a href="{% url 'place-view' place_id=place.a_place.id %}">{{ place.a_place.place_name }}</a>
+		<a href="{% url 'advanced_search' %}?place-query={{ place.a_place.place_name }}">{{ place.a_place.place_name }}</a>
 	     </li>
 	 {% endfor %}
        </ul>
        {% endif %}
 
        {% if page.date_information %}	
-       <h2>Dates</h2>
-       <ul>
-           {% for n in page.date_information %}
-              <li>{{ n }}</li>
-           {% endfor %}
-       </ul>
+        <h2>{% trans 'Dates' %}</h2>
+         {% for block in page.date_information %} 
+                {% if block.block_type == 'date_label' %}
+                        {% include_block block %}
+                {% endif %}
+         {% endfor %}
        {% endif %}
 
        {% if page.item_titles.all %}
-	<h2>Title</h2>
+	<h2>{% trans 'Title' %}</h2>
 	<ul>
 	    {% for title in page.item_titles.all %}
-	        <li><a href="{% url 'title_view' title_id=title.a_title.id %}">{{ title.a_title.name }}</a></li>
+	        <li><a href="{% url 'advanced_search' %}?title-query={{ title.a_title.name }}">{{ title.a_title.name }}</a></li>
 	    {% endfor %}	
 	</ul>
 	</h2>
        {% endif %}
 
        {% if page.related_items %}
-       <h2>Related Items</h2>
+       <h2>{% trans 'Related Items' %}</h2>
        <ul>
            {% for an_item in page.related_items %}
 	      <li>{{ an_item }}</li>
@@ -155,15 +157,15 @@
        </ul>
        {% endif %}
 
-       <h2>Dealer</h2>
+       <h2>{% trans 'Dealer' %}</h2>
        <ul>
-	   <li><a href="{% url 'dealer-view' dealer_id=page.item_dealer.id %}">{{ page.item_dealer.dealer_name }}</a></li>
+	   <li><a href="{% url 'advanced_search' %}?dealer-query={{  page.item_dealer.dealer_name }}">{{ page.item_dealer.dealer_name }}</a></li>
        </ul>
-       <h2>Catalog</h2>
+       <h2>{% trans 'Catalog' %}</h2>
        <ul>
-	   <li><a href="{% url 'catalog-view' catalog_id=page.item_catalog.id %}">{{ page.item_catalog.catalog_name }}</a></li>
+	   <li><a href="{% url 'advanced_search' %}?catalog-query={{ page.item_catalog.catalog_name }}">{{ page.item_catalog.catalog_name }}</a></li>
        </ul>
-       <h2>Lot</h2>
+       <h2>{% trans 'Lot' %}</h2>
        <ul>
           <li>{{ page.lot }}</li>
        </ul>

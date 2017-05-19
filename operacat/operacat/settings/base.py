@@ -33,12 +33,6 @@ INSTALLED_APPS = [
     'search',
     'catalogitems',
     'operacatmessages',
-    'composerview',
-    'dealerview',
-    'itemtypeview',
-    'placeview',
-    'catalogview',
-    'titleview',
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
@@ -68,6 +62,7 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -131,12 +126,13 @@ TEMPLATES = [
 
 # static file configuration
 
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'
 

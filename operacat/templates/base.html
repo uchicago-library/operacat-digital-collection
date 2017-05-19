@@ -103,18 +103,6 @@
                 </div>
             </div>
         </nav>
-    <div class="container">
-		{% if self.get_ancestors|length > 1 %}
-			<ul class="breadcrumb">
-			{% for page in self.get_ancestors %}
-			{% if page.is_root == False %}
-			<li><a href="{% pageurl page %}">{% trans  page.title %}</a></li>
-			{% endif %}
-			{% endfor %}
-			<li class="active">{% trans self.title %}</li>
-			</ul>
-		{% endif %}
-    </div>
     <div class="container site-content">
         {% wagtailuserbar %}
 
@@ -123,8 +111,8 @@
     </div>
     <footer class"footer">
 	<div class="container">
-		<p class="text-muted center">&copy;2005 University of Chicago</p>
-		<p class="text-muted center"><a href="http://humanities.uchicago.edu/orgs/ciao/">Center for Italian Opera Studies</a></p>
+		<p class="text-muted center">&copy;2005 {% trans 'University of Chicago' %}</p>
+		<p class="text-muted center"><a href="http://humanities.uchicago.edu/orgs/ciao/">{% blocktrans %}Center for Italian Opera Studies{% endblocktrans %}</a></p>
 	</div>
     </footer>
      {# Global javascript #}

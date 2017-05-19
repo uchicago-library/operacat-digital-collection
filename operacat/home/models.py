@@ -6,6 +6,8 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 
+from catalogitems.models import PieceTitle, Place, ItemType, Composer, AuthorOrResponsible, RecipientOrDedicatee
+
 class TranslatedField(object):
     def __init__(self, en_field, it_field):
         self.en_field = en_field
@@ -19,7 +21,15 @@ class TranslatedField(object):
 
 class HomePage(Page):
 
-    content_panels = Page.content_panels 
+    content_panels = Page.content_panels
+
+    composers = Composer.objects.all().order_by('last_name')
+    piece_titles = PieceTitle.objects.all().order_by('name')
+    places = Place.objects.all().order_by('place_name')
+    item_types = ItemType.objects.all().order_by('type_name')
+    authors_responsibles = AuthorOrResponsible.objects.all().order_by('author_name')
+    recipients_dedicatees = RecipientOrDedicatee.objects.all().order_by('recipient_name')
+
 
 class GenericPage(Page):
     body = RichTextField(blank=True, null=True)
