@@ -6,9 +6,12 @@ This repo contains the source code for the Operacat website. This is a migration
 Quickstart Instructions
 =======================
 
-1. git clone https://github.com/uchicago-library/operacat/
-2. create file local.py in operacat/operacat/settings/ directory
-3. generate a secret key
+1. create a virtual environment for python3.5
+2. activate your virtual environment
+3. run pip install wagtail
+4. git clone https://github.com/uchicago-library/operacat/
+5. create file local.py in operacat/operacat/settings/ directory
+6. generate a secret key
 
 TIP: to generate a new secret key open a python interpreter shell and run the code below. You can copy the output generated and paste it as the value of your SECRET_KEY variable.
 
@@ -20,7 +23,7 @@ b'\x03\x9a\x93\xf1\x9c\xeaG\xd0\xff\xdc\xa2\xfb\xe5\x05H\x7f3/rB\t\xbd_\xf7'
 >> exit()
 ```
 
-4. add the followiing configuration definition to new local.py file
+7. add the followiing configuration definition to new local.py file
 
 ```
 from .base import * 
@@ -37,18 +40,20 @@ DATABASES = {
 }
 ```
 
-5. run python manage.py migrate
-6. run python.manage.py createsuperuser
+8. run python manage.py migrate
+9. run python.manage.py createsuperuser
 
     - fill in the username 'operacatadmin'
     - enter a password for the user of your choice
     - re-enter the password you chose in the previous step
 
-7. run python manage.py loaddata testdata/site_data.json
-8. run python manage.py runserver
-9. click on the wagtailuserbar icon in the bottom righthand corner of the screen
-10. enter the username "opercatadmin" and the password you entered in the creatsuperuser step
-11. you should see the admin home page of wagtail site declaring there are 5,445 pages in the site
+TIP: your dev database is a sqlite3 database file in operacat-digital-collection/operacat/operacat/
+
+10. run python manage.py loaddata testdata/site_data.json
+11. run python manage.py runserver
+12. click on the wagtailuserbar icon in the bottom righthand corner of the screen
+13. enter the username "opercatadmin" and the password you entered in the creatsuperuser step
+14. you should see the admin home page of wagtail site declaring there are 5,445 pages in the site
 
 Production Deployment Tips
 ==========================
