@@ -133,25 +133,19 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
+STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+)
+
 
 STATIC_URL = '/static/'
+
 
 # media file url configuration
 
 MEDIA_URL = '/media/'
 
-# Wagtail search backend 
-
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch',
-        'URLS': ['http://localhost:9200/'],
-        'INDEX': 'wagtail',
-        'TIMEOUT': 5,
-        'OPTIONS': {},
-        'INDEX_SETTINGS': {},
-    }
-}
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Wagtail settings
 
