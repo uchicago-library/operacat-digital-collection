@@ -44,7 +44,7 @@ DATABASES = {
     - enter a password for the user of your choice
     - re-enter the password you chose in the previous step
 
-7. run python manage.py loaddata site_data.json
+7. run python manage.py loaddata testdata/site_data.json
 8. run python manage.py runserver
 9. click on the wagtailuserbar icon in the bottom righthand corner of the screen
 10. enter the username "opercatadmin" and the password you entered in the creatsuperuser step
