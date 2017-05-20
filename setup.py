@@ -6,7 +6,7 @@ def readme():
 
 setup(
     name='operaCat',
-    version='1.0',
+    version='0.9.1',
     author = ['Tyler Danstrom', 'Kathy Zadrozny'],
     author_email = ['tdanstrom@uchicago.edu', 'kzadrozny@uchicago.edu'],
     description="A website developed by the authors for the Digital Library Development to present records of items collected from auction sales about five famous Italian composers",
