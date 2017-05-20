@@ -49,5 +49,3 @@ if local.DEBUG:
         url(r'^favicon\.ico$', RedirectView.as_view(url=base.STATIC_URL + 'myapp/images/favicon.ico'))
     ]
 
-print(base.STATIC_ROOT)
-print(urlpatterns)
