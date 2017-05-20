@@ -8,8 +8,6 @@ from django.views.generic.base import RedirectView
 from django.conf.urls.i18n import i18n_patterns
 import os
 
-from .settings import base, local
-
 from search import views as search_views
 from dealerview import views as dealer_view
 
@@ -38,14 +36,13 @@ urlpatterns += i18n_patterns(url(r'^search/$', search_views.search, name='search
                              url(r'', include(wagtail_urls))
 )
 
-if local.DEBUG:
-    print("hi")
+if settings.DEBUG:
     from django.conf.urls.static import static
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns() # tell gunicorn where static files are in dev mode
-    urlpatterns += static(base.MEDIA_URL + 'images/', document_root=os.path.join(base.MEDIA_ROOT, 'images'))
+    urlpatterns += static(settings.MEDIA_URL + 'images/', document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
     urlpatterns += [
-        url(r'^favicon\.ico$', RedirectView.as_view(url=base.STATIC_URL + 'myapp/images/favicon.ico'))
+        url(r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'operacat/images/favicon.ico'))
     ]
 
