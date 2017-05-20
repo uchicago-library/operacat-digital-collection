@@ -50,6 +50,71 @@ DATABASES = {
 10. enter the username "opercatadmin" and the password you entered in the creatsuperuser step
 11. you should see the admin home page of wagtail site declaring there are 5,445 pages in the site
 
+Production Deployment Tips
+==========================
+
+1. git clone https://github.com/uchicago-library/operacat to your production server
+2. verify that elasticsearch is installed and running on port 9200 on your production server
+3. verify that postgres is installed and running on your production server
+4. create a database named whatever you want (I recommend naming it after the project so "operacat") and assign all privileges over that database to a specific user. Keep note of the username and password with those privileges over the database.
+3. check the version of elasticsearch that is running on your production server
+3. create a virtual environment on your production server
+4. add the following to your production server instance local.py file
+
+```
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+        'URLS': ['http://localhost:9200'],
+        'INDEX': 'wagtail',
+        'TIMEOUT': 5,
+        'OPTIONS': {},
+        'INDEX_SETTINGS': {},
+    }
+}
+```
+5. change the database definition in your local.py file to the following
+
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': '[name of the database you created in step four]',
+        'USER': '[user with all privileges for the database]',
+        'PASSWORD': "[password for the user that has all privileges over the database]",
+        'HOST': '[your production server, default is localhost'
+    }
+}
+```
+6. set ALLOWED_HOSTS in your local.py file
+```
+ALLOWED_HOSTS = ['your.production.domain.name']
+```
+
+7. pip install the appropriate version of elasticsearch to your virtual environment
+    - "elasticsearch>=1.0.0,<2.0.0"  # for Elasticsearch 1.x
+    - "elasticsearch>=2.0.0,<3.0.0"  # for Elasticsearch 2.x
+    - "elasticsearch>=5.0.0,<6.0.0"  # for Elasticsearch 5.x
+7.  run python setup.py install inside the opercat-digital-collection directory
+8. add the following configuration to your web server. The examples are for Apache but they are probably similar to NGINX or whatever web server your production server is running
+
+```
+Alias /static /path/to/static/files/on/your/production/server
+Alias /media /path/to/media/files/on/your/production/server
+
+<Directory /path/to/media/files/on/your/production/server>
+ Require all granted
+</Directory>
+
+<Directory /path/to/static/files/on/your/production/server>
+ Require all granted
+</Directory>
+
+WSGIScriptAlias / /path/to/wsgi/file/in/your/virtualenv/installation/wsgi.py
+WSGIDaemonProcess [unique wsgi domain name] python-path=/path/to/your/operacat/install/directory python-home=/path/to/your/virtualenv/for/operacat user=wsgi group=wsgi threads=15 processes=1 umask=0002
+WSGIProcessGroup [unique wsgi process group name]
+```
+
 Core contributors
 =================
 
