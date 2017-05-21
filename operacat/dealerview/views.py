@@ -11,7 +11,6 @@ def search_by_keyword(request):
     dealers = Dealer.objects.filter(dealer_name__contains=the_query)
     print(dealers)
     search_results = CatalogItemPage.objects.filter(item_dealer__in=dealers).order_by('title')
-    print(search_results)
     query = Query.get(the_query)
     query.add_hit()
     paginator = Paginator(search_results, 100)

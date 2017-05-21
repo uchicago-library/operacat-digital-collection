@@ -10,7 +10,7 @@ Quickstart Instructions
 2. create a virtual environment for python3.5
 3. activate your virtual environment
 4. run pip install wagtail
-5. git clone https://github.com/uchicago-library/operacat/
+5. git clone https://github.com/uchicago-library/operacat-digital-collection/
 6. create file local.py in operacat/operacat/settings/ directory
 7. generate a secret key
 
@@ -59,7 +59,7 @@ TIP: your dev database is a sqlite3 database file in operacat-digital-collection
 Production Deployment Tips
 ==========================
 
-1. git clone https://github.com/uchicago-library/operacat to your production server
+1. git clone https://github.com/uchicago-library/operacat-digital-collection/ to your production server
 2. verify that elasticsearch is installed and running on port 9200 on your production server
 3. verify that postgres is installed and running on your production server
 4. create a database named whatever you want (I recommend naming it after the project so "operacat") and assign all privileges over that database to a specific user. Keep note of the username and password with those privileges over the database.

@@ -262,7 +262,7 @@ class CatalogItemPage(Page):
         index.SearchField("item_catalog"),
         index.SearchField("item_dealer"),
         index.FilterField("lot"),
-	index.FilterField('title', partial_match=True),
+        index.FilterField('title', partial_match=True),
         index.SearchField('item_description', partial_match=True),
         index.SearchField('field_notes', partial_match=True),
     ]
