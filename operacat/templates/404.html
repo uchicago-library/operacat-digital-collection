@@ -4,7 +4,13 @@
 {% block body_class %}template-404{% endblock %}
 
 {% block content %}
-    <h1>{% blocktrans %}Page not found{% endblocktrans %}</h1>
 
-    <h2>{% blocktrans %}Sorry, this page could not be found{% endblocktrans %}.</h2>
+    <div class="col-xs-12 col-sm-offset-1 col-sm-8 main-content"> <!-- // START center div -->
+
+    <h1>{% blocktrans %}Page not  found{% endblocktrans %}</h1>
+
+    <p>{% blocktrans %}Sorry, this page could not be found{% endblocktrans %}.</p>
+
+    </div> <!-- // END center div -->
+
 {% endblock %}

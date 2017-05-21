@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>{% blocktrans %}Internal server error{% endblocktrans %}</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body>
-        <h1>{% blocktrans %}Internal server error{% endblocktrans %}</h1>
 
-        <h2>{% blocktrans %}Sorry, there seems to be an error. Please try again soon{% endblocktrans %}.</h2>
-    </body>
-</html>
+{% load i18n %}
+{% extends "base.html" %}
+
+{% block body_class %}template-500{% endblock %}
+
+{% block content %}
+
+    <div class="col-xs-12 col-sm-offset-1 col-sm-8 main-content"> <!-- // START center div -->
+
+    <h1>{% blocktrans %}Internal server error{% endblocktrans %}</h1>
+
+    <p>{% blocktrans %}Something went wrong with our server! We should be able to fix it soon. But, in case you're in a hurry send us an email.% endblocktrans %}.</p>
+
+    </div> <!-- // END center div -->
+
+{% endblock %}
