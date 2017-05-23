@@ -17,6 +17,7 @@ from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.wagtailsearch import index
 
+
 @register_snippet
 class Dealer(models.Model):
     dealer_name = models.CharField(max_length=255)
