@@ -13,9 +13,14 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         data = json.load(open(options["legacy_data_filepath"], "r", encoding="utf-8"))
         successful = open(join(dirname(options["legacy_data_filepath"]), 'successful.txt'), "w")
+        counter = 0
+        total = 0
+        all_available = 0
         for n in data:
+            all_available += 1
             current = CatalogItemPage.objects.filter(title=n["item"])
             if current.count() == 1:
+                 total += 1
                  current = current[0]
                  if n.get("related items", None):
                      rels = []
@@ -29,10 +34,11 @@ class Command(BaseCommand):
                      successful.write("{}\n".format(current.title))
                      current.related_items.stream_data = rels
                      current.save()
-                 else:
-                    pass
-                     #self.stderr.write("{} has no related items".format(current.title))
-            else:
-                pass
-                 #self.stderr.write("{} has no corresponding catalog item page.".format(n["item"]))
+                     counter += 1
 
+                 else:
+                     self.stderr.write("{} has no related items".format(current.title))
+            else:
+                 self.stderr.write("{} has no corresponding catalog item page.".format(n["item"]))
+
+            self.stdout"{} records modified out of {} total potentially  modifiable records from {} total records in legacy data".format(counter, total, all_available))
