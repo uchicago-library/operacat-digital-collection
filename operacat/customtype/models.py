@@ -53,9 +53,11 @@ class CustomType(Page):
                                     'customtype.CustomType'))],
                                                    blank=True, null=True)
 
+    sample_text_field = RichTextField(default="this is an item description")
     content_panels = Page.content_panels + [
         SnippetChooserPanel("item_catalog"),
         StreamFieldPanel("related_items"),
         StreamFieldPanel("date_information"),
         InlinePanel("custom_titles", label="Custom Titles"),
+        FieldPanel("sample_text_field"),
     ]

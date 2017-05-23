@@ -1,6 +1,7 @@
 
 from django.core.management.base import BaseCommand, CommandError
-from catalogitems.models import CatalogItemPage, Place, Dealer, Composer
+from catalogitems.models import CatalogItemPage, Place, Dealer,\
+ Composer, AuthorOrResponsible, RecipientOrDedicatee
 import json
 from os.path import dirname, join
 
@@ -21,11 +22,24 @@ class Command(BaseCommand):
         all_available = 0
         for n in data:
             cur = CatalogItemPage.objects.filter(title=n["item"])
-                 if n.get("place", None):
-
+            if cur.count() == 1:
+                cur = cur[0]
+                if n.get("place", None):
+                    for p in n["place"]:
+                        place_rec = Place.objects.filter(place_name=p)
+                        if place_rec.count() == 1:
+                            cur.item_places.create(a_place=place_rec[0])
                 if n.get("author or responsible", None):
-
+                    for au in n["author or responsible"]:
+                        au_name = au["name"]
+                        au_record = AuthorOrResponsible.objects.filter(author_name=au_name)
+                        if au_record.count() == 1:
+                            cur.item_authororesposibles.create(an_author=au_record[0])
                 if n.get("recipient or dedicatee", None):
+                    for re in n["recipient or dedicatee"]:
+                        re_name = re["name"]
+                        re_record = RecipientOrDedicatee.objects.filter(recipient_name=re_name)
+                        if re_record.count() == 1:
+                            cur.item_recipientordedicatees.create(a_recipient=re_record[0])
 
-
- 
+     
