@@ -137,7 +137,6 @@ class PieceTitle(models.Model):
         FieldPanel("name"),
     ]
 
-
     search_fields = [
         index.FilterField('name', partial_match=True),
     ]
