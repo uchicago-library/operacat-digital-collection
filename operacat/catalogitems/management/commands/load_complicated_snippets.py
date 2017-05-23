@@ -41,5 +41,3 @@ class Command(BaseCommand):
                         re_record = RecipientOrDedicatee.objects.filter(recipient_name=re_name)
                         if re_record.count() == 1:
                             cur.item_recipientordedicatees.create(a_recipient=re_record[0])
-
-     
