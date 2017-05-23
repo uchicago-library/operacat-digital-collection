@@ -13,3 +13,7 @@ package.json
 *operacat.db
 *django.mo
 *txt
+*.sublime-project
+*.sublime-workspace
+*operacat_dabase
+*migrations*
