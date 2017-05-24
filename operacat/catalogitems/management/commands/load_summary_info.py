@@ -24,9 +24,10 @@ class Command(BaseCommand):
                if n.get("item description", None):
                    val = n["item description"]
                    cur.item_description = "<p>" + val.strip() + "</p>"
+               else:
+                   self.stderr.write("{} has no item description".format(n["item"]))
                if n.get("item notes", None):
+
                    val = n["item notes"]
                    cur.field_notes = "<p>" + val.strip() + "</p>"
-                   print(cur.title)
-                   print(cur.field_notes.encode('utf-8'))
                cur.save()

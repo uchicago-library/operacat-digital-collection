@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'search',
     'catalogitems',
     'operacatmessages',
-    'customtype',
     'catalogimage',
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',

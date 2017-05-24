@@ -35,10 +35,8 @@ class Command(BaseCommand):
                      current.related_items.stream_data = rels
                      current.save()
                      counter += 1
-
                  else:
                      self.stderr.write("{} has no related items".format(current.title))
             else:
                  self.stderr.write("{} has no corresponding catalog item page.".format(n["item"]))
-
-            self.stdout.write("{} records modified out of {} total potentially  modifiable records from {} total records in legacy data".format(counter, total, all_available))
+        self.stdout.write("{} records modified out of {} total potentially  modifiable records from {} total records in legacy data".format(counter, total, all_available))

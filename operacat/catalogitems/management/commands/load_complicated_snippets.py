@@ -35,7 +35,6 @@ class Command(BaseCommand):
                         au_record = AuthorOrResponsible.objects.filter(author_name=au_name)
                         if au_record.count() == 1:
                             cur.item_authororesposibles.create(an_author=au_record[0])
-                            print(cur.item_authororesposibles.all())
                 if n.get("recipient or dedicatee", None):
 
                     for re in n["recipient or dedicatee"]:
@@ -46,7 +45,6 @@ class Command(BaseCommand):
                 if n.get("place", None):
                     for pl in n["place"]:
                         pl_name = pl
-                        print(pl_name)
                         pl_record = Place.objects.filter(place_name=pl_name)
                         if pl_record.count() == 1:
                             cur.item_places.create(a_place=pl_record[0])
