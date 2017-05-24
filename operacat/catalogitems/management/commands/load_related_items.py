@@ -41,4 +41,4 @@ class Command(BaseCommand):
             else:
                  self.stderr.write("{} has no corresponding catalog item page.".format(n["item"]))
 
-            self.stdout"{} records modified out of {} total potentially  modifiable records from {} total records in legacy data".format(counter, total, all_available))
+            self.stdout.write("{} records modified out of {} total potentially  modifiable records from {} total records in legacy data".format(counter, total, all_available))

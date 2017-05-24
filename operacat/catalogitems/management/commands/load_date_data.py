@@ -33,6 +33,10 @@ class Command(BaseCommand):
                         for dl in date_labels:
                             a_val = {'type': 'date_label', 'value': dl}
                             date_values.append(a_val)
+                    else:
+                        a_val = {'type': 'date_label', 'value': 's.d.'}
+                        print(a_val)
+                        date_values.append(a_val)
                     if dates:
                         for d in dates:
                             if type(d) != type([]):
@@ -62,6 +66,7 @@ class Command(BaseCommand):
                                                    'month': pulled_val_parts[0]}}
                                 date_values.append(sd_val)
                     cur.date_information.stream_data = date_values
+                    print(cur.date_information.stream_data)
                     cur.save()
                 else:
                     self.stderr.write("{} has no date information to add".\

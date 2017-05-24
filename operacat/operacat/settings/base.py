@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'catalogitems',
     'operacatmessages',
     'customtype',
+    'catalogimage',
     'wagtail.wagtailforms',
     'wagtail.wagtailredirects',
     'wagtail.wagtailembeds',
@@ -136,7 +137,6 @@ STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
 )
 
-
 STATIC_URL = '/static/'
 
 
@@ -145,6 +145,10 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Wagtail image model
+
+WAGTAILIMAGES_IMAGE_MODEL = 'catalogimage.CatalogImage'
 
 # Wagtail settings
 
