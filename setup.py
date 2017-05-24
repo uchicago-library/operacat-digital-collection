@@ -15,6 +15,6 @@ setup(
     packages=['operacat'],
     include_package_data=True,
     zip_safe=False,
-    install_requires=['Django', 'wagtail', 'django-contrib-comments', 'django-comments-xtd', 'django-registration-redux']
+    install_requires=['django', 'wagtail', 'django-contrib-comments', 'django-comments-xtd', 'django-registration-redux']
 )
 
