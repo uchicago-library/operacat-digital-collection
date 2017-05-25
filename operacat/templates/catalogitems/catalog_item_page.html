@@ -127,6 +127,16 @@
                 {% if block.block_type == 'date_label' %}
                         {% include_block block %}
                 {% endif %}
+                
+                {% if block.block_type == 'start_date' %}
+                        {% include_block block %}
+                {% endif %}
+                {% if block.block_type == 'end_date' %}
+                        through {% include_block block %}
+                {% endif %}
+
+
+
          {% endfor %}
        {% endif %}
 
