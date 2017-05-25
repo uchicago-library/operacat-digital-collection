@@ -26,6 +26,8 @@ class Command(BaseCommand):
                     img_name = g["name"]
                     match = Image.objects.filter(title__contains=img_name)
                     if match.count() == 1:
-                        pass
+                        cur = CatalogItemPage.objects.filter(title=n["item"])
+                        if cur.count() == 1:
+                            
                     else:
                         self.stderr.write("{} does not exist in the system.".format(img_name))

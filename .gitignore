@@ -17,3 +17,4 @@ package.json
 *.sublime-workspace
 *operacat_dabase
 *migrations*
+*media*
