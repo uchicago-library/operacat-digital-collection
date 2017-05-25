@@ -108,7 +108,7 @@ def advanced_search(request):
     if recipient_dedicatee_query:
         recipient = RecipientOrDedicatee.objects.filter(recipient_name=recipient_dedicatee_query)[0]
         recipients = RecipientOrDedicateeOrderable.objects.filter(a_recipient=recipient)[0]
-        search_results = search_results.filter(item_recipients=recipients)
+        search_results = search_results.filter(item_recipientordedicatees=recipients)
     if place_query:
         places = Place.objects.filter(place_name=place_query)[0]
         places = PlaceOrderable.objects.filter(a_place=places)
