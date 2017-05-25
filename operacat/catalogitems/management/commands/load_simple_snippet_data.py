@@ -5,7 +5,8 @@ import json
 from os.path import dirname, join
 
 class Command(BaseCommand):
-    help = "Add related item info from legacy data to new OperaCat website"
+    help = "Add simple snippet info from legacy data to item pages"
+
     def add_arguments(self, parser):
         parser.add_argument("legacy_data_filepath",
                             help="Path to legacy data JSON", type=str)

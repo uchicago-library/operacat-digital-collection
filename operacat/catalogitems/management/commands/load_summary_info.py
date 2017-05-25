@@ -6,7 +6,7 @@ import json
 from os.path import dirname, join
 
 class Command(BaseCommand):
-    help = "Add related item info from legacy data to new OperaCat website"
+    help = "Add item description and field notes from legacy data to item pages"
 
     def add_arguments(self, parser):
         parser.add_argument("legacy_data_filepath",
@@ -15,8 +15,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
-        successful = open(join(dirname(options["legacy_data_filepath"]),
-                               'successful.txt'), "w")
         for n in data:
             cur = CatalogItemPage.objects.filter(title=n["item"])
             if cur.count() == 1:

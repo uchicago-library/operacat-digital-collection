@@ -25,4 +25,3 @@ class Command(BaseCommand):
                 if n["lot"] != "":
                     cur.lot = n["lot"]
                     cur.save()
-                    print(cur.lot)

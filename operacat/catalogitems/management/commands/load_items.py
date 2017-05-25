@@ -8,7 +8,7 @@ from catalogitems.models import CatalogItemPage, Dealer, Place
 
 
 class Command(BaseCommand):
-    help = "Add related item info from legacy data to new OperaCat website"
+    help = "Add item pages for every item in legacy data to system"
 
     def add_arguments(self, parser):
         parser.add_argument("legacy_data_filepath",

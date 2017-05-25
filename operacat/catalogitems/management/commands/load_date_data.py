@@ -1,11 +1,11 @@
 
-from django.core.management.base import BaseCommand, CommandError
-from catalogitems.models import CatalogItemPage
 import json
 from os.path import dirname, join
+from django.core.management.base import BaseCommand
+from catalogitems.models import CatalogItemPage
 
 class Command(BaseCommand):
-    help = "Add related item info from legacy data to new OperaCat website"
+    help = "Add date information from legacy data to relevant pages"
 
     def add_arguments(self, parser):
         parser.add_argument("legacy_data_filepath",
@@ -31,11 +31,12 @@ class Command(BaseCommand):
                     date_values = []
                     if date_labels:
                         for dl in date_labels:
-                            a_val = {'type': 'date_label', 'value': dl}
+                            a_val = {'type': 'date_label',
+                                     'value': {'date_label': dl}}
                             date_values.append(a_val)
                     else:
-                        a_val = {'type': 'date_label', 'value': 's.d.'}
-                        print(a_val)
+                        a_val = {'type': 'date_label',
+                                 'value': {'date_label': 's.d.'}}
                         date_values.append(a_val)
                     if dates:
                         for d in dates:
@@ -66,7 +67,6 @@ class Command(BaseCommand):
                                                    'month': pulled_val_parts[0]}}
                                 date_values.append(sd_val)
                     cur.date_information.stream_data = date_values
-                    print(cur.date_information.stream_data)
                     cur.save()
                 else:
                     self.stderr.write("{} has no date information to add".\

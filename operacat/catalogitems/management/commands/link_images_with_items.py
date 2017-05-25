@@ -1,9 +1,8 @@
 
-from django.core.management.base import BaseCommand, CommandError
-from catalogitems.models import CatalogItemPage, Place, Dealer,\
- Composer, AuthorOrResponsible, RecipientOrDedicatee, ItemType
 import json
-from os.path import dirname, join
+from django.core.management.base import BaseCommand
+from catalogimage.models import CatalogImage
+from catalogitems.models import CatalogItemPage
 
 class Command(BaseCommand):
     help = "Link images stored in site with the right catalog item page"
@@ -15,19 +14,20 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
-        successful = open(join(dirname(options["legacy_data_filepath"]),
-                               'successful.txt'), "w")
-        counter = 0
-        total = 0
-        all_available = 0
         for n in data:
             if n.get("images", None):
-                for g in n["images"]:
-                    img_name = g["name"]
-                    match = Image.objects.filter(title__contains=img_name)
-                    if match.count() == 1:
-                        cur = CatalogItemPage.objects.filter(title=n["item"])
-                        if cur.count() == 1:
-                            
-                    else:
-                        self.stderr.write("{} does not exist in the system.".format(img_name))
+                cur = CatalogItemPage.objects.filter(title=n["item"])
+                stream_val = []
+                if cur.count() == 1:
+                    cur = cur[0]
+                    for g in n["images"]:
+                        img_name = g["name"]
+                        match = CatalogImage.objects.filter(title__contains=img_name)
+                        if match.count() == 1:
+                            img_id = match[0].id
+                            val = {'type': 'images', 'value': img_id}
+                            stream_val.append(val)
+                    cur.images.stream_data = stream_val
+                    cur.save()
+                else:
+                    self.stderr.write("{} is not present in system".format(n["item"]))
