@@ -24,26 +24,18 @@
 		{{ page.field_notes|richtext }}
 		{% endif %}
 
-		{% if page.images.all %}
                 <h2>{% trans 'Images' %}</h2>
 
 		<div class="row">
 		    {% for block in page.images %}
-			{% image block.value fill-600x600 as my_image %}
-			<a href="{{ my_image.url }}" data-toggle="lightbox" data-gallery=catalog-item-gallery">
-			    <img class="img-responsive" src="{{ my_image.url }}" alt="{{ my_image.title }}"/>
+			{% image block.value fill-800x800 as my_image %}
+			{% image block.value fill-200x200 as my_thumbnail %}
+			<a href="{{ my_image.url }}" data-gallery="catalog-item-gallery" data-toggle="lightbox" >
+			    <img class="img-responsive" src="{{ my_thumbnail.url }}" alt="{{ my_image.alt }}"/>
 			</a>
 		    {% endfor %}
-
-                    <a href="http://placehold.it/150x150" data-toggle="lightbox" data-toggle="lightbox" data-gallery="catalog-item-gallery">
-			<img class="img-responsive"  src="http://placehold.it/150x150">
-		    </a>
-
-                    <a href="http://placehold.it/150x150" data-toggle="lightbox" data-toggle="lightbox" data-gallery="catalog-item-gallery">
-			<img class="img-responsive" src="http://placehold.it/150x150">
-		    </a>
 		</div>
-		{% endif %}
+
                 <h2>{% trans 'Comments' %}</h2>
 		{% if request.user.is_authenticated %}
 
