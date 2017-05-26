@@ -15,7 +15,7 @@ class Command(BaseCommand):
     help = "Add m2m relation snippet information from legacy data to pages"
 
     def add_arguments(self, parser):
-        """the method that gets called to add parameter to the management command 
+        """the method that gets called to add parameter to the management command
 
         It takes a parser object and adds a string type argument called
         legacy_data_filepath
@@ -46,9 +46,10 @@ class Command(BaseCommand):
         rec_list = list of dicts
         cur = an instance of CatalogItemPage
 
-        This method iterates over a list of recipient dicts, finds the matching 
+        This method iterates over a list of recipient dicts, finds the matching
         RecipientOrDedicatee snippet in the system and adds the
-        RecipientOrDedicatee instance to the item_places attribute of the relevant CatalogItemPage object
+        RecipientOrDedicatee instance to the item_recipientordedicatee attribute of the
+        relevant CatalogItemPage object
         """
         for recipient in rec_list:
             re_name = recipient["name"]
@@ -60,6 +61,17 @@ class Command(BaseCommand):
         return cur
 
     def _add_authors(self, author_list, cur):
+        """a method to iterate a list of recipients and add them to an item page
+
+        rec_list = list of dicts
+        cur = an instance of CatalogItemPage
+
+        This method iterates over a list of recipient dicts, finds the matching
+        AuthorOrResponsible snippet in the system and adds the
+        AuthorOrResponsible instance to the item_authororresposibles attribute of the
+        relevant CatalogItemPage object
+        """
+
         for author in author_list:
             au_name = author["name"]
             au_record = AuthorOrResponsible.objects.\
@@ -70,6 +82,18 @@ class Command(BaseCommand):
         return cur
 
     def _add_item_types(self, type_list, cur):
+        """a method to iterate a list of recipients and add them to an item page
+
+        type_list = list of strings
+        cur = an instance of CatalogItemPage
+
+        This method iterates over a list of type names, finds the matching
+        Itemtyupe snippet in the system and adds the
+        ItemType instance to the item_types attribute of the
+        relevant CatalogItemPage object
+        """
+
+
         for a_type in type_list:
             ty_name = a_type
             ty_record = ItemType.objects.filter(type_name=ty_name)

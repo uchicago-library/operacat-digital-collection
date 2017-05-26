@@ -1,8 +1,8 @@
 
 import json
 from django.core.management.base import BaseCommand
-from operacat.catalogimage.models import CatalogImage
-from operacat.catalogitems.models import CatalogItemPage
+from catalogimage.models import CatalogImage
+from catalogitems.models import CatalogItemPage
 
 class Command(BaseCommand):
     """a management command to interpret legacy data and link images to items
