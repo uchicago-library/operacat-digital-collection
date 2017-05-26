@@ -7,14 +7,32 @@ from catalogitems.models import CatalogItemPage, Place,\
 
 class Command(BaseCommand):
     """a management command to load migrate m2m field definition from legacy data
+
+    This class is necessary for adding places, authorOrResponsible,
+    recipientOrDedicatee and itemType information from legacy data to item pages
+    in the system
     """
     help = "Add m2m relation snippet information from legacy data to pages"
 
     def add_arguments(self, parser):
+        """the method that gets called to add parameter to the management command 
+
+        It takes a parser object and adds a string type argument called
+        legacy_data_filepath
+        """
         parser.add_argument("legacy_data_filepath",
                             help="Path to legacy data JSON", type=str)
 
     def _add_place_info(self, place_list, cur):
+        """a method to iterate a list of place names and add them to an item page
+
+        place_list = list of strings
+        cur = an instance of CatalogItemPage
+
+        This method iterates over a list of place names, finds the matching Place
+        snippet in the system and adds the the Place instance to the item_places
+        attribute of the relevant CatalogItemPage object
+        """
         for place in set(place_list):
             pl_name = place
             pl_record = Place.objects.filter(place_name=pl_name)
@@ -23,6 +41,15 @@ class Command(BaseCommand):
         return cur
 
     def _add_recipients(self, rec_list, cur):
+        """a method to iterate a list of recipients and add them to an item page
+
+        rec_list = list of dicts
+        cur = an instance of CatalogItemPage
+
+        This method iterates over a list of recipient dicts, finds the matching 
+        RecipientOrDedicatee snippet in the system and adds the
+        RecipientOrDedicatee instance to the item_places attribute of the relevant CatalogItemPage object
+        """
         for recipient in rec_list:
             re_name = recipient["name"]
             re_record = RecipientOrDedicatee.objects.\
@@ -51,6 +78,26 @@ class Command(BaseCommand):
         return cur
 
     def handle(self, *args, **options):
+        """the method that gets called to actually run the management command
+
+        It opens the legacy_data_filepath parameter and loads it into a JSON
+        object
+
+        Then it iterates through the list of dicts in the data and selects
+        out the author responsible, recipient dedicatee, place and item type
+        keys.
+
+        It finds the CatalogItemPage that matches the item identifier and
+        and if a matching CatalogItemPage can be found it continues. If not, it
+        sends an error message to stderr
+
+        It sends value of author responsible to private method _add_authors,
+        recipient dedicatee value to _add_recipients, place value
+        to _add_places, and item types to _add_item_types
+
+        At end, it sets the stream_data to the matching CatalogItemPage
+        images.stream_data attribute and saves the CatalogItemPage.
+        """
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
         for n_thing in data:

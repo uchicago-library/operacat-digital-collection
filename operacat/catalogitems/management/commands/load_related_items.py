@@ -1,8 +1,9 @@
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from catalogitems.models import CatalogItemPage
 import json
 from os.path import dirname, join
+
 
 class Command(BaseCommand):
     help = "Add related item info from legacy data to new OperaCat website"
