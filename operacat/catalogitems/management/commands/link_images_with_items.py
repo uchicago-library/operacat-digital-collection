@@ -49,8 +49,8 @@ class Command(BaseCommand):
                 stream_val = []
                 if cur.count() == 1:
                     cur = cur[0]
-                    for g in n["images"]:
-                        img_name = g["name"]
+                    for n_image in n_image["images"]:
+                        img_name = n_image["name"]
                         match = CatalogImage.objects.filter(title__contains=img_name)
                         if match.count() == 1:
                             img_id = match[0].id
@@ -59,4 +59,4 @@ class Command(BaseCommand):
                     cur.images.stream_data = stream_val
                     cur.save()
                 else:
-                    self.stderr.write("{} is not present in system".format(n["item"]))
+                    self.stderr.write("{} is not present in system".format(n_item["item"]))
