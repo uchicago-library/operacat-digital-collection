@@ -33,18 +33,17 @@
         	<div class="col-xs-12 col-sm-3 sidebar"> <!-- // START Sidebar -->
             	<h2>Composers</h2>
                 <ul>
-		{% composers %}
+		            {% composers %}
                 </ul>
-
             	<h2>Dealers</h2>
                 <ul>
-		    <li><a href="{% url 'advanced_search' %}?dealer-query=Sotheby">Sotheby's</a></li>
-		    <li><a href="{% url 'advanced_search' %}?dealer-query=Christie">Christie's</a></li>
-		    <li><a href="{% url 'advanced_search' %}?dealer-query=MAGGS">MAGGS</a></li>
-		    <li><a href="{% url 'advanced_search' %}?dealer-query=The Anderson Galleries">The Anderson Galleries</a></li>
-		    <li><a href="{% url 'advanced_search' %}?dealer-query=Lubrano">Lubrano</a></li>
+    		        <li><a href="{% url 'advanced_search' %}?dealer-query=The Anderson Galleries">The Anderson Galleries</a></li>
+		            <li><a href="{% url 'advanced_search' %}?dealer-query=Christie">Christie's</a></li>
+		            <li><a href="{% url 'advanced_search' %}?dealer-query=Sotheby">Sotheby's</a></li>
+		            <li><a href="{% url 'advanced_search' %}?dealer-query=Lubrano">Lubrano</a></li>
+		            <li><a href="{% url 'advanced_search' %}?dealer-query=MAGGS">MAGGS</a></li>
                 </ul>
-            	<p><a class="browse" href="{% url 'dealer-browse' %}">Browse all dealers</a></p>
+              	<p><a class="browse" href="{% url 'dealer-browse' %}">Browse all dealers</a></p>
 
 
         	</div> <!-- // END Sidebar -->
