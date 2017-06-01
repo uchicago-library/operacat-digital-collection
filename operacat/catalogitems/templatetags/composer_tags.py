@@ -8,10 +8,10 @@ from catalogitems.models import Composer
 from django import template
 
 
-REGISTER = template.Library()
+register = template.Library()
 
 
-@REGISTER.inclusion_tag("catalogitems/tags/composer_tags.html",
+@register.inclusion_tag("catalogitems/tags/composer_tags.html",
                         takes_context=True)
 def composers(context):
     """a method to return a JSON object to iterate through in a html template

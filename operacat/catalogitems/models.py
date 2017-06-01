@@ -19,21 +19,35 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel,\
     StreamFieldPanel
 from wagtail.wagtailsearch import index
 
+@register_snippet
+class DealerCommonName(models.Model):
+    common_name_text = models.CharField(max_length=255)
+
+    search_fields = [index.FilterField("common_name_text")]
+
+    def __str__(self):
+        return "{}".format(self.common_name_text)
 
 @register_snippet
 class Dealer(models.Model):
     """the dealer snippet definition
     """
-    dealer_name = models.CharField(max_length=255)
+    the_name = models.CharField(max_length=255)
+    common_name = models.ForeignKey('catalogitems.DealerCommonName',
+                                    null=True,
+                                    blank=True,
+                                    on_delete=models.SET_NULL,
+                                    related_name='+')
 
     panels = [
-        FieldPanel("dealer_name"),
+        FieldPanel("common_name"),
+        FieldPanel("the_name"),
     ]
 
-    search_fields = [index.FilterField("dealer_name", partial_match=True)]
+    search_fields = [index.FilterField("the_name")]
 
     def __str__(self):
-        return "{}".format(self.dealer_name)
+        return "{}".format(self.the_name)
 
 
 @register_snippet
@@ -135,7 +149,7 @@ class RecipientOrDedicatee(models.Model):
     """
     recipient_name = models.CharField(max_length=255)
 
-    panels = Page.content_panels + [
+    panels = [
         FieldPanel('recipient_name'),
     ]
 
@@ -267,10 +281,10 @@ class CatalogItemPage(Page):
                                      on_delete=models.SET_NULL,
                                      related_name='+')
     item_dealer = models.ForeignKey('catalogitems.Dealer',
-                                     null=True,
-                                     blank=True,
-                                     on_delete=models.SET_NULL,
-                                     related_name='+')
+                                    null=True,
+                                    blank=True,
+                                    on_delete=models.SET_NULL,
+                                    related_name='+')
     item_composer = models.ForeignKey('catalogitems.Composer',
                                       null=True,
                                       blank=True,
@@ -285,7 +299,11 @@ class CatalogItemPage(Page):
     images = StreamField([('images', ImageChooserBlock())], blank=True, null=True)
     item_description = RichTextField(blank=True, null=True)
     field_notes = RichTextField(blank=True, null=True)
-    related_items = StreamField([('related_item', PageChooserBlock(target_model='catalogitems.CatalogItemPage'))], blank=True, null=True)
+    related_items = StreamField([('related_item',
+                                  PageChooserBlock(target_model='catalogitems.CatalogItemPage')
+                                 )
+                                ],
+                                blank=True, null=True)
 
     content_panels = Page.content_panels + [
         SnippetChooserPanel("item_dealer"),
@@ -304,10 +322,10 @@ class CatalogItemPage(Page):
         FieldPanel('field_notes')
     ]
     search_fields = Page.search_fields + [
-        index.SearchField("item_composer__last_name"),
-        index.SearchField("item_catalog__catalog_name"),
-        index.SearchField("item_dealer__dealer_name"),
-        index.SearchField("item_dealer__date_information__date_label"),
+        index.SearchField("item_composer"),
+        index.SearchField("item_catalog"),
+        index.SearchField("item_dealer"),
+        index.SearchField("date_information"),
         index.SearchField("lot"),
         index.SearchField('title', partial_match=True),
         index.SearchField('item_description', partial_match=True),

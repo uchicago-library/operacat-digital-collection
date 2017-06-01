@@ -121,8 +121,11 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'composer_tags': 'catalogitems.templatetags.composer_tags',
+            },
         },
-    },
+    }
 ]
 
 # static file configuration
