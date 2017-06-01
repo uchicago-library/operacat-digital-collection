@@ -1,7 +1,7 @@
 {% for dealer in dealers %}
     <li>
         <a href="{% url 'dealer-browse' dealer_id=dealer.id %}">
-	    {{ dealer.dealer_name }}
+	    {{ dealer.the_name }}
         </a>
     </li>
 {% endfor %}

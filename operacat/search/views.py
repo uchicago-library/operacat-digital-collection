@@ -96,7 +96,8 @@ def advanced_search(request):
         composer = Composer.objects.filter(last_name=composer_query)
         search_results = search_results.filter(item_composer=composer[0])
     if dealer_query:
-        dealer = Dealer.objects.filter(dealer_name__contains=dealer_query)
+        dealer = Dealer.objects.filter(the_name__contains=dealer_query)
+        print(dealer)
         search_results = search_results.filter(item_dealer=dealer[0])
     if catalog_query:
         catalog = Catalog.objects.filter(catalog_name=catalog_query)

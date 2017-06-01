@@ -15,7 +15,7 @@ def browse(request):
     returns a web request object of formatted html with that list as data labeled 'results'
 
     """
-    items = Dealer.objects.all().order_by('dealer_name')
+    items = Dealer.objects.all().order_by('the_name')
     return render(request,
                   "dealerview/browse.html",
                   {'results':items}
