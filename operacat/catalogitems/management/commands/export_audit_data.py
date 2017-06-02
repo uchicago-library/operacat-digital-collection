@@ -34,9 +34,22 @@ class Command(BaseCommand):
             catalog = n_item.item_catalog.catalog_name if n_item.item_catalog else "not defined"
             dealer = n_item.item_dealer.the_name if n_item.item_dealer else "not defined"
             lot = n_item.lot
-            item_related_items = n_item.related_items.stream_data
+            item_related_items = [x['value'] for x in n_item.related_items.stream_data]
             item_images = [x['value'] for x in n_item.images.stream_data]
-
+            images = []
+            if item_images:
+                for n in item_images:
+                    a_img = Image.objects.filter(id=n)
+                    if a_img.count() == 1:
+                        images.append(a_img[0].title)
+            images = ','.join(images)
+            rel_items = []
+            if item_related_items:
+                for n in item_related_items:
+                    match = CatalogItemPage.objects.filter(id=n)
+                    if match.count() == 1:
+                        rel_items.append(match[0].title)
+            rel_items = ','.join(rel_items)
             item_id = n_item.title
             item_desc = n_item.item_description.strip() if n_item.item_description \
                                                         else "not defined"
@@ -85,7 +98,9 @@ class Command(BaseCommand):
                     item_recipients,
                     item_titles,
                     item_desc,
-                    item_note
+                    item_note,
+                    rel_items,
+                    images
                    ]
             lines.append(line)
         with open(options["output_filepath"], "w", encoding="utf-8", newline="") as write_file:
