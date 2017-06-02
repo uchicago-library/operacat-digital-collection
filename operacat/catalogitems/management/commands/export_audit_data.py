@@ -42,14 +42,14 @@ class Command(BaseCommand):
                     a_img = Image.objects.filter(id=n)
                     if a_img.count() == 1:
                         images.append(a_img[0].title)
-            images = ','.join(images)
+            images = ','.join(images) if images else "not defined"
             rel_items = []
             if item_related_items:
                 for n in item_related_items:
                     match = CatalogItemPage.objects.filter(id=n)
                     if match.count() == 1:
                         rel_items.append(match[0].title)
-            rel_items = ','.join(rel_items)
+            rel_items = ','.join(rel_items) if rel_items else "not defined"
             item_id = n_item.title
             item_desc = n_item.item_description.strip() if n_item.item_description \
                                                         else "not defined"
@@ -108,6 +108,6 @@ class Command(BaseCommand):
                                     quotechar="\"", quoting=csv.QUOTE_ALL)
             csv_writer.writerow(["item", "composer", "catalog", "dealer", "lot",
                                  "places", "types", "authors", "recipients",
-                                 "titles", "description", "field note"])
+                                 "titles", "description", "field note", "related items", "images"])
             for a_line in lines:
                 csv_writer.writerow(a_line)
