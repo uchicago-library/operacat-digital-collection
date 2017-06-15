@@ -137,6 +137,7 @@ class Command(BaseCommand):
 
         csv_record = []
         count = 0
+        data = sorted(data, key=lambda x: x["IdNumber"])
         for n_item in data:
             count += 1
             dict_values = [value for key, value in n_item.items()]
