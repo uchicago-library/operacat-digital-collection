@@ -19,6 +19,21 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel,\
     StreamFieldPanel
 from wagtail.wagtailsearch import index
 
+class TranslatedField(object):
+    """class definition to translate page field values between English and Italian
+    """
+    def __init__(self, en_field, it_field):
+        self.en_field = en_field
+        self.it_field = it_field
+
+    def __get__(self, instance, owner):
+        if translation.get_language() == 'it':
+            return getattr(instance, self.it_field)
+        else:
+            print(self.en_field)
+            print(instance)
+            return getattr(instance, self.en_field)
+
 @register_snippet
 class DealerCommonName(models.Model):
     common_name_text = models.CharField(max_length=255)
@@ -32,7 +47,11 @@ class DealerCommonName(models.Model):
 class Dealer(models.Model):
     """the dealer snippet definition
     """
-    the_name = models.CharField(max_length=255)
+    the_name_en = models.CharField(max_length=255)
+    the_name_it = models.CharField(max_length=255)
+
+    the_name = TranslatedField('the_name_en', 'the_name_it')
+
     common_name = models.ForeignKey('catalogitems.DealerCommonName',
                                     null=True,
                                     blank=True,
@@ -55,6 +74,7 @@ class Catalog(models.Model):
     """the catalog snippet definition
     """
     catalog_name = models.CharField(max_length=255)
+
     panels = [
         FieldPanel("catalog_name")
     ]
@@ -109,14 +129,17 @@ class Place(models.Model):
 class ItemType(models.Model):
     """the item type snippet defintion
     """
+    #type_name_en = models.CharField(max_length=255)
+    #type_name_it = models.CharField(max_length=255)
+
     type_name = models.CharField(max_length=255)
 
     content_panels = Page.content_panels + [
-        FieldPanel('type_name')
+        FieldPanel('type_name'),
     ]
 
     search_fields = [
-        index.FilterField('name', partial_match=True),
+        index.FilterField('type_name', partial_match=True),
     ]
 
     def __str__(self):
@@ -182,19 +205,6 @@ class PieceTitle(models.Model):
     def __str__(self):
         return self.name
 
-
-class TranslatedField(object):
-    """class definition to translate page field values between English and Italian
-    """
-    def __init__(self, en_field, it_field):
-        self.en_field = en_field
-        self.it_field = it_field
-
-    def __get__(self, instance, owner):
-        if translation.get_language() == 'it':
-            return getattr(instance, self.it_field)
-        else:
-            return getattr(instance, self.en_field)
 
 class ItemTypeOrderable(Orderable):
     """a class defintion to allow item types to be added in a m2m fashion to a particular page
@@ -297,7 +307,16 @@ class CatalogItemPage(Page):
         ('start_date', DateEntryBlock(label="Start Date")),
         ('end_date', DateEntryBlock(label="End Date"))], blank=True, null=True)
     images = StreamField([('images', ImageChooserBlock())], blank=True, null=True)
+
     item_description = RichTextField(blank=True, null=True)
+
+    item_description_en = RichTextField(blank=True, null=True)
+    item_description_it = RichTextField(blank=True, null=True)
+    item_dsecription = TranslatedField(item_description_en, item_description_it)
+
+    #field_notes_en = RichTextField(blank=True, null=True)
+    #field_notes_it = RichTextField(blank=True, null=True)
+    #field_notes = TranslatedField(field_notes_en, field_notes_it)
     field_notes = RichTextField(blank=True, null=True)
     related_items = StreamField([('related_item',
                                   PageChooserBlock(target_model='catalogitems.CatalogItemPage')
