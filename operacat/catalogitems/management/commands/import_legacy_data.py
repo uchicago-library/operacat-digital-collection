@@ -164,7 +164,6 @@ class Command(BaseCommand):
                        'endDate', 'date', 'title', 'authorOrResponsible', 'recipientOrDedicatee',
                        'itemDescription', 'itemNotes', 'IdLinks', 'images',
                        'dealer', 'catalog', 'lot']
-
             csv_writer.writerow(headers)
             for record in csv_record:
                 csv_writer.writerow(record)

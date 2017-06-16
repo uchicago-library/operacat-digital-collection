@@ -39,13 +39,12 @@ class Command(BaseCommand):
                               encoding="utf-8"))
         home = Page.objects.filter(title="Home")[0]
         for n_item in data:
-            if n_item["item"]:
-                cur = CatalogItemPage.objects.filter(title=n_item["item"])
-                if cur.count() == 1:
-                    cur = cur[0]
-                else:
-                    cur = CatalogItemPage()
-                    cur.title = n_item["item"]
-                    home.add_child(instance=cur)
+            if n_item["IdNumber"]:
+                item = n_item["IdNumber"]
+                check_if_it_exists = CatalogItemPage.objects.filter(title=item)
+                if check_if_it_exists.count() == 0:
+                    new = CatalogItemPage()
+                    new.title = item
+                    home.add_child(instance=new)
             else:
-                self.stderr.write(str(n_item))
+                self.stderr.write("{} already exists in database\n".format(n_item))

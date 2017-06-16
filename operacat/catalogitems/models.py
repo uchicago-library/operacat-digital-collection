@@ -47,11 +47,7 @@ class DealerCommonName(models.Model):
 class Dealer(models.Model):
     """the dealer snippet definition
     """
-    the_name_en = models.CharField(max_length=255)
-    the_name_it = models.CharField(max_length=255)
-
-    the_name = TranslatedField('the_name_en', 'the_name_it')
-
+    the_name = models.CharField(max_length=255)
     common_name = models.ForeignKey('catalogitems.DealerCommonName',
                                     null=True,
                                     blank=True,
