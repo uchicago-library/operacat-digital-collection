@@ -1,6 +1,8 @@
 
 import json
+import csv
 from django.core.management.base import BaseCommand
+import re
 
 from catalogitems.models import CatalogItemPage
 
@@ -68,6 +70,20 @@ class Command(BaseCommand):
                                                       'start_date')
         return final_output
 
+    def _sanitize(self, some_string):
+        if isinstance(some_string, str):
+            new_output = re.sub(r'\{|\}|\[|\]', '', some_string)
+            new_output = re.split(',|;', new_output)
+            new_output = [x for x in new_output if 'etc' not in x]
+            new_output = [x for x in new_output if x != 'None']
+            for n in new_output:
+                if '-' in n:
+                    if len(n.split('-')) != 3:
+                        print(n)
+            return ','.join(new_output)
+        else:
+            return None
+
     def handle(self, *args, **options):
         """the method that gets called to actually run the management command
 
@@ -91,17 +107,26 @@ class Command(BaseCommand):
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
         for n_item in data:
-            the_id = n_item["item"]
-            cur = CatalogItemPage.objects.filter(title=the_id)
-            if cur.count() == 1:
-                cur = cur[0]
-                if n_item.get("date info", None):
-                    final_output = self._extract_date_parts(n_item["date info"])
-                    cur.date_information.stream_data = final_output
-                    cur.save()
-                else:
-                    self.stderr.write("{} has no date information to add".\
-                        format(the_id))
-            else:
-                self.stderr.write("{} has no catalog item page".\
-                    format(the_id))
+            the_id = n_item["IdNumber"]
+            matched_item = CatalogItemPage.objects.filter(title=the_id)
+            if matched_item.count() == 1:
+                date = n_item["date"]
+                date = self._sanitize(date)
+                end_date = n_item["endDate"]
+                end_date = self._sanitize(end_date)
+                start_date = n_item["startDate"]
+                start_date = self._sanitize(start_date)
+                matched_item = matched_item[0]
+                print(matched_item)
+                stream_value = []
+                if date:
+                    date_value = {'type': 'date', 'value': date}
+                    stream_value.append(date_value)
+                if end_date:
+                    end_date_value = {'type': 'end_date', 'value': end_date}
+                    stream_value.append(end_date_value)
+                if start_date:
+                    start_date_value = {'type': 'start_date', 'value': start_date}
+                    stream_value.append(start_date_value)
+                matched_item.date_information.stream_data = stream_value
+                matched_item.save()

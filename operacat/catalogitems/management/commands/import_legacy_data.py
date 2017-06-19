@@ -4,7 +4,6 @@ import json
 import re
 from xml.etree import ElementTree as ET
 from django.core.management.base import BaseCommand
-from sys import stderr
 
 class Command(BaseCommand):
     """a management command to set relationship information between items from legacy data
@@ -60,10 +59,19 @@ class Command(BaseCommand):
                           item_description, item_notes]:
             try:
                 tag_name = a_element.tag.split("{http://operacat.uchicago.edu}")[1].strip()
-                tag_value = a_element.text
                 if tag_name == 'itemDescription' or tag_name == 'itemNotes':
-                    tag_value = [x.strip() for x in tag_value.split('\n')]
-                    tag_value = [x for x in tag_value if x != ""]
+                    tag_value = [x.strip() for x in a_element.text.split('\n')]
+                    tag_value = ' '.join([x for x in tag_value if x != ""])
+                else:
+                    if a_element.text != None:
+                        tag_value = re.sub(r'\{|\}|\[|\]', '', a_element.text)
+                        tag_value = re.split(';', tag_value)
+                        tag_value = [x.strip().lstrip() for x in tag_value]
+                        tag_value = [x for x in tag_value if 'etc' not in x]
+                        tag_value = [x for x in tag_value if x != 'None']
+                        tag_value = '; '.join(tag_value)
+                    else:
+                        tag_value = None
                 a_dict[tag_name] = tag_value
             except AttributeError:
                 pass
@@ -76,7 +84,7 @@ class Command(BaseCommand):
                 if n_required not in a_dict_keys:
                     a_dict[n_required] = 'None'
 
-        a_dict["dealer"] = dealer
+        a_dict["dealer"] = ' '.join(dealer)
         a_dict["catalog"] = catalog
         a_dict["lot"] = lot
         try:
@@ -95,10 +103,10 @@ class Command(BaseCommand):
                 a_dict[massageable] = old_string
         if images:
             images = [x.text for x in images.findall("{http://operacat.uchicago.edu}image")]
-            a_dict["images"] = images
+            a_dict["images"] = '; '.join(images)
         if id_links:
             id_links = [x.text for x in id_links.findall("{http://operacat.uchicago.edu}IdLink")]
-            a_dict["IdLinks"] = id_links
+            a_dict["IdLinks"] = '; '.join(id_links)
         return a_dict
 
     def _extract_catalog_data(self, an_iterable, dealer_name):
@@ -134,11 +142,19 @@ class Command(BaseCommand):
             iterable_catalogs = catalog_root_element.\
                 findall("{http://operacat.uchicago.edu}catalogue")
             data += self._extract_catalog_data(iterable_catalogs, dealer_info)
-
         csv_record = []
         count = 0
         data = sorted(data, key=lambda x: x["IdNumber"])
         for n_item in data:
+            if ',' in n_item["place"]:
+                n_item["place"] = re.sub(',', ';', n_item["place"])
+            if n_item["composer"] != "None":
+                lookup = {'Rossini': 'Gioachino',
+                          'Donizetti':'Gaetano',
+                          'Bellini':'Vincenzo',
+                          'Verdi':'Giuseppe',
+                          'Puccini':'Giacomo'}
+                n_item["composer"] = lookup[n_item["composer"]] + ", " + n_item["composer"]
             count += 1
             dict_values = [value for key, value in n_item.items()]
             a_row = []
@@ -153,13 +169,11 @@ class Command(BaseCommand):
                     final = str(n_value)
                 a_row.append(final)
             csv_record.append(a_row)
-
         csv_record = sorted(csv_record, key=lambda x: x[0])
-        with open("migration.csv", "w", encoding="utf-8") as write_file:
+        with open("../testdata/migration.csv", "w", encoding="utf-8") as write_file:
             csv_writer = csv.writer(write_file, delimiter=",",
                                     quotechar="\"",
                                     quoting=csv.QUOTE_ALL, lineterminator='\n')
-
             headers = ['IdNumber', 'composer', 'itemType', 'place', 'startDate',
                        'endDate', 'date', 'title', 'authorOrResponsible', 'recipientOrDedicatee',
                        'itemDescription', 'itemNotes', 'IdLinks', 'images',
@@ -167,6 +181,5 @@ class Command(BaseCommand):
             csv_writer.writerow(headers)
             for record in csv_record:
                 csv_writer.writerow(record)
-
-        json.dump(data, open("./migration.json", "w", encoding="utf-8"),
+        json.dump(data, open("../testdata/migration.json", "w", encoding="utf-8"),
                   indent=4)

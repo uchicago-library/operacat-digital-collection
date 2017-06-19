@@ -3,7 +3,8 @@ import json
 from django.core.management.base import BaseCommand
 from wagtail.wagtailcore.models import Page
 
-from catalogitems.models import Catalog
+from catalogitems.models import Catalog, CatalogItemPage
+from home.models import GenericPage
 
 class Command(BaseCommand):
     """a management command to create initial migration of items from legacy data
@@ -37,6 +38,8 @@ class Command(BaseCommand):
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
         for n_item in data:
+            the_dealer = n_item["dealer"]
+            the_dealer = ' '.join(the_dealer)
             new_catalog = n_item["catalog"]
             if new_catalog != 'None':
                 check_for_existing_record = Catalog.objects.filter(catalog_name=new_catalog)
@@ -45,6 +48,17 @@ class Command(BaseCommand):
                     new.catalog_name = new_catalog
                     new.save()
                 else:
-                    self.stderr.write("{} already exists in database.\n".format(new_catalog))
+                    new = check_for_existing_record[0]
+                print(new)
+                print(type(new))
+                cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
+                print(cur)
+                if cur.count() == 1:
+                    cur[0].item_catalog = new
+                    print(dir(cur[0].item_catalog))
+                    cur[0].save()
+                else:
+                    self.stderr.write("{} already exists in database.\n".\
+                                      format(new_catalog.encode('utf-8')))
 
 

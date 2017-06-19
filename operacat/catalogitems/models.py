@@ -298,21 +298,14 @@ class CatalogItemPage(Page):
                                       related_name='+')
     lot = models.CharField(max_length=100, blank=True, null=True)
     date_information = StreamField([
-        ('date_label', DateLabelEntryBlock()),
-        ('date', DateEntryBlock(label="Date for Item")),
-        ('start_date', DateEntryBlock(label="Start Date")),
-        ('end_date', DateEntryBlock(label="End Date"))], blank=True, null=True)
+        ('date', CharBlock(label="Date", blank=True, null=True)),
+        ('start_date', CharBlock(label="Start Date", blank=True, null=True)),
+        ('end_date', CharBlock(label="End Date", blank=True, null=True))
+        ], blank=True, null=True)
     images = StreamField([('images', ImageChooserBlock())], blank=True, null=True)
 
     item_description = RichTextField(blank=True, null=True)
 
-    item_description_en = RichTextField(blank=True, null=True)
-    item_description_it = RichTextField(blank=True, null=True)
-    item_dsecription = TranslatedField(item_description_en, item_description_it)
-
-    #field_notes_en = RichTextField(blank=True, null=True)
-    #field_notes_it = RichTextField(blank=True, null=True)
-    #field_notes = TranslatedField(field_notes_en, field_notes_it)
     field_notes = RichTextField(blank=True, null=True)
     related_items = StreamField([('related_item',
                                   PageChooserBlock(target_model='catalogitems.CatalogItemPage')

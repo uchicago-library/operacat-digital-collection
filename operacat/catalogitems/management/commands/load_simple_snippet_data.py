@@ -34,7 +34,7 @@ class Command(BaseCommand):
             return Catalog.objects.filter(catalog_name=query_param)
 
         def _build_dealer_query(query_param):
-            return Dealer.objects.filter(dealer_name=query_param)
+            return Dealer.objects.filter(the_name=query_param)
 
         if condition == 'composer':
             query = _build_composer_query(query_string)
@@ -70,9 +70,9 @@ class Command(BaseCommand):
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
         for n_item in data:
-            cur = CatalogItemPage.objects.filter(title=n_item["item"])
+            cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
             if cur.count() == 1:
                 for n_condition in ['title', 'composer', 'catalog', 'dealer']:
                     self._switch_case(n_condition, n_item.get(n_condition, 'None'), cur[0])
             else:
-                self.stderr.write("{} has no catalog item page".format(n_item["item"]))
+                self.stderr.write("{} has no catalog item page".format(n_item["IdNumber"]))
