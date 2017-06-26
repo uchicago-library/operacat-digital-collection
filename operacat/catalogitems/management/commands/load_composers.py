@@ -36,23 +36,16 @@ class Command(BaseCommand):
         """
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
-        lookup = {'Rossini': 'Gioachino',
-                  'Donizetti':'Gaetano',
-                  'Bellini':'Vincenzo',
-                  'Verdi':'Giuseppe',
-                  'Puccini':'Giacomo'}
-
         for n_item in data:
             new_composer = n_item["composer"]
             print(new_composer)
             if new_composer != 'None':
-                print("hi")
-                check_for_existing_record = Composer.objects.filter(last_name=new_composer)
+                check_for_existing_record = Composer.objects.filter(last_name=new_composer.split(',')[0])
                 if check_for_existing_record.count() == 0:
                     print(new_composer)
                     new = Composer()
-                    new.last_name = new_composer
-                    new.first_name = lookup[new_composer]
+                    new.last_name = new_composer.split(',')[0]
+                    new.first_name = new_composer.split(',')[1]
                     new.save()
                 else:
                     self.stderr.write("{} already exists in database.\n".format(new_composer))

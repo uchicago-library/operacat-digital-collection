@@ -154,7 +154,7 @@ class Command(BaseCommand):
                           'Bellini':'Vincenzo',
                           'Verdi':'Giuseppe',
                           'Puccini':'Giacomo'}
-                n_item["composer"] = lookup[n_item["composer"]] + ", " + n_item["composer"]
+                n_item["composer"] =  n_item["composer"] + ", " + lookup[n_item["composer"]]
             count += 1
             dict_values = [value for key, value in n_item.items()]
             a_row = []

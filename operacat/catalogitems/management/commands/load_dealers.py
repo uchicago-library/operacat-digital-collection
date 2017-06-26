@@ -37,22 +37,33 @@ class Command(BaseCommand):
         """
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
+        count = 0
         for n_item in data:
+            count += 1
             new_dealer = n_item["dealer"]
-            check_for_existing_record = Dealer.objects.filter(the_name=' '.join(new_dealer))
-            if check_for_existing_record.count() == 0:
-                new = Dealer()
-                new.the_name = ' '.join(new_dealer)
-                new.save()
-            else:
-                new = check_for_existing_record[0]
-            cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
-            print(cur)
-            print(type(new))
-            if cur.count() == 1:
-                cur[0].item_dealer = new
-                print(cur[0].item_dealer)
-                cur[0].save()
-            else:
-                self.stderr.write("{} already exists in database.\n".\
-                                  format(' '.join(new_dealer)))
+            if 'Douot' in new_dealer:
+                print(new_dealer)
+            elif 'Drouot' in new_dealer:
+                print(new_dealer.encode('utf-8'))
+            elif 'Christie' in new_dealer:
+                print(new_dealer.encode('utf-8'))
+            elif 'Sotheby' in new_dealer:
+                print(new_dealer.encode('utf-8'))
+        print(count)
+            # check_for_existing_record = Dealer.objects.filter(the_name=' '.join(new_dealer))
+            # if check_for_existing_record.count() == 0:
+            #     new = Dealer()
+            #     new.the_name = ' '.join(new_dealer)
+            #     new.save()
+            # else:
+            #     new = check_for_existing_record[0]
+            # cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
+            # print(cur)
+            # print(type(new))
+            # if cur.count() == 1:
+            #     cur[0].item_dealer = new
+            #     print(cur[0].item_dealer)
+            #     cur[0].save()
+            # else:
+            #     self.stderr.write("{} already exists in database.\n".\
+            #                       format(' '.join(new_dealer)))

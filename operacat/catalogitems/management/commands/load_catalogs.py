@@ -44,21 +44,27 @@ class Command(BaseCommand):
             if new_catalog != 'None':
                 check_for_existing_record = Catalog.objects.filter(catalog_name=new_catalog)
                 if check_for_existing_record.count() == 0:
-                    new = Catalog()
-                    new.catalog_name = new_catalog
-                    new.save()
+                     new = Catalog()
+                     new.catalog_name = new_catalog
+                     if new.catalog_name:
+                        new.save()
+                     else:
+                        print(new)
                 else:
                     new = check_for_existing_record[0]
-                print(new)
-                print(type(new))
-                cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
-                print(cur)
-                if cur.count() == 1:
-                    cur[0].item_catalog = new
-                    print(dir(cur[0].item_catalog))
-                    cur[0].save()
-                else:
-                    self.stderr.write("{} already exists in database.\n".\
-                                      format(new_catalog.encode('utf-8')))
-
+                try:
+                    cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
+                    if cur.count() == 1:
+                        cur[0].item_catalog = new
+                        if not cur[0].item_catalog.catalog_name:
+                            print(cur[0])
+                            print(new)
+                        else:
+                            cur[0].save()
+                    else:
+                        self.stderr.write("{} already exists in database.\n".\
+                                          format(new_catalog.encode('utf-8')))
+                except:
+                    print(new)
+                    print(cur)
 
