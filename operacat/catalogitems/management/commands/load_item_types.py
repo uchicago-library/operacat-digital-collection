@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from wagtail.wagtailcore.models import Page
 import re
 
-from catalogitems.models import ItemType
+from catalogitems.models import ItemType, CatalogItemPage
 
 class Command(BaseCommand):
     """a management command to create initial migration of items from legacy data
@@ -45,11 +45,25 @@ class Command(BaseCommand):
             new_item_types = [x for x in new_item_types if 'etc' not in x]
             new_item_types = [x for x in new_item_types if x != 'None']
 
+            type_stream_data = []
             for a_type in new_item_types:
                 check_for_existing_record = ItemType.objects.filter(type_name=a_type)
                 if check_for_existing_record.count() == 0:
                     new = ItemType()
                     new.type_name = a_type
                     new.save()
+                    type_stream_data.append({'type': 'item_type', 'value': new.id})
                 else:
                     self.stderr.write("{} already exists in database.\n".format(a_type))
+                    type_stream_data.append({'type': 'item_type',
+                                             'value': check_for_existing_record[0].id})
+            cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
+            if cur.count() == 1:
+                cur = cur[0]
+                cur.item_types.stream_data = type_stream_data
+                try:
+                    print(cur.item_types.all())
+                except ValueError:
+                    print(type_stream_data)
+                cur.save()
+                cur.save()

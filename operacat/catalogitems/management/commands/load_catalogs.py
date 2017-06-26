@@ -41,30 +41,30 @@ class Command(BaseCommand):
             the_dealer = n_item["dealer"]
             the_dealer = ' '.join(the_dealer)
             new_catalog = n_item["catalog"]
-            if new_catalog != 'None':
+            if new_catalog != 'None' or new_catalog != None:
                 check_for_existing_record = Catalog.objects.filter(catalog_name=new_catalog)
                 if check_for_existing_record.count() == 0:
-                     new = Catalog()
-                     new.catalog_name = new_catalog
-                     if new.catalog_name:
+                    new = Catalog()
+                    new.catalog_name = new_catalog
+                    if new.catalog_name:
                         new.save()
-                     else:
+                    else:
                         print(new)
                 else:
                     new = check_for_existing_record[0]
+            else:
+                new = Catalog.objects.filter(name='No catalog')[0]
+                print(new)
+            cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
+            if cur.count() == 1:
+                cur = cur[0]
+                cur.item_catalog = new
                 try:
-                    cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
-                    if cur.count() == 1:
-                        cur[0].item_catalog = new
-                        if not cur[0].item_catalog.catalog_name:
-                            print(cur[0])
-                            print(new)
-                        else:
-                            cur[0].save()
-                    else:
-                        self.stderr.write("{} already exists in database.\n".\
-                                          format(new_catalog.encode('utf-8')))
-                except:
-                    print(new)
+                    cur.save()
+                except ValueError:
                     print(cur)
-
+                    print(new)
+                    print(new_catalog)
+            else:
+                self.stderr.write("{} already exists in database.\n".\
+                                  format(n_item["IdNumber"]))

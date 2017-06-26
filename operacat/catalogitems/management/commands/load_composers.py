@@ -3,7 +3,7 @@ import json
 from django.core.management.base import BaseCommand
 from wagtail.wagtailcore.models import Page
 
-from catalogitems.models import Composer
+from catalogitems.models import Composer, CatalogItemPage
 
 class Command(BaseCommand):
     """a management command to create initial migration of items from legacy data
@@ -49,4 +49,8 @@ class Command(BaseCommand):
                     new.save()
                 else:
                     self.stderr.write("{} already exists in database.\n".format(new_composer))
-
+            cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
+            if cur.count() == 1:
+                cur = cur[0]
+                cur.item_composer = new
+                cur.save()
