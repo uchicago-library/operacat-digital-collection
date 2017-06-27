@@ -3,7 +3,8 @@ import json
 from django.core.management.base import BaseCommand
 from wagtail.wagtailcore.models import Page
 import re
-from catalogitems.models import Place
+
+from catalogitems.models import Place, CatalogItemPage
 
 class Command(BaseCommand):
     """a management command to create initial migration of items from legacy data
@@ -43,13 +44,22 @@ class Command(BaseCommand):
             new_places = [x.strip().lstrip() for x in new_places]
             new_places = [x for x in new_places if 'etc' not in x]
             new_places = [x for x in new_places if x != 'None']
+            a_list = []
             for a_place in new_places:
                 check_for_existing_record = Place.objects.filter(place_name=a_place)
                 if check_for_existing_record.count() == 0:
                      new = Place()
                      new.place_name = a_place
                      new.save()
+                     a_list.append(new.place_name)
                 else:
+                     a_list.append(check_for_existing_record[0].place_name)
                      self.stderr.write("{} already exists in database.\n".format(a_place))
-
-
+            print(a_list)
+            cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
+            if cur.count() == 1:
+                cur = cur[0]
+                for n_place in a_list:
+                    a = Place.objects.filter(place_name=n_place)[0]
+                    cur.item_places.create(a_place=a)
+                cur.save()

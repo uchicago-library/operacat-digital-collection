@@ -299,13 +299,11 @@ class CatalogItemPage(Page):
     lot = models.CharField(max_length=100, blank=True, null=True)
     date_information = StreamField([
         ('date', CharBlock(label="Date", blank=True, null=True)),
-        ('start_date', CharBlock(label="Start Date", blank=True, null=True)),
-        ('end_date', CharBlock(label="End Date", blank=True, null=True))
+        ('start_date', DateEntryBlock(label="Start Date", blank=True, null=True)),
+        ('end_date', DateEntryBlock(label="End Date", blank=True, null=True))
         ], blank=True, null=True)
     images = StreamField([('images', ImageChooserBlock())], blank=True, null=True)
-
     item_description = RichTextField(blank=True, null=True)
-
     field_notes = RichTextField(blank=True, null=True)
     related_items = StreamField([('related_item',
                                   PageChooserBlock(target_model='catalogitems.CatalogItemPage')

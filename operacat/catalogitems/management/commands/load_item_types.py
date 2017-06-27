@@ -52,18 +52,14 @@ class Command(BaseCommand):
                     new = ItemType()
                     new.type_name = a_type
                     new.save()
-                    type_stream_data.append({'type': 'item_type', 'value': new.id})
+                    type_stream_data.append({'type': 'item_type', 'value': new})
                 else:
                     self.stderr.write("{} already exists in database.\n".format(a_type))
                     type_stream_data.append({'type': 'item_type',
-                                             'value': check_for_existing_record[0].id})
+                                             'value': check_for_existing_record[0]})
             cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
             if cur.count() == 1:
                 cur = cur[0]
-                cur.item_types.stream_data = type_stream_data
-                try:
+                for n_type in type_stream_data:
+                    cur.item_types.create(a_type=n_type["value"])
                     print(cur.item_types.all())
-                except ValueError:
-                    print(type_stream_data)
-                cur.save()
-                cur.save()

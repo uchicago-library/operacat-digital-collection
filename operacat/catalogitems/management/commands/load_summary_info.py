@@ -41,15 +41,20 @@ class Command(BaseCommand):
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
         for n_item in data:
-            cur = CatalogItemPage.objects.filter(title=n_item["item"])
+            cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
             if cur.count() == 1:
                 cur = cur[0]
-                if n_item.get("item description", None):
-                    val = n_item["item description"]
-                    cur.item_description = "<p>" + val.strip() + "</p>"
+                if n_item.get("itemDescription", None):
+                    val = n_item["itemDescription"]
+                    final_output = ""
+                    for n in val:
+                        new_p = "<p>" + n + "</p>"
+                        final_output += new_p
+                    cur.item_description = final_output
                 else:
-                    self.stderr.write("{} has no item description".format(n_item["item"]))
-                if n_item.get("item notes", None):
-                    val = n_item["item notes"]
-                    cur.field_notes = "<p>" + val.strip() + "</p>"
+                    self.stderr.write("{} has no item description".format(n_item["IdNumber"]))
+                if n_item.get("itemNotes", None):
+                    val = n_item["itemNotes"]
+                    final_output = "<p>" + val + "</p>"
+                    cur.field_notes = final_output
                 cur.save()

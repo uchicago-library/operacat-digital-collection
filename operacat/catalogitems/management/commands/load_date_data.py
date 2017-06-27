@@ -117,16 +117,38 @@ class Command(BaseCommand):
                 start_date = n_item["startDate"]
                 start_date = self._sanitize(start_date)
                 matched_item = matched_item[0]
-                print(matched_item)
                 stream_value = []
                 if date:
                     date_value = {'type': 'date', 'value': date}
                     stream_value.append(date_value)
                 if end_date:
-                    end_date_value = {'type': 'end_date', 'value': end_date}
+                    print(end_date)
+                    parts = re.split('\/|-', end_date)
+                    if re.compile('\d{4}').match(parts[0]):
+                        day = parts[2]
+                        month = parts[1]
+                        year = parts[0]
+                    else:
+                        day = parts[0]
+                        month = parts[1]
+                        year = parts[2]
+
+                    val = {'day': day, 'month': month, 'year': year}
+                    end_date_value = {'type': 'end_date', 'value': val}
                     stream_value.append(end_date_value)
                 if start_date:
-                    start_date_value = {'type': 'start_date', 'value': start_date}
+                    parts = re.split('\/|-', start_date)
+                    if re.compile('\d{4}').match(parts[0]):
+                        day = parts[2]
+                        month = parts[1]
+                        year = parts[0]
+                    else:
+                        day = parts[0]
+                        month = parts[1]
+                        year = parts[2]
+                    val = {'day': day, 'month': month, 'year': year}
+                    start_date_value = {'type': 'start_date', 'value': val}
                     stream_value.append(start_date_value)
                 matched_item.date_information.stream_data = stream_value
+
                 matched_item.save()

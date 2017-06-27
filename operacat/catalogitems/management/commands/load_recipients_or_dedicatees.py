@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from wagtail.wagtailcore.models import Page
 import re
 
-from catalogitems.models import RecipientOrDedicatee
+from catalogitems.models import RecipientOrDedicatee, CatalogItemPage
 
 class Command(BaseCommand):
     """a management command to create initial migration of items from legacy data
@@ -45,6 +45,7 @@ class Command(BaseCommand):
                 new_recipients = [x.strip().lstrip() for x in new_recipients]
                 new_recipients = [x for x in new_recipients if 'etc' not in x]
                 new_recipients = [x for x in new_recipients if x != 'None']
+                a_list = []
                 for a_name in new_recipients:
                     check_for_existing_record = RecipientOrDedicatee.objects.filter(recipient_name=a_name)
                     if check_for_existing_record.count() == 0:
@@ -53,5 +54,11 @@ class Command(BaseCommand):
                         new.save()
                     else:
                         self.stderr.write("{} already exists in database.\n".format(a_name))
-
-
+            cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
+            if cur.count() == 1:
+                cur = cur[0]
+                for n_recipient in a_list:
+                    a = RecipientOrDedicatee.objects.filter(recipient_name=\
+                                                            n_recipient)[0]
+                    cur.item_recipientordedicatees.create(a_recipient=a)
+                cur.save()

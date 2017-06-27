@@ -59,7 +59,20 @@ class Command(BaseCommand):
                           item_description, item_notes]:
             try:
                 tag_name = a_element.tag.split("{http://operacat.uchicago.edu}")[1].strip()
-                if tag_name == 'itemDescription' or tag_name == 'itemNotes':
+
+                if tag_name == 'itemDescription':
+                    #tag_value = [x.split('\n')[0].strip().lstrip() for x in stuff]
+                    #tag_value = [x for x in tag_value if x != '']
+                    string = ET.tostring(a_element)
+                    string_lists = string.split(b'\n')
+                    string_lists = [x.strip().lstrip().decode('utf-8') for x in string_lists]
+                    tag_value = ' '.join(string_lists)
+                    highlights = a_element.findall("{http://operacat.uchicago.edu}highlight")
+                    if len(highlights) > 0:
+                        a_dict["itemDescription_highlights"] = [x.text for x in highlights if x.text != None]
+                    else:
+                        a_dict["itemDescription_highlights"] = "None"
+                elif  tag_name == 'itemNotes':
                     tag_value = [x.strip() for x in a_element.text.split('\n')]
                     tag_value = ' '.join([x for x in tag_value if x != ""])
                 else:
@@ -111,6 +124,7 @@ class Command(BaseCommand):
 
     def _extract_catalog_data(self, an_iterable, dealer_name):
         whole_list = []
+        item_description_list = []
         for n_iterable in an_iterable:
             catalog_name = self._find_catalog_name(n_iterable)
             lots_element = n_iterable.find("{http://operacat.uchicago.edu}lots")
@@ -135,6 +149,7 @@ class Command(BaseCommand):
         data_root = data.getroot()
         all_sources = data_root.findall("{http://operacat.uchicago.edu}source")
         data = []
+        item_description_list = []
         for n_source in all_sources:
             dealer_element = n_source.find("{http://operacat.uchicago.edu}dealer")
             dealer_info = self._find_dealer(dealer_element)
@@ -176,10 +191,11 @@ class Command(BaseCommand):
                                     quoting=csv.QUOTE_ALL, lineterminator='\n')
             headers = ['IdNumber', 'composer', 'itemType', 'place', 'startDate',
                        'endDate', 'date', 'title', 'authorOrResponsible', 'recipientOrDedicatee',
-                       'itemDescription', 'itemNotes', 'IdLinks', 'images',
+                       'itemDescription', 'itemNotes', 'IdLinks', 'images', 'highlights',
                        'dealer', 'catalog', 'lot']
             csv_writer.writerow(headers)
             for record in csv_record:
                 csv_writer.writerow(record)
         json.dump(data, open("../testdata/migration.json", "w", encoding="utf-8"),
                   indent=4)
+

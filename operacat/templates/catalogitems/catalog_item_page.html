@@ -63,7 +63,7 @@
 					<input type="hidden" class="form-control" id="{{ field.name }}" name="{{ field.name }}"/>
 				    </div>
 				{% endif %}
-			    {% endfor %}       
+			    {% endfor %}
 			    <input type="hidden" name="next" value="{% pageurl page.catalogitempage %}" />
 				    <div class="form-group">
 				        <button type="submit" class="btn btn-primary">{% trans 'Post Comment' %}</button>
@@ -113,7 +113,7 @@
        {% if page.item_places.all %}
        <h2>{% trans 'Place' %}</h2>
        <ul>
-	 {% for place in page.item_places.all %}	
+	 {% for place in page.item_places.all %}
 	      <li>
 		<a href="{% url 'advanced_search' %}?place-query={{ place.a_place.place_name }}">{{ place.a_place.place_name }}</a>
 	     </li>
@@ -121,35 +121,45 @@
        </ul>
        {% endif %}
 
-       {% if page.date_information %}	
+       {% if page.date_information %}
         <h2>{% trans 'Dates' %}</h2>
-         {% for block in page.date_information %} 
-                {% if block.block_type == 'date_label' %}
-                        {% include_block block %}
+
+         {% for block in page.date_information %}
+
+                {% if block.block_type == 'date' %}
+				<h3>Date label</h3>
+				<p>
+                {% include_block block %}
+				</p>
                 {% endif %}
-                
+		{% endfor %}
+		{% for block in page.date_information %}
                 {% if block.block_type == 'start_date' %}
-                        {% include_block block %}
+				<h3>Start date</h3>
+				<p>
+                    {% include_block block %}
+				</p>
                 {% endif %}
+		{% endfor %}
+		{% for block in page.date_information %}
                 {% if block.block_type == 'end_date' %}
-                        through {% include_block block %}
+				<h3>End date</h3>
+				<p>
+                   {% include_block block %}
+	 		    </p>
                 {% endif %}
-
-
-
          {% endfor %}
        {% endif %}
-
+	   </p>
        {% if page.item_titles.all %}
 	<h2>{% trans 'Title' %}</h2>
 	<ul>
 	    {% for title in page.item_titles.all %}
 	        <li><a href="{% url 'advanced_search' %}?title-query={{ title.a_title.name }}">{{ title.a_title.name }}</a></li>
-	    {% endfor %}	
+	    {% endfor %}
 	</ul>
 	</h2>
        {% endif %}
-
        {% if page.related_items %}
        <h2>{% trans 'Related Items' %}</h2>
        <ul>
