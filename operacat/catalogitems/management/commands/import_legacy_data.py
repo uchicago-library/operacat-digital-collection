@@ -64,12 +64,20 @@ class Command(BaseCommand):
                     #tag_value = [x.split('\n')[0].strip().lstrip() for x in stuff]
                     #tag_value = [x for x in tag_value if x != '']
                     string = ET.tostring(a_element)
-                    string_lists = string.split(b'\n')
-                    string_lists = [x.strip().lstrip().decode('utf-8') for x in string_lists]
+                    string = re.sub(r"<ns0:itemDescription xmlns:ns0=\"http://operacat.uchicago.edu\">","", string.decode("utf-8"))
+                    string = re.sub(r"</ns0:itemDescription>", "",string)
+                    string_lists = string.split('\n')
+                    string_lists = [x.strip().lstrip() for x in string_lists]
                     tag_value = ' '.join(string_lists)
                     highlights = a_element.findall("{http://operacat.uchicago.edu}highlight")
                     if len(highlights) > 0:
-                        a_dict["itemDescription_highlights"] = [x.text for x in highlights if x.text != None]
+                        high_val = [x.text for x in highlights]
+                        high_list_p = []
+                        for n in high_val:
+                            for p in n.split('\n'):
+                                high_list_p.append(p.strip().lstrip())
+
+                        a_dict["itemDescription_highlights"] = high_list_p
                     else:
                         a_dict["itemDescription_highlights"] = "None"
                 elif  tag_name == 'itemNotes':
