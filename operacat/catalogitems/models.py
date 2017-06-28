@@ -236,8 +236,11 @@ class PieceTitleOrderable(Orderable):
 class AuthorOrResponsibleOrderable(Orderable):
     """a class defintion to allow author/responsible entities to be added m2m to a page
     """
-    an_author = models.ForeignKey(AuthorOrResponsible, related_name='+', verbose_name=("An Item Author Or Responsible "))
-    author_record = ParentalKey('catalogitems.CatalogItemPage', related_name='item_authororesposibles')
+    an_author = models.ForeignKey(AuthorOrResponsible,
+                                  related_name='+',
+                                  verbose_name=("An Item Author Or Responsible"))
+    author_record = ParentalKey('catalogitems.CatalogItemPage',
+                                related_name='item_authororesposibles')
 
     panels = [
         FieldPanel("an_author"),
@@ -246,8 +249,11 @@ class AuthorOrResponsibleOrderable(Orderable):
 class RecipientOrDedicateeOrderable(Orderable):
     """a class defintion to allow recipient/dedicatee entities to be added m2m to a page
     """
-    a_recipient = models.ForeignKey(RecipientOrDedicatee, related_name='+', verbose_name=("An Item Author Or Responsible "))
-    recipient_record = ParentalKey('catalogitems.CatalogItemPage', related_name='item_recipientordedicatees')
+    a_recipient = models.ForeignKey(RecipientOrDedicatee,
+                                    related_name='+',
+                                    verbose_name=("An Item Recipient Or Dedicatee"))
+    recipient_record = ParentalKey('catalogitems.CatalogItemPage',
+                                   related_name='item_recipientordedicatees')
 
     panels = [
         FieldPanel("a_recipient"),
@@ -256,13 +262,18 @@ class RecipientOrDedicateeOrderable(Orderable):
 
 
 class DateEntryBlock(StructBlock):
-    """definition to allow adding a date with a month, a day and a year all as numbers to a page field
+    """definition to allow adding a date with a month, a day
+       and a year all as numbers to a page field
     """
-    month = RegexBlock(regex='^\d{2}$',
-                       error_message="Not a valid month input. It must be two digits. If month numeral is only a single place a zero at the front of the number as in '01'")
-    day = RegexBlock(regex='^\d{2}$',
-                     error_message="Not a valid month input. It must be two digits. If month numeral is only a single place a zero at the front of the number as in '01'")
-    year = RegexBlock(regex='^\d{4}$',
+    month = RegexBlock(regex=r"^\d{2}$",
+                       error_message="Not a valid month input. It must be two " +
+                       "digits. If month numeral is only a single " +
+                       "place a zero at the front of the number as in '01'")
+    day = RegexBlock(regex=r"^\d{2}$",
+                     error_message="Not a valid month input. It must be two " +
+                     "digits. If month numeral is only a single place a " +
+                     "zero at the front of the number as in '01'")
+    year = RegexBlock(regex=r"^\d{4}$",
                       error_message="Not a valid year. It must be a four numeral digit as in 1967")
 
     class Meta:

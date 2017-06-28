@@ -46,12 +46,15 @@ class Command(BaseCommand):
                 cur = cur[0]
                 if n_item.get("itemDescription", None):
                     val = n_item["itemDescription"]
-                    final_output = "<p>" + val + "</p>"
-                    cur.item_description = final_output
+                    if val != "None":
+                        final_output = "<p>" + val + "</p>"
+                        cur.item_description = final_output
                 else:
                     self.stderr.write("{} has no item description".format(n_item["IdNumber"]))
+
                 if n_item.get("itemNotes", None):
                     val = n_item["itemNotes"]
-                    final_output = "<p>" + val + "</p>"
-                    cur.field_notes = final_output
+                    if val != "None":
+                        final_output = "<p>" + val + "</p>"
+                        cur.field_notes = final_output
                 cur.save()

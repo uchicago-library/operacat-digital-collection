@@ -57,8 +57,9 @@ class Command(BaseCommand):
             cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
             if cur.count() == 1:
                 cur = cur[0]
+                print(cur.title)
                 for n_recipient in a_list:
                     a = RecipientOrDedicatee.objects.filter(recipient_name=\
                                                             n_recipient)[0]
                     cur.item_recipientordedicatees.create(a_recipient=a)
-                cur.save()
+                    cur.save()
