@@ -46,10 +46,7 @@ class Command(BaseCommand):
                 cur = cur[0]
                 if n_item.get("itemDescription", None):
                     val = n_item["itemDescription"]
-                    final_output = ""
-                    for n in val:
-                        new_p = "<p>" + n + "</p>"
-                        final_output += new_p
+                    final_output = "<p>" + val + "</p>"
                     cur.item_description = final_output
                 else:
                     self.stderr.write("{} has no item description".format(n_item["IdNumber"]))

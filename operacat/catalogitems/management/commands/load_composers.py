@@ -48,6 +48,7 @@ class Command(BaseCommand):
                     new.first_name = new_composer.split(',')[1]
                     new.save()
                 else:
+                    new = check_for_existing_record[0]
                     self.stderr.write("{} already exists in database.\n".format(new_composer))
             cur = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
             if cur.count() == 1:

@@ -66,6 +66,8 @@ class Command(BaseCommand):
                     string = ET.tostring(a_element)
                     string = re.sub(r"<ns0:itemDescription xmlns:ns0=\"http://operacat.uchicago.edu\">","", string.decode("utf-8"))
                     string = re.sub(r"</ns0:itemDescription>", "",string)
+                    string = re.sub(r"<ns0:highlight>", "<b>", string)
+                    string = re.sub(r"</ns0:highlight>", "</b>", string)
                     string_lists = string.split('\n')
                     string_lists = [x.strip().lstrip() for x in string_lists]
                     tag_value = ' '.join(string_lists)
