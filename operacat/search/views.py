@@ -10,7 +10,9 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.models import Query
 from wagtail.wagtailsearch.backends import get_search_backend
 
-from catalogitems.models import *
+from catalogitems.models import CatalogItemPage, Composer, AuthorOrResponsible, RecipientOrDedicatee,\
+     Dealer, ItemTypeOrderable, PieceTitleOrderable, Place, ItemType, PieceTitle,\
+     Catalog, AuthorOrResponsibleOrderable, RecipientOrDedicateeOrderable
 
 def search(request):
     search_query = request.GET.get('query', None)
@@ -90,6 +92,14 @@ def advanced_search(request):
         item_type_query = request.GET.get('item-type-query', None)
     else:
         item_type_query = None
+    if request.GET.get("start-year-query", None):
+        start_year_query = request.GET.get("start-year-query", None)
+    else:
+        start_year_query = None
+    if request.GET.get("end-year-query", None):
+        end_year_query = request.GET.get("end-year-query", None)
+    else:
+        end_year_query = None
 
     search_results = CatalogItemPage.objects.all()
     if composer_query:
@@ -126,6 +136,30 @@ def advanced_search(request):
         search_results = search_results.filter(Q(item_description__contains=keyword_query) |\
                                                Q(field_notes__contains=keyword_query) |\
                                                Q(title__contains=keyword_query))
+    if start_year_query:
+        for a_result in search_results:
+            if getattr(a_result, 'date_information'):
+                for stream_val in a_result.date_information.stream_data:
+                    if stream_val["type"] == "start_date":
+                        if int(stream_val["value"]["year"]) > int(start_year_query):
+                            pass
+                        else:
+                            search_results._result_cache.remove(a_result)
+            else:
+                search_results._result_cache.remove(a_result)
+    if end_year_query:
+        for a_result in search_results:
+            if getattr(a_result, 'date_information'):
+                for stream_val in a_result.date_information.stream_data:
+                    if stream_val["type"] == "end_date":
+                        if int(stream_val["value"]["year"]) < int(start_year_query):
+                            pass
+                        else:
+                            search_results._result_cache.remove(a_result)
+            else:
+                search_results._result_cache.remove(a_result)
+
+
     search_query = []
     if keyword_query:
         search_query.append("full text=" + keyword_query)

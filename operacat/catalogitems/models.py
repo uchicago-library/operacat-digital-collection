@@ -6,6 +6,9 @@ from __future__ import absolute_import, unicode_literals
 from django.db import models
 from django.utils import translation
 
+from django.utils.encoding import force_text
+
+
 from modelcluster.fields import ParentalKey
 
 from wagtail.wagtailsnippets.models import register_snippet
@@ -276,14 +279,21 @@ class DateEntryBlock(StructBlock):
     year = RegexBlock(regex=r"^\d{4}$",
                       error_message="Not a valid year. It must be a four numeral digit as in 1967")
 
+    def get_searchable_content(self, value):
+        return [force_text(value)]
+
     class Meta:
         icon = 'date'
         template = 'blocks/date_entry_block.html'
+
 
 class DateLabelEntryBlock(StructBlock):
     """definition to allow adding a date label to a page. this can be any string.
     """
     date_label = CharBlock(max_length=100)
+
+    def get_searchable_content(self, value):
+        return [force_text(value)]
 
     class Meta:
         icon = 'date'
