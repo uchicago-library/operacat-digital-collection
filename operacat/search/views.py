@@ -137,31 +137,29 @@ def advanced_search(request):
         search_results = search_results.filter(Q(item_description__contains=keyword_query) |\
                                                Q(field_notes__contains=keyword_query) |\
                                                Q(title__contains=keyword_query))
-    print("absolute starting total search results is {}".format(search_results.count()))
     if start_year_query:
-        print("starting total search results is {}".format(search_results.count()))
-        for a_result in search_results:
-            remove = True
-            if getattr(a_result, 'date_information'):
-                for stream_val in a_result.date_information.stream_data:
-                    if stream_val["type"] == "start_date":
-                        if int(stream_val["value"]["year"]) > int(start_year_query):
-                            print("this {} is greater than {}".format(stream_val["value"]["year"], start_year_query))
-                            remove = False
-            if remove:
-                search_results._result_cache.remove(a_result)
-        print("ending total search results is {}".format(search_results.count()))
+        search_results.filter(Q(date_information__start_date__year=start_year_query))
+
+        # print("starting total search results is {}".format(search_results.count()))
+        # for a_result in search_results:
+        #     remove = True
+        #     if getattr(a_result, 'date_information'):
+        #         for stream_val in a_result.date_information.stream_data:
+        #             if stream_val["type"] == "start_date":
+        #                 if int(stream_val["value"]["year"]) > int(start_year_query):
+        #                     print("this {} is greater than {}".format(stream_val["value"]["year"], start_year_query))
+        #                     remove = False
     if end_year_query:
-        for a_result in search_results:
-            remove = True
-            if getattr(a_result, 'date_information'):
-                for stream_val in a_result.date_information.stream_data:
-                    if stream_val["type"] == "end_date":
-                        if int(stream_val["value"]["year"]) < int(end_year_query):
-                            remove = False
-            if remove:
-                search_results._result_cache.remove(a_result)
-    print("absolute ending total search results is {}".format(search_results.count()))
+        search_results.filter(Q(date_information__start_date__year=start_year_query))
+        # for a_result in search_results:
+        #     remove = True
+        #     if getattr(a_result, 'date_information'):
+        #         for stream_val in a_result.date_information.stream_data:
+        #             if stream_val["type"] == "end_date":
+        #                 if int(stream_val["value"]["year"]) < int(end_year_query):
+        #                     remove = False
+        #     if remove:
+        #         search_results._result.remove(a_result)
     search_query = []
     if keyword_query:
         search_query.append("full text=" + keyword_query)

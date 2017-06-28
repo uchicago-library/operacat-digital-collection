@@ -14,7 +14,7 @@ from modelcluster.fields import ParentalKey
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.blocks import CharBlock, PageChooserBlock,\
-    StructBlock, RegexBlock
+    StructBlock, RegexBlock, StreamBlock
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
@@ -268,16 +268,9 @@ class DateEntryBlock(StructBlock):
     """definition to allow adding a date with a month, a day
        and a year all as numbers to a page field
     """
-    month = RegexBlock(regex=r"^\d{2}$",
-                       error_message="Not a valid month input. It must be two " +
-                       "digits. If month numeral is only a single " +
-                       "place a zero at the front of the number as in '01'")
-    day = RegexBlock(regex=r"^\d{2}$",
-                     error_message="Not a valid month input. It must be two " +
-                     "digits. If month numeral is only a single place a " +
-                     "zero at the front of the number as in '01'")
-    year = RegexBlock(regex=r"^\d{4}$",
-                      error_message="Not a valid year. It must be a four numeral digit as in 1967")
+    month = models.IntegerField(blank=True, null=True)
+    day = models.IntegerField(blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
 
     def get_searchable_content(self, value):
         return [force_text(value)]
@@ -285,19 +278,6 @@ class DateEntryBlock(StructBlock):
     class Meta:
         icon = 'date'
         template = 'blocks/date_entry_block.html'
-
-
-class DateLabelEntryBlock(StructBlock):
-    """definition to allow adding a date label to a page. this can be any string.
-    """
-    date_label = CharBlock(max_length=100)
-
-    def get_searchable_content(self, value):
-        return [force_text(value)]
-
-    class Meta:
-        icon = 'date'
-        template = 'blocks/datelabel_entry_block.html'
 
 class CatalogItemPage(Page):
     """the definition for an item record page which is the centerpiece of the site
@@ -318,12 +298,11 @@ class CatalogItemPage(Page):
                                       on_delete=models.SET_NULL,
                                       related_name='+')
     lot = models.CharField(max_length=100, blank=True, null=True)
-    date_information = StreamField([
-        ('date', CharBlock(label="Date", blank=True, null=True)),
-        ('start_date', DateEntryBlock(label="Start Date", blank=True, null=True)),
-        ('end_date', DateEntryBlock(label="End Date", blank=True, null=True))
-        ], blank=True, null=True)
-    images = StreamField([('images', ImageChooserBlock())], blank=True, null=True)
+    date_label = models.CharField("Date", max_length=200, blank=True, null=True)
+    start_date = models.CharField(max_length=10, blank=True, null=True)
+    end_date = models.CharField(max_length=10, blank=True, null=True)
+    images = StreamField([
+        ('images', ImageChooserBlock())], blank=True, null=True)
     item_description = RichTextField(blank=True, null=True)
     field_notes = RichTextField(blank=True, null=True)
     related_items = StreamField([('related_item',
@@ -337,7 +316,11 @@ class CatalogItemPage(Page):
         SnippetChooserPanel("item_catalog"),
         SnippetChooserPanel("item_composer"),
         FieldPanel('lot'),
-        StreamFieldPanel('date_information'),
+        FieldPanel("date_label"),
+
+        FieldPanel("start_date"),
+        FieldPanel("end_date"),
+
         InlinePanel('item_types', label="Item Types"),
         InlinePanel("item_places", label="Item Places"),
         InlinePanel("item_titles", label="Item Titles"),
@@ -352,7 +335,9 @@ class CatalogItemPage(Page):
         index.SearchField("item_composer"),
         index.SearchField("item_catalog"),
         index.SearchField("item_dealer"),
-        index.SearchField("date_information"),
+        index.SearchField("date_label"),
+        index.SearchField("end_date"),
+        index.SearchField("start_date"),
         index.SearchField("lot"),
         index.SearchField('title', partial_match=True),
         index.SearchField('item_description', partial_match=True),
