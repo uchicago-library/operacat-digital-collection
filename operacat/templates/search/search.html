@@ -17,7 +17,6 @@
 			{% if keyword_query %}
 			&keyword-query={{ keyword_query }}
 			{% endif %}	
-
 			{% if simple_query %}
 			&query={{ simple_query }}
 			{% endif %}
@@ -39,7 +38,12 @@
 			{% if item_type_query %}
 			&item-type-query={{ item_type_query }}
 			{% endif %}
-			">&laquo;</a></li>
+			{% if start_year_query %}
+			&start-year-query={{ start_year_query }}
+			{% endif %}
+			{% if end_year_query %}
+			&end-year-query={{ end_year_query }}
+			{% endif %}">&laquo;</a></li>
 		{% endif %}
 
 		{% for i in search_results.paginator.page_range %}
@@ -67,6 +71,13 @@
 			{% if title_query %} 
 			&title-query={{ title_query }}
 			{% endif %}
+			{% if start_year_query %}
+			&start-year-query={{ start_year_query }}
+			{% endif %}
+			{% if end_year_query %}
+			&end-year-query={{ end_year_query }}
+			{% endif %}
+
 			{% if item_type_query %}
 			&item-type-query={{ item_type_query }}
 			{% endif %}">{{ i }}</a></li>
@@ -92,6 +103,12 @@
 			{% endif %}
 			{% if title_query %} 
 			&title-query={{ title_query }}
+			{% endif %}
+			{% if start_year_query %}
+			&start-year-query={{ start_year_query }}
+			{% endif %}
+			{% if end_year_query %}
+			&end-year-query={{ end_year_query }}
 			{% endif %}
 			{% if item_type_query %}
 			&item-type-query={{ item_type_query }}
@@ -121,6 +138,13 @@
 			{% if title_query %} 
 			&title-query={{ title_query }}
 			{% endif %}
+			{% if start_year_query %}
+			&start-year-query={{ start_year_query }}
+			{% endif %}
+			{% if end_year_query %}
+			&end-year-query={{ end_year_query }}
+			{% endif %}
+
 			{% if item_type_query %}
 			&item-type-query={{ item_type_query }}
 			{% endif %}">&raquo;</a></li>
@@ -216,6 +240,13 @@
 			{% if title_query %} 
 			&title={{ title_query }}
 			{% endif %}
+			{% if start_year_query %}
+			&start-year-query={{ start_year_query }}
+			{% endif %}
+			{% if end_year_query %}
+			&end-year-query={{ end_year_query }}
+			{% endif %}
+
 			{% if item_type_query %}
 			&item_type={{ item_type_query }}
 			{% endif %}
@@ -247,6 +278,12 @@
 			{% if title_query %} 
 			&title-query={{ title_query }}
 			{% endif %}
+			{% if start_year_query %}
+			&start-year-query={{ start_year_query }}
+			{% endif %}
+			{% if end_year_query %}
+			&end-year-query={{ end_year_query }}
+			{% endif %}
 			{% if item_type_query %}
 			&item-type-query={{ item_type_query }}
 			{% endif %}">{{ i }}</a></li>
@@ -273,6 +310,14 @@
 			{% if title_query %} 
 			&title-query={{ title_query }}
 			{% endif %}
+			{% if start_year_query %}
+			&start-year-query={{ start_year_query }}
+			{% endif %}
+			{% if end_year_query %}
+			&end-year-query={{ end_year_query }}
+			{% endif %}
+
+
 			{% if item_type_query %}
 			&item-type-query={{ item_type_query }}
 			{% endif %}">{{ i }}</a></li>
@@ -302,6 +347,13 @@
 			{% if title_query %} 
 			&title-query={{ title_query }}
 			{% endif %}
+			{% if start_year_query %}
+			&start-year-query={{ start_year_query }}
+			{% endif %}
+			{% if end_year_query %}
+			&end-year-query={{ end_year_query }}
+			{% endif %}
+
 			{% if item_type_query %}
 			&item-type-query={{ item_type_query }}
 			{% endif %}">&raquo;</a></li>
