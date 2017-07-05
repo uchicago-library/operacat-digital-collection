@@ -19,7 +19,7 @@ from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailcore.fields import RichTextField, StreamField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel,\
-    StreamFieldPanel
+    StreamFieldPanel, MultiFieldPanel
 from wagtail.wagtailsearch import index
 
 class TranslatedField(object):
@@ -264,21 +264,6 @@ class RecipientOrDedicateeOrderable(Orderable):
 
 
 
-class DateEntryBlock(StructBlock):
-    """definition to allow adding a date with a month, a day
-       and a year all as numbers to a page field
-    """
-    month = models.IntegerField(blank=True, null=True)
-    day = models.IntegerField(blank=True, null=True)
-    year = models.IntegerField(blank=True, null=True)
-
-    def get_searchable_content(self, value):
-        return [force_text(value)]
-
-    class Meta:
-        icon = 'date'
-        template = 'blocks/date_entry_block.html'
-
 class CatalogItemPage(Page):
     """the definition for an item record page which is the centerpiece of the site
     """
@@ -299,8 +284,12 @@ class CatalogItemPage(Page):
                                       related_name='+')
     lot = models.CharField(max_length=100, blank=True, null=True)
     date_label = models.CharField("Date", max_length=200, blank=True, null=True)
-    start_date = models.CharField(max_length=10, blank=True, null=True)
-    end_date = models.CharField(max_length=10, blank=True, null=True)
+    start_date_day = models.IntegerField(blank=True, null=True)
+    start_date_month = models.IntegerField(blank=True, null=True)
+    start_date_year = models.IntegerField(blank=True, null=True)
+    end_date_day = models.IntegerField(blank=True, null=True)
+    end_date_month = models.IntegerField(blank=True, null=True)
+    end_date_year = models.IntegerField(blank=True, null=True)
     images = StreamField([
         ('images', ImageChooserBlock())], blank=True, null=True)
     item_description = RichTextField(blank=True, null=True)
@@ -317,10 +306,16 @@ class CatalogItemPage(Page):
         SnippetChooserPanel("item_composer"),
         FieldPanel('lot'),
         FieldPanel("date_label"),
-
-        FieldPanel("start_date"),
-        FieldPanel("end_date"),
-
+        MultiFieldPanel([
+            FieldPanel("start_date_day"),
+            FieldPanel("start_date_month"),
+            FieldPanel("start_date_year"),
+        ], heading="Start Date"),
+        MultiFieldPanel([
+            FieldPanel("end_date_day"),
+            FieldPanel("end_date_month"),
+            FieldPanel("end_date_year"),
+        ], heading="End Date"),
         InlinePanel('item_types', label="Item Types"),
         InlinePanel("item_places", label="Item Places"),
         InlinePanel("item_titles", label="Item Titles"),
@@ -336,8 +331,6 @@ class CatalogItemPage(Page):
         index.SearchField("item_catalog"),
         index.SearchField("item_dealer"),
         index.SearchField("date_label"),
-        index.SearchField("end_date"),
-        index.SearchField("start_date"),
         index.SearchField("lot"),
         index.SearchField('title', partial_match=True),
         index.SearchField('item_description', partial_match=True),

@@ -76,10 +76,6 @@ class Command(BaseCommand):
             new_output = re.split(',|;', new_output)
             new_output = [x for x in new_output if 'etc' not in x]
             new_output = [x for x in new_output if x != 'None']
-            for n in new_output:
-                if '-' in n:
-                    if len(n.split('-')) != 3:
-                        print(n)
             return ','.join(new_output)
         else:
             return None
@@ -117,14 +113,16 @@ class Command(BaseCommand):
                 start_date = n_item["startDate"]
                 start_date = self._sanitize(start_date)
                 matched_item = matched_item[0]
-                stream_value = []
                 if date:
-                    date_value = {'type': 'date', 'value': date}
-                    stream_value.append(date_value)
+                    date_value = date
+                    matched_item.date_label = date_value
+                    matched_item.save()
+                else:
+                    matched_item.date = 's.d.'
+                    matched_item.save()
                 if end_date:
-                    print(end_date)
-                    parts = re.split('\/|-', end_date)
-                    if re.compile('\d{4}').match(parts[0]):
+                    parts = re.split(r'\/|-', end_date)
+                    if re.compile(r'\d{4}').match(parts[0]):
                         day = parts[2]
                         month = parts[1]
                         year = parts[0]
@@ -132,13 +130,13 @@ class Command(BaseCommand):
                         day = parts[0]
                         month = parts[1]
                         year = parts[2]
-
-                    val = {'day': day, 'month': month, 'year': year}
-                    end_date_value = {'type': 'end_date', 'value': val}
-                    stream_value.append(end_date_value)
+                    if re.compile(r'\d{4}').match(year):
+                        matched_item.end_date_day = day
+                        matched_item.end_date_month = month
+                        matched_item.save()
                 if start_date:
-                    parts = re.split('\/|-', start_date)
-                    if re.compile('\d{4}').match(parts[0]):
+                    parts = re.split(r'\/|-', start_date)
+                    if re.compile(r'\d{4}').match(parts[0]):
                         day = parts[2]
                         month = parts[1]
                         year = parts[0]
@@ -146,9 +144,8 @@ class Command(BaseCommand):
                         day = parts[0]
                         month = parts[1]
                         year = parts[2]
-                    val = {'day': day, 'month': month, 'year': year}
-                    start_date_value = {'type': 'start_date', 'value': val}
-                    stream_value.append(start_date_value)
-                matched_item.date_information.stream_data = stream_value
+                    if re.compile(r'\d{4}').match(year):
+                        matched_item.start_date_day = day
+                        matched_item.start_date_month = month
+                        matched_item.save()
 
-                matched_item.save()

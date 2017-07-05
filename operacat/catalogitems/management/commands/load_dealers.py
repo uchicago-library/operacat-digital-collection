@@ -69,5 +69,4 @@ class Command(BaseCommand):
             if cur.count() == 1:
                 cur = cur[0]
                 cur.item_dealer = new
-                print(cur.item_dealer)
                 cur.save()

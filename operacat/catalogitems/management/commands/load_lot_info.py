@@ -38,8 +38,11 @@ class Command(BaseCommand):
         data = json.load(open(options["legacy_data_filepath"], "r",
                               encoding="utf-8"))
         for n in data:
-            cur = CatalogItemPage.objects.filter(title=n["item"])[0]
-            if n.get("lot", None):
-                if n["lot"] != "":
-                    cur.lot = n["lot"]
-                    cur.save()
+            print(n["IdNumber"])
+            cur = CatalogItemPage.objects.filter(title=n["IdNumber"])
+            if cur.count() == 1:
+                cur = cur[0]
+                if n.get("lot", None):
+                    if n["lot"] != "":
+                        cur.lot = n["lot"]
+                        cur.save()

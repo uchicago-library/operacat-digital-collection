@@ -10,9 +10,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailsearch.models import Query
 from wagtail.wagtailsearch.backends import get_search_backend
 
-from catalogitems.models import CatalogItemPage, Composer, AuthorOrResponsible, RecipientOrDedicatee,\
-     Dealer, ItemTypeOrderable, PieceTitleOrderable, Place, ItemType, PieceTitle,\
-     Catalog, AuthorOrResponsibleOrderable, RecipientOrDedicateeOrderable
+from catalogitems.models import  *
 
 def search(request):
     search_query = request.GET.get('query', None)
@@ -108,7 +106,6 @@ def advanced_search(request):
         search_results = search_results.filter(item_composer=composer[0])
     if dealer_query:
         dealer = Dealer.objects.filter(the_name__contains=dealer_query)
-        print(dealer)
         search_results = search_results.filter(item_dealer=dealer[0])
     if catalog_query:
         catalog = Catalog.objects.filter(catalog_name=catalog_query)
@@ -138,28 +135,14 @@ def advanced_search(request):
                                                Q(field_notes__contains=keyword_query) |\
                                                Q(title__contains=keyword_query))
     if start_year_query:
-        search_results.filter(Q(date_information__start_date__year=start_year_query))
-
-        # print("starting total search results is {}".format(search_results.count()))
-        # for a_result in search_results:
-        #     remove = True
-        #     if getattr(a_result, 'date_information'):
-        #         for stream_val in a_result.date_information.stream_data:
-        #             if stream_val["type"] == "start_date":
-        #                 if int(stream_val["value"]["year"]) > int(start_year_query):
-        #                     print("this {} is greater than {}".format(stream_val["value"]["year"], start_year_query))
-        #                     remove = False
+        start_year_query = int(start_year_query)
+        search_results = search_results.filter(Q(start_date_year__gt=start_year_query))
+        print(search_results.count())
     if end_year_query:
-        search_results.filter(Q(date_information__start_date__year=start_year_query))
-        # for a_result in search_results:
-        #     remove = True
-        #     if getattr(a_result, 'date_information'):
-        #         for stream_val in a_result.date_information.stream_data:
-        #             if stream_val["type"] == "end_date":
-        #                 if int(stream_val["value"]["year"]) < int(end_year_query):
-        #                     remove = False
-        #     if remove:
-        #         search_results._result.remove(a_result)
+        end_year_query = int(end_year_query)
+        print(search_results.count())
+        search_results = search_results.filter(Q(end_date_year__lt=end_year_query))
+        print(search_results.count())
     search_query = []
     if keyword_query:
         search_query.append("full text=" + keyword_query)
@@ -182,9 +165,9 @@ def advanced_search(request):
     if recipient_dedicatee_query:
         search_query.append("recipient or dedicatee=" + recipient_dedicatee_query)
     if start_year_query:
-        search_query.append("start year=" + start_year_query)
+        search_query.append("start year=" + str(start_year_query))
     if end_year_query:
-        search_query.append("end year=" + end_year_query)
+        search_query.append("end year=" + str(end_year_query))
     search_query = " and ".join(search_query)
     query = Query.get(search_query)
     query.add_hit()

@@ -121,36 +121,35 @@
        </ul>
        {% endif %}
 
-       {% if page.date_information %}
         <h2>{% trans 'Dates' %}</h2>
 
-         {% for block in page.date_information %}
+			<h3>Date label</h3>
+			<p>
+			{% if page.date_label %}
+			{{ page.date_label }}
+			{% else %}
+			s.d.
+			{% endif %}
+		    </p>
 
-                {% if block.block_type == 'date' %}
-				<h3>Date label</h3>
-				<p>
-                {% include_block block %}
-				</p>
-                {% endif %}
-		{% endfor %}
-		{% for block in page.date_information %}
-                {% if block.block_type == 'start_date' %}
-				<h3>Start date</h3>
-				<p>
-                    {% include_block block %}
-				</p>
-                {% endif %}
-		{% endfor %}
-		{% for block in page.date_information %}
-                {% if block.block_type == 'end_date' %}
-				<h3>End date</h3>
-				<p>
-                   {% include_block block %}
-	 		    </p>
-                {% endif %}
-         {% endfor %}
-       {% endif %}
-	   </p>
+
+			{% if page.start_date_year %}
+			<h3>Start date</h3>
+			<p>
+			{{ page.start_date_day }}/{{ page.start_date_month }}/{{ page.start_date_year }}
+			{% else %}
+			s.d. 
+			{% endif %}
+			</p>
+			{% if page.end_date_year %}
+			<h3>End date</h3>
+			<p>
+			{{ page.end_date_day }}/{{ page.end_date_month }}/{{ page.end_date_year }}
+			{% else %}
+			s.d.
+		    </p>
+			{% endif %}
+
        {% if page.item_titles.all %}
 	<h2>{% trans 'Title' %}</h2>
 	<ul>

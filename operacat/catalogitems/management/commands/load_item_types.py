@@ -62,4 +62,4 @@ class Command(BaseCommand):
                 cur = cur[0]
                 for n_type in type_stream_data:
                     cur.item_types.create(a_type=n_type["value"])
-                    print(cur.item_types.all())
+                    cur.save()

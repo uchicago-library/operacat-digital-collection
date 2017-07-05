@@ -171,12 +171,10 @@
 		    <td><a href="{% pageurl result %}" class="identifier">{{ result.title }}</a>
        	    		<span class="composer">{{ result.item_composer.last_name }}, {{ result.item_composer.first_name }}</span>
             		<span class="date">
-		       {% if result.date_information %}
-         			{% for block in result.date_information %}
-                		{% if block.block_type == 'date' %}
-    		            		{% include_block block %}
-                		{% endif %}
-					{% endfor %}
+				{% if result.date_label %}
+					{{ result.date_label }}
+				{% else %}
+					s.d.
 				{% endif %}
 			</span>
             		<span class="description">{{ result.item_description|truncatechars:150|richtext }}

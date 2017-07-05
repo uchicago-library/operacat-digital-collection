@@ -24,10 +24,11 @@ class Command(BaseCommand):
 
     def _bundle_relation_statements(self, list_of_relations):
         output = []
-        for a_relation in list_of_relations:
-            related_item = CatalogItemPage.objects.filter(title=a_relation)
+        for a_relation in list_of_relations.split(';'):
+            related_item = CatalogItemPage.objects.filter(title=a_relation.strip().lstrip())
             if related_item.count() == 1:
                 stream_value = {'type': 'related_item', 'value': related_item[0].id}
+                print(stream_value)
                 output.append(stream_value)
         return output
 
@@ -52,12 +53,12 @@ class Command(BaseCommand):
         all_available = 0
         for n_item in data:
             all_available += 1
-            current = CatalogItemPage.objects.filter(title=n_item["item"])
+            current = CatalogItemPage.objects.filter(title=n_item["IdNumber"])
             if current.count() == 1:
                 total += 1
                 current = current[0]
-                if n_item.get("related items", None):
-                    stream_data = self._bundle_relation_statements(n_item["related items"])
+                if n_item.get("IdLinks", None) != "None":
+                    stream_data = self._bundle_relation_statements(n_item["IdLinks"])
                     current.related_items.stream_data = stream_data
                     current.save()
                     counter += 1
@@ -65,7 +66,7 @@ class Command(BaseCommand):
                     self.stderr.write("{} has no related items".format(current.title))
             else:
                 self.stderr.write("{} has no corresponding catalog item page.".\
-                   format(n_item["item"]))
+                   format(n_item["IdNumber"]))
         conclusion = "{} records modified out of {} total potentially".format(counter, total) +\
                      "modifiable records from {}".format(all_available) +\
                      "total records in legacy data\n"
