@@ -296,9 +296,9 @@ class CatalogItemPage(Page):
         FieldPanel('field_notes')
     ]
     search_fields = Page.search_fields + [
-        index.SearchField("item_composer"),
-        index.SearchField("item_catalog"),
-        index.SearchField("item_dealer"),
+        index.SearchField("item_composer__last_name"),
+        index.SearchField("item_catalog__the_name"),
+        index.SearchField("item_dealer__dealer_name"),
         index.SearchField("date_label"),
         index.SearchField("lot"),
         index.SearchField('title', partial_match=True),

@@ -40,11 +40,6 @@ class FormPage(AbstractEmailForm):
             if isinstance(value, list):
                 value = ', '.join(value)
             content.append('{}: {}'.format(field.label, value))
-        submitted_date_str = date.today().strftime('%x')
-        content.append('{}: {}'.format(
-            'Submitted', submitted_date_str))
-        content.append('{}: {}'.format(
-            'Submitted Via', self.full_url))
         content = '\n'.join(content)
-        subject = self.subject + " - " + submitted_date_str
-        send_mail(subject, content, self.from_address, addresses)
+        print("hello")
+        send_mail(self.subject, content, self.from_address, 'tyler@danstrom.com')

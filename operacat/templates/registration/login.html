@@ -20,6 +20,7 @@
         <input type="{{ field.type }}" class="form-control" name="{{ field.name }}" id="{{field.name }}"/>
 
         {% endif %}
+        <p>{{ field.errors }}</p>
     </div>  
     {% endfor %}
     <div class="form-group">
