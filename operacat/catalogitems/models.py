@@ -5,12 +5,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 from django.utils import translation
-
 from django.utils.encoding import force_text
-
-
 from modelcluster.fields import ParentalKey
-
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.blocks import CharBlock, PageChooserBlock,\
@@ -56,24 +52,20 @@ class Dealer(models.Model):
                                     blank=True,
                                     on_delete=models.SET_NULL,
                                     related_name='+')
-
     panels = [
         FieldPanel("common_name"),
         FieldPanel("the_name"),
     ]
-
     search_fields = [index.FilterField("the_name")]
 
     def __str__(self):
         return "{}".format(self.the_name)
-
 
 @register_snippet
 class Catalog(models.Model):
     """the catalog snippet definition
     """
     catalog_name = models.CharField(max_length=255)
-
     panels = [
         FieldPanel("catalog_name")
     ]
@@ -84,19 +76,16 @@ class Catalog(models.Model):
     def __str__(self):
         return "{}".format(self.catalog_name)
 
-
 @register_snippet
 class Composer(models.Model):
     """a composer snippet definition
     """
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-
     content_panels = Page.content_panels + [
         FieldPanel('first_name'),
         FieldPanel('last_name'),
     ]
-
     search_fields = [
         index.FilterField('first_name', partial_match=True),
         index.FilterField('last_name', partial_match=True),
@@ -111,18 +100,15 @@ class Place(models.Model):
     """the place snippet definition
     """
     place_name = models.CharField(max_length=255)
-
     content_panels = Page.content_panels + [
         FieldPanel('place_name'),
     ]
-
     search_fields = [
         index.FilterField('place_name', partial_match=True),
     ]
 
     def __str__(self):
         return self.place_name
-
 
 @register_snippet
 class ItemType(models.Model):
@@ -132,11 +118,9 @@ class ItemType(models.Model):
     #type_name_it = models.CharField(max_length=255)
 
     type_name = models.CharField(max_length=255)
-
     content_panels = Page.content_panels + [
         FieldPanel('type_name'),
     ]
-
     search_fields = [
         index.FilterField('type_name', partial_match=True),
     ]
@@ -151,12 +135,10 @@ class AuthorOrResponsible(models.Model):
     """
     author_name = models.CharField(max_length=255)
     optional_title = models.CharField(max_length=1000, blank=True, null=True)
-
     content_panels = Page.content_panels + [
         FieldPanel('author_name'),
         FieldPanel('optional_title'),
     ]
-
     search_fields = [
         index.FilterField('author_name', partial_match=True),
     ]
@@ -170,15 +152,12 @@ class RecipientOrDedicatee(models.Model):
     """the recipient or dedicatee snippet defintion
     """
     recipient_name = models.CharField(max_length=255)
-
     panels = [
         FieldPanel('recipient_name'),
     ]
-
     search_fields = [
         index.FilterField('recipient_name', partial_match=True),
     ]
-
     search_fields = [
         index.FilterField('recipient_name', partial_match=True),
     ]
@@ -192,11 +171,9 @@ class PieceTitle(models.Model):
     """the musical piece title snippet definition
     """
     name = models.CharField(max_length=1000)
-
     content_panels = Page.content_panels + [
         FieldPanel("name"),
     ]
-
     search_fields = [
         index.FilterField('name', partial_match=True),
     ]
@@ -210,7 +187,6 @@ class ItemTypeOrderable(Orderable):
     """
     a_type = models.ForeignKey(ItemType, related_name='+', verbose_name=("Item Type"))
     a_record = ParentalKey('catalogitems.CatalogItemPage', related_name='item_types')
-
     panels = [
         FieldPanel("a_type"),
     ]
@@ -221,7 +197,6 @@ class PlaceOrderable(Orderable):
     """
     a_place = models.ForeignKey(Place, related_name='+', verbose_name=("A Place"))
     place_record = ParentalKey('catalogitems.CatalogItemPage', related_name='item_places')
-
     panels = [
         FieldPanel("a_place"),
     ]
@@ -231,7 +206,6 @@ class PieceTitleOrderable(Orderable):
     """
     a_title = models.ForeignKey(PieceTitle, related_name='+', verbose_name=("A Title"))
     piece_record = ParentalKey('catalogitems.CatalogItemPage', related_name='item_titles')
-
     panels = [
         FieldPanel("a_title"),
     ]
@@ -244,7 +218,6 @@ class AuthorOrResponsibleOrderable(Orderable):
                                   verbose_name=("An Item Author Or Responsible"))
     author_record = ParentalKey('catalogitems.CatalogItemPage',
                                 related_name='item_authororesposibles')
-
     panels = [
         FieldPanel("an_author"),
     ]
@@ -257,12 +230,9 @@ class RecipientOrDedicateeOrderable(Orderable):
                                     verbose_name=("An Item Recipient Or Dedicatee"))
     recipient_record = ParentalKey('catalogitems.CatalogItemPage',
                                    related_name='item_recipientordedicatees')
-
     panels = [
         FieldPanel("a_recipient"),
     ]
-
-
 
 class CatalogItemPage(Page):
     """the definition for an item record page which is the centerpiece of the site
@@ -299,7 +269,6 @@ class CatalogItemPage(Page):
                                  )
                                 ],
                                 blank=True, null=True)
-
     content_panels = Page.content_panels + [
         SnippetChooserPanel("item_dealer"),
         SnippetChooserPanel("item_catalog"),

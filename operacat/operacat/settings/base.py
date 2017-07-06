@@ -26,6 +26,13 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 LOGIN_REDIRECT_URL = "/"
 
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'operacatsite'
+EMAIL_HOST_PASSWORD = 'a021680a'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -160,5 +167,7 @@ WAGTAIL_SITE_NAME = "operacat"
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 
 SITE_ID = 1
+SITE_URL = 'http://operacat.lib.uchicago.edu/'
+domain = 'operacat.lib.uchicago.edu'
 BASE_URL = 'http://operacat.lib.uchicago.edu/'
 

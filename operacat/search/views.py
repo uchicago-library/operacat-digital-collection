@@ -136,12 +136,12 @@ def advanced_search(request):
                                                Q(title__contains=keyword_query))
     if start_year_query:
         start_year_query = int(start_year_query)
-        search_results = search_results.filter(Q(start_date_year__gt=start_year_query))
+        search_results = search_results.filter(start_date_year__gt=start_year_query)
         print(search_results.count())
     if end_year_query:
         end_year_query = int(end_year_query)
         print(search_results.count())
-        search_results = search_results.filter(Q(end_date_year__lt=end_year_query))
+        search_results = search_results.filter(end_date_year__lt=end_year_query)
         print(search_results.count())
     search_query = []
     if keyword_query:

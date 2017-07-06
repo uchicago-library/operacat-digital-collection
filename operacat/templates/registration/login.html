@@ -7,14 +7,18 @@
 {% block content %}
   <h2>{% trans 'Login' %}</h2>
   <form method="post">
+    {{ form.non_field_errors }}
     {% csrf_token %}
+
     {% for field in form %}
     <div class="form-group">
-        <label for="{{ field.id }}">{{ field.label }}</label>
+
+        <label for="{{ field.name }}">{{ field.label }}</label>
         {% if field.name == 'password' %}
         <input type="password" class="form-control" name="{{ field.name }}" id="{{field.name }}"/>
         {% else %}
         <input type="{{ field.type }}" class="form-control" name="{{ field.name }}" id="{{field.name }}"/>
+
         {% endif %}
     </div>  
     {% endfor %}
@@ -23,4 +27,7 @@
     </div>
   </form>
   <p>{% blocktrans %}If you do not already have an account, please use the{% endblocktrans %} <a href="/accounts/register/">{% trans 'Sign Up' %}</a> {% blocktrans %}form to create one and you will be automatically logged in after you complete the form{% endblocktrans %}.</p>
+
+  <p>{% blocktrans %}If you have forgotten your password, you can{% endblocktrans %} <a href="{% url 'password_reset' %}">{% trans 'reset it' %}</a>.</p>
+
 {% endblock %}
