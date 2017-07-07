@@ -42,4 +42,4 @@ class FormPage(AbstractEmailForm):
             content.append('{}: {}'.format(field.label, value))
         content = '\n'.join(content)
         print("hello")
-        send_mail(self.subject, content, self.from_address, 'tyler@danstrom.com')
+        send_mail(self.subject, content, self.from_address, addresses)
