@@ -1,7 +1,7 @@
 
 import json
 from django.core.management.base import BaseCommand
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 from catalogitems.models import Dealer, CatalogItemPage, DealerCommonName
 from home.models import GenericPage

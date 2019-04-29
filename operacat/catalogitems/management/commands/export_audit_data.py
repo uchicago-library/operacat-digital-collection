@@ -1,7 +1,7 @@
 
 import csv
 from django.core.management.base import BaseCommand
-from wagtail.wagtailimages.models import Image
+from wagtail.images.models import Image
 
 from catalogimage.models import CatalogImage
 from catalogitems.models import CatalogItemPage
