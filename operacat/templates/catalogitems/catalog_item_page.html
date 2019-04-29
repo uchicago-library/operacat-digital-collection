@@ -30,9 +30,11 @@
 		    {% for block in page.images %}
 			{% image block.value fill-800x800 as my_image %}
 			{% image block.value fill-200x200 as my_thumbnail %}
+                        {% if my_image.embargo == 'No' %}
 			<a href="{{ my_image.url }}" data-gallery="catalog-item-gallery" data-toggle="lightbox" >
 			    <img class="img-responsive" src="{{ my_thumbnail.url }}" alt="{{ my_image.alt }}"/>
 			</a>
+                        {% endif %}
 		    {% endfor %}
 		</div>
 
@@ -170,7 +172,7 @@
 
        <h2>{% trans 'Dealer' %}</h2>
        <ul>
-	   <li><a href="{% url 'advanced_search' %}?dealer-query={{  page.item_dealer.dealer_name }}">{{ page.item_dealer.dealer_name }}</a></li>
+	   <li><a href="{% url 'advanced_search' %}?dealer-query={{  page.item_dealer.the_name }}">{{ page.item_dealer.the_name }}</a></li>
        </ul>
        <h2>{% trans 'Catalog' %}</h2>
        <ul>

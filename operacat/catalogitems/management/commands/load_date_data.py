@@ -133,13 +133,18 @@ class Command(BaseCommand):
                     if re.compile(r'\d{4}').match(year):
                         matched_item.end_date_day = day
                         matched_item.end_date_month = month
+                        matched_item.end_date_year = year
                         matched_item.save()
+                        print("{} has end year value {}.\n".format(the_id, year))
+                    else:
+                        print("{} has end year value {}.\n".format(the_id, year))
                 if start_date:
                     parts = re.split(r'\/|-', start_date)
                     if re.compile(r'\d{4}').match(parts[0]):
                         day = parts[2]
                         month = parts[1]
                         year = parts[0]
+                        print("{} has start year value {}.\n".format(the_id, year))
                     else:
                         day = parts[0]
                         month = parts[1]
@@ -147,5 +152,9 @@ class Command(BaseCommand):
                     if re.compile(r'\d{4}').match(year):
                         matched_item.start_date_day = day
                         matched_item.start_date_month = month
+                        matched_item.start_date_year = year
                         matched_item.save()
+                        print("{} has start year value {}.\n".format(the_id, year))
+                    else:
+                        print("{} has start year value {}.\n".format(the_id, year))
 

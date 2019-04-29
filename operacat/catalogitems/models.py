@@ -35,7 +35,6 @@ class TranslatedField(object):
             print(instance)
             return getattr(instance, self.en_field)
 
-
 @register_snippet
 class DealerCommonName(models.Model):
     common_name_text = models.CharField(max_length=255)
@@ -44,7 +43,6 @@ class DealerCommonName(models.Model):
 
     def __str__(self):
         return "{}".format(self.common_name_text)
-
 
 @register_snippet
 class Dealer(models.Model):
@@ -65,7 +63,6 @@ class Dealer(models.Model):
     def __str__(self):
         return "{}".format(self.the_name)
 
-
 @register_snippet
 class Catalog(models.Model):
     """the catalog snippet definition
@@ -80,7 +77,6 @@ class Catalog(models.Model):
 
     def __str__(self):
         return "{}".format(self.catalog_name)
-
 
 @register_snippet
 class Composer(models.Model):
@@ -115,7 +111,6 @@ class Place(models.Model):
 
     def __str__(self):
         return self.place_name
-
 
 @register_snippet
 class ItemType(models.Model):

@@ -99,14 +99,20 @@ def advanced_search(request):
         end_year_query = request.GET.get("end-year-query", None)
     else:
         end_year_query = None
-
+    if not request.GET.get("common-dealer-query", None) or request.GET.get('common-dealer-query', None) != 'none':
+        common_dealer_query = request.GET.get("common-dealer-query", None)
+    else:
+        common_dealer_query = None
     search_results = CatalogItemPage.objects.all()
     if composer_query:
         composer = Composer.objects.filter(last_name=composer_query)
         search_results = search_results.filter(item_composer=composer[0])
     if dealer_query:
-        dealer = Dealer.objects.filter(the_name__contains=dealer_query)
-        search_results = search_results.filter(item_dealer=dealer[0])
+        dealer = Dealer.objects.filter(the_name=dealer_query)
+        search_results = search_results.filter(item_dealer__in=dealer)
+    if common_dealer_query:
+        dealer = Dealer.objects.filter(the_name__contains=common_dealer_query)
+        search_results = search_results.filter(item_dealer__in=dealer)
     if catalog_query:
         catalog = Catalog.objects.filter(catalog_name=catalog_query)
         search_results = search_results.filter(item_catalog=catalog[0])
