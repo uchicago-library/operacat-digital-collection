@@ -2,7 +2,7 @@
 *~
 *pyc
 media/*
-operacat/operacat/settings/locals.py
+operacat/operacat/settings/local.py
 build/*
 dist/*
 *egg-info*

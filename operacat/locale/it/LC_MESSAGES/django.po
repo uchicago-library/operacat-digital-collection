@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-18 15:16-0500\n"
+"POT-Creation-Date: 2019-04-29 16:08+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,21 +26,25 @@ msgstr "Inglese"
 msgid "Italian"
 msgstr "Italiano"
 
-#: templates/404.html:7
-msgid "Page not found"
+#: templates/404.html:10
+#, fuzzy
+#| msgid "Page not found"
+msgid "Page not  found"
 msgstr "Pagina non trovata"
 
-#: templates/404.html:9
+#: templates/404.html:12
 msgid "Sorry, this page could not be found"
 msgstr "Spiacenti, la pagina richiesta non è stata trovata"
 
-#: templates/500.html:9 templates/500.html:13
+#: templates/500.html:10
 msgid "Internal server error"
 msgstr "Errore interno del server"
 
-#: templates/500.html:15
-msgid "Sorry, there seems to be an error. Please try again soon"
-msgstr "Spiacenti, sembra che si sia verificato un errore. Riprova più tardi"
+#: templates/500.html:12
+msgid ""
+"Something went wrong with our server! We should be able to fix it soon. But, "
+"in case you're in a hurry send us an email."
+msgstr ""
 
 #: templates/base.html:52
 msgid "Toggle navigation"
@@ -50,12 +54,11 @@ msgstr "Attiva/Disattiva navigazione"
 msgid "OperaCat"
 msgstr "OperaCat"
 
-#: templates/base.html:61 templates/search/search.html:9
-#: templates/search/search_form.html:7
+#: templates/base.html:61 templates/search/search_form.html:7
 msgid "Search"
 msgstr "Cerca"
 
-#: templates/base.html:63
+#: templates/base.html:63 templates/home/home_page.html:28
 msgid "About"
 msgstr "Il progetto"
 
@@ -95,14 +98,6 @@ msgstr "Esci"
 msgid "Log In"
 msgstr "Entra"
 
-#: templates/base.html:114
-msgid "University of Chicago"
-msgstr "University of Chicago"
-
-#: templates/base.html:115
-msgid "Center for Italian Opera Studies"
-msgstr "Centro Italo Americano per l'Opera"
-
 #: templates/catalogitems/catalog_item_page.html:9
 msgid "Viewing a Catalog Item Record"
 msgstr "Visualizza record"
@@ -111,87 +106,84 @@ msgstr "Visualizza record"
 msgid "Field Notes"
 msgstr "Campo Note"
 
-#: templates/catalogitems/catalog_item_page.html:28
+#: templates/catalogitems/catalog_item_page.html:27
 msgid "Images"
 msgstr "Immagini"
 
-#: templates/catalogitems/catalog_item_page.html:76
-msgid "Post Comment"
-msgstr "Invia un commento"
-
-#: templates/catalogitems/catalog_item_page.html:81
+#: templates/catalogitems/catalog_item_page.html:39
 #, fuzzy
 #| msgid "Document"
 msgid "Comments"
 msgstr "Commenti"
 
-#: templates/catalogitems/catalog_item_page.html:82
+#: templates/catalogitems/catalog_item_page.html:69
+msgid "Post Comment"
+msgstr "Invia un commento"
+
+#: templates/catalogitems/catalog_item_page.html:74
 msgid "Please"
 msgstr "Per favore"
 
-#: templates/catalogitems/catalog_item_page.html:82
+#: templates/catalogitems/catalog_item_page.html:74
 msgid "or"
 msgstr "o"
 
-#: templates/catalogitems/catalog_item_page.html:82
+#: templates/catalogitems/catalog_item_page.html:74
 msgid "to leave a comment"
 msgstr "lasciare un commento"
 
-#: templates/catalogitems/catalog_item_page.html:88
+#: templates/catalogitems/catalog_item_page.html:80
+#: templates/search/search_form.html:27
 msgid "Composer"
 msgstr "Compositore"
 
-#: templates/catalogitems/catalog_item_page.html:95
+#: templates/catalogitems/catalog_item_page.html:87
 msgid "Author or Responsible"
 msgstr "Autore o Responsabile"
 
-#: templates/catalogitems/catalog_item_page.html:104
+#: templates/catalogitems/catalog_item_page.html:96
 msgid "Recipient or Dedicatee"
 msgstr "Destinatario o Dedicatario"
 
-#: templates/catalogitems/catalog_item_page.html:113
+#: templates/catalogitems/catalog_item_page.html:105
 #: templates/search/search_form.html:43
 msgid "Item Type"
 msgstr "Tipo di documento"
 
-#: templates/catalogitems/catalog_item_page.html:122
+#: templates/catalogitems/catalog_item_page.html:114
 #: templates/search/search_form.html:107
 msgid "Place"
 msgstr "Luogo"
 
-#: templates/catalogitems/catalog_item_page.html:133
+#: templates/catalogitems/catalog_item_page.html:124
 msgid "Dates"
 msgstr "Date"
 
-#: templates/catalogitems/catalog_item_page.html:142
+#: templates/catalogitems/catalog_item_page.html:154
 #: templates/search/search_form.html:91
 msgid "Title"
 msgstr "Titolo"
 
-#: templates/catalogitems/catalog_item_page.html:152
+#: templates/catalogitems/catalog_item_page.html:163
 #, fuzzy
 #| msgid "Related items"
 msgid "Related Items"
 msgstr "Articoli Correlati"
 
-#: templates/catalogitems/catalog_item_page.html:160
-#: templates/dealerview/browse.html:16
+#: templates/catalogitems/catalog_item_page.html:171
+#: templates/dealerview/browse.html:15
 msgid "Dealer"
 msgstr "Venditore"
 
-#: templates/catalogitems/catalog_item_page.html:164
+#: templates/catalogitems/catalog_item_page.html:175
 msgid "Catalog"
 msgstr "Catalogo"
 
-#: templates/catalogitems/catalog_item_page.html:168
+#: templates/catalogitems/catalog_item_page.html:179
 msgid "Lot"
 msgstr "Lotto"
 
-#: templates/dealerview/browse.html:6
-msgid "Browsing Dealers;"
-msgstr "Cerca venditore"
-
-#: templates/dealerview/browse.html:28
+#: templates/dealerview/browse.html:27
 msgid "There are no items"
 msgstr "Nessun record"
 
@@ -204,16 +196,67 @@ msgid ""
 "under the hammer of the Auctioneer, so that the pleasure which the acquiring "
 "of each one of them has given me shall be given again, in each case, to some "
 "inheritor of my tastes."
-msgstr "Desidero che i miei disegni, le mie stampe, le mie curiosità, i miei libri -in una parola gli oggetti d'arte che sono stati la gioia della mia vita-non siano consegnati alla fredda tomba di un museo e soggetti allo stupido sguardo del passante incurante; piuttosto, dispongo che essi siano dispersi dal martello di un venditore all'asta,  così che il piacere che l'acquisto di ciascuno di essi ha dato a me sarà nuovamente dato, per ognuno di essi, a qualche erede dei miei gusti"
+msgstr ""
+"Desidero che i miei disegni, le mie stampe, le mie curiosità, i miei libri -"
+"in una parola gli oggetti d'arte che sono stati la gioia della mia vita-non "
+"siano consegnati alla fredda tomba di un museo e soggetti allo stupido "
+"sguardo del passante incurante; piuttosto, dispongo che essi siano dispersi "
+"dal martello di un venditore all'asta,  così che il piacere che l'acquisto "
+"di ciascuno di essi ha dato a me sarà nuovamente dato, per ognuno di essi, a "
+"qualche erede dei miei gusti"
 
 #: templates/home/home_page.html:21
 msgid "From the will of Edmond de Goncourt"
 msgstr "Dal testamento di Edmond de Goncourt"
 
+#: templates/home/home_page.html:24
+msgid "Our Community"
+msgstr ""
+
 #: templates/home/home_page.html:25
 msgid ""
-"OperaCat is a project focusing on manuscript materials of musical interest sold at auction, as well as through music antiquarian catalogues, pertaining to the major composers of nineteenth-century Italian Opera: Gioachino Rossini (1792-1868), Gaetano Donizetti (1797-1848), Vincenzo Bellini (1801-1835), Giuseppe Verdi (1813-1901), and Giacomo Puccini (1858-1924). The database makes available the decriptions of these materials provided in sale catalogues since 1840c. to the present."
-msgstr "Il progetto OperaCat ha per oggetto materiale musicale manoscritto (lettere, documenti, musica) venduto all'asta e nel mercato dell'antiquariato relativo ai maggiori compositori italiani d'opera dell'Ottocento: Gioachino Rossini (1792-1868), Gaetano Donizetti (1797-1848), Vincenzo Bellini (1801-1835), Giuseppe Verdi (1813-1901) e Giacomo Puccini (1858-1924). Nel database sono raccolte le descrizioni di tale materiale fornite nei cataloghi di vendita dal 1840 circa ai nostri giorni."
+"We want to make this site a center for active discussion between scholars, "
+"auctioneers, students and enthusiasts about the composers listed. To make "
+"this happen, we'd love for you to "
+msgstr ""
+
+#: templates/home/home_page.html:25
+#, fuzzy
+#| msgid "Sign Up"
+msgid "sign up"
+msgstr "Registrazione"
+
+#: templates/home/home_page.html:25
+msgid ""
+"create an account, and join in the discussion on any item record that you "
+"are interested in."
+msgstr ""
+
+#: templates/home/home_page.html:29
+#, fuzzy
+#| msgid ""
+#| "OperaCat is a project focusing on manuscript materials of musical "
+#| "interest sold at auction, as well as through music antiquarian "
+#| "catalogues, pertaining to the major composers of nineteenth-century "
+#| "Italian Opera: Gioachino Rossini (1792-1868), Gaetano Donizetti "
+#| "(1797-1848), Vincenzo Bellini (1801-1835), Giuseppe Verdi (1813-1901), "
+#| "and Giacomo Puccini (1858-1924). The database makes available the "
+#| "decriptions of these materials provided in sale catalogues since 1840c. "
+#| "to the present."
+msgid ""
+"OperaCat is a project focusing on manuscript materials of musical interest "
+"sold at auction, as well as through music antiquarian catalogues, pertaining "
+"to the major composers of nineteenth-century Italian Opera: Gioachino "
+"Rossini (1792-1868), Gaetano Donizetti (1797-1848), Vincenzo Bellini "
+"(1801-1835), Giuseppe Verdi (1813-1901), and Giacomo Puccini (1858-1924)."
+msgstr ""
+"Il progetto OperaCat ha per oggetto materiale musicale manoscritto (lettere, "
+"documenti, musica) venduto all'asta e nel mercato dell'antiquariato relativo "
+"ai maggiori compositori italiani d'opera dell'Ottocento: Gioachino Rossini "
+"(1792-1868), Gaetano Donizetti (1797-1848), Vincenzo Bellini (1801-1835), "
+"Giuseppe Verdi (1813-1901) e Giacomo Puccini (1858-1924). Nel database sono "
+"raccolte le descrizioni di tale materiale fornite nei cataloghi di vendita "
+"dal 1840 circa ai nostri giorni."
 
 #: templates/operacatmessages/form_page.html:8
 #, python-format
@@ -232,22 +275,33 @@ msgstr "Grazie. Ti risponderemo al più presto."
 msgid "Thanks for using our website today"
 msgstr "Grazie per aver usato il database oggi"
 
-#: templates/registration/login.html:5 templates/registration/login.html:22
+#: templates/registration/login.html:5 templates/registration/login.html:8
+#: templates/registration/login.html:27
 msgid "Login"
 msgstr "Login"
 
-#: templates/registration/login.html:25
+#: templates/registration/login.html:30
 msgid "If you do not already have an account, please use the"
-msgstr "Se ancora non sei registrato, completa il modulo di registrazione e sarai automaticamente connesso al database"
+msgstr ""
+"Se ancora non sei registrato, completa il modulo di registrazione e sarai "
+"automaticamente connesso al database"
 
-#: templates/registration/login.html:25
+#: templates/registration/login.html:30
 msgid "Sign Up"
 msgstr "Registrazione"
 
-#: templates/registration/login.html:25
+#: templates/registration/login.html:30
 msgid ""
 "form to create one and you will be automatically logged in after you "
 "complete the form"
+msgstr ""
+
+#: templates/registration/login.html:32
+msgid "If you have forgotten your password, you can"
+msgstr ""
+
+#: templates/registration/login.html:32
+msgid "reset it"
 msgstr ""
 
 #: templates/registration/registration_form.html:24
@@ -260,54 +314,51 @@ msgstr "Invia"
 msgid "Search Results"
 msgstr "Risultati della ricerca"
 
-
-#: templates/search/search.html:134
+#: templates/search/search.html:157
 #, fuzzy
 #| msgid "Search"
 msgid "Search Result"
 msgstr "Risultato della ricerca"
 
-#: templates/search/search.html:135
+#: templates/search/search.html:158
 msgid "Your query was"
 msgstr "La tua richiesta"
 
-#: templates/search/search.html:135
+#: templates/search/search.html:158
 #, fuzzy
 #| msgid "Search"
 msgid "New Search"
 msgstr "Nuova ricerca"
 
-
-#: templates/search/search.html:138
+#: templates/search/search.html:161
 #, fuzzy
 #| msgid "Item Type"
 msgid "Item"
 msgstr "Tipo di materiale"
 
-#: templates/search/search.html:139
+#: templates/search/search.html:162
 #, fuzzy
 #| msgid "Author or Responsible"
 msgid "Author/Responsible"
 msgstr "Autore/Responsabile"
 
-#: templates/search/search.html:140
+#: templates/search/search.html:163
 #, fuzzy
 #| msgid "recipient/dedicatee"
 msgid "Recipient/Dedicatee"
 msgstr "Destinatario/Dedicatario"
 
-#: templates/search/search.html:141
+#: templates/search/search.html:164
 #, fuzzy
 #| msgid "Place"
 msgid "Places"
 msgstr "Luoghi"
 
-
-#: templates/search/search.html:142
+#: templates/search/search.html:165
 msgid "Types"
 msgstr "Tipi di materiale"
 
-#: templates/search/search.html:312
+#: templates/search/search.html:365
 msgid "No results found"
 msgstr "Nessun risultato trovato"
 
@@ -321,17 +372,23 @@ msgstr "Ricerca avanzata"
 msgid "Simple Search"
 msgstr "Ricerca base"
 
+#: templates/search/search_form.html:23
+#, fuzzy
+#| msgid "Keywords"
+msgid "Keyword"
+msgstr "Parola chiave"
+
+#: templates/search/search_form.html:45 templates/search/search_form.html:61
+#: templates/search/search_form.html:77 templates/search/search_form.html:93
+#: templates/search/search_form.html:109
+msgid "Select"
+msgstr "Seleziona"
 
 #: templates/search/search_form.html:59
 #, fuzzy
 #| msgid "Author or Responsible"
 msgid "Author Or Responsible"
 msgstr "Autore o Responsabile"
-
-#: templates/search/search_form.html:61 templates/search/search_form.html:77
-#: templates/search/search_form.html:93 templates/search/search_form.html:109
-msgid "Select"
-msgstr "Seleziona"
 
 #: templates/search/search_form.html:75
 #, fuzzy
@@ -346,6 +403,19 @@ msgstr "Da"
 #: templates/search/search_form.html:129
 msgid "End Year"
 msgstr "Fine anno"
+
+#~ msgid "Sorry, there seems to be an error. Please try again soon"
+#~ msgstr ""
+#~ "Spiacenti, sembra che si sia verificato un errore. Riprova più tardi"
+
+#~ msgid "University of Chicago"
+#~ msgstr "University of Chicago"
+
+#~ msgid "Center for Italian Opera Studies"
+#~ msgstr "Centro Italo Americano per l'Opera"
+
+#~ msgid "Browsing Dealers;"
+#~ msgstr "Cerca venditore"
 
 #~ msgid "Homepage"
 #~ msgstr "Homepage"
@@ -376,9 +446,6 @@ msgstr "Fine anno"
 
 #~ msgid "Next"
 #~ msgstr "Prossimo"
-
-#~ msgid "Keywords"
-#~ msgstr "Parola chiave"
 
 #~ msgid "musical manuscript"
 #~ msgstr "manoscritto musicale"
@@ -411,5 +478,5 @@ msgstr "Fine anno"
 #~ "This is a contact form. Please fill out the form and click submit and "
 #~ "we'll get back to you in 2-5 days. Thanks!"
 #~ msgstr ""
-#~ "Questo è il modulo da utilizzare per contattarci. Dopo averlo compilato"
-#~ "premi Invia; ti risponderemo in 2-5 giorni. Grazie!"
+#~ "Questo è il modulo da utilizzare per contattarci. Dopo averlo "
+#~ "compilatopremi Invia; ti risponderemo in 2-5 giorni. Grazie!"

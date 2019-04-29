@@ -2,9 +2,9 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.core.models import Page
+from wagtail.core.fields import RichTextField
+from wagtail.admin.edit_handlers import FieldPanel
 
 from catalogitems.models import PieceTitle, Place, ItemType, Composer,\
     AuthorOrResponsible, RecipientOrDedicatee
@@ -21,6 +21,7 @@ class TranslatedField(object):
             return getattr(instance, self.it_field)
         else:
             return getattr(instance, self.en_field)
+
 
 class HomePage(Page):
     """the class definition for the home page object which gets displayed by templates/home_page.html
@@ -41,4 +42,3 @@ class GenericPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('body', classname='full'),
     ]
-

@@ -3,16 +3,18 @@ from django.core.mail import send_mail
 from datetime import date
 
 from modelcluster.fields import ParentalKey
-from wagtail.wagtailadmin.edit_handlers import (FieldPanel, FieldRowPanel,
+from wagtail.admin.edit_handlers import (FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel)
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
-
-# Create your models here.
-
+from wagtail.core.fields import RichTextField
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 
 class FormField(AbstractFormField):
-    page = ParentalKey('FormPage', related_name='form_fields')
+    page = ParentalKey(
+        'FormPage',
+        on_delete=models.CASCADE,
+        related_name='form_fields'
+    )
+
 
 class FormPage(AbstractEmailForm):
     intro = RichTextField(blank=True)

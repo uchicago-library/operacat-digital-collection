@@ -1,4 +1,3 @@
-
 from django.db import models
 from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.models import Page, Orderable
@@ -12,8 +11,6 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, StreamFi
 from wagtail.wagtailsearch import index
 
 from catalogitems.models import PieceTitle
-
-# Create your models here.
 
 class DateLabelEntryBlock(StructBlock):
     date_label = CharBlock(max_length=100)
@@ -30,18 +27,29 @@ class DateEntryBlock(StructBlock):
         icon = 'date'
 
 class CustomOrderable(Orderable):
-    custom_title = models.ForeignKey(PieceTitle, related_name='+', verbose_name=("A Title"))
-    custom_record = ParentalKey('customtype.CustomType', related_name='custom_titles')
+    custom_title = models.ForeignKey(
+        PieceTitle,
+        on_delete=models.CASCADE,
+        related_name='+',
+        verbose_name=("A Title")
+    )
+    custom_record = ParentalKey(
+        'customtype.CustomType',
+        on_delete=models.CASCADE,
+        related_name='custom_titles'
+    )
     panels = [
         FieldPanel("custom_title"),
     ]
 
 class CustomType(Page):
-    item_catalog = models.ForeignKey('catalogitems.Catalog',
-                                     null=True,
-                                     blank=True,
-                                     on_delete=models.SET_NULL,
-                                     related_name='+')
+    item_catalog = models.ForeignKey(
+        'catalogitems.Catalog',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     date_information = StreamField([
         ('date_label', DateLabelEntryBlock()),
         ('date', DateEntryBlock(label="Date for Item")),

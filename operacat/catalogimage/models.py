@@ -2,7 +2,8 @@ from django.db.models.signals import post_delete
 from django.db import models
 from django.dispatch import receiver
 
-from wagtail.wagtailimages.models import AbstractImage, Image, AbstractRendition
+from wagtail.images.models import AbstractImage, Image, AbstractRendition
+
 
 class CatalogImage(AbstractImage):
     embargo = models.NullBooleanField(default=True)
@@ -13,17 +14,24 @@ class CatalogImage(AbstractImage):
         'alt_text',
     )
 
+
 class CatalogRendition(AbstractRendition):
-    image = models.ForeignKey(CatalogImage, related_name='renditions')
+    image = models.ForeignKey(
+        CatalogImage,
+        on_delete=models.CASCADE,
+        related_name='renditions'
+    )
 
     class Meta:
         unique_together = (
             ('image', 'filter_spec', 'focal_point_key'),
         )
 
+
 @receiver(post_delete, sender=CatalogImage)
 def image_delete(sender, instance, **kwargs):
     instance.file.delete(False)
+
 
 @receiver(post_delete, sender=CatalogRendition)
 def rendition_delete(sender, instance, **kwargs):

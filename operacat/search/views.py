@@ -6,9 +6,9 @@ from django.shortcuts import render
 
 from sys import stderr
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch.models import Query
-from wagtail.wagtailsearch.backends import get_search_backend
+from wagtail.core.models import Page
+from wagtail.search.models import Query
+from wagtail.search.backends import get_search_backend
 
 from catalogitems.models import  *
 
