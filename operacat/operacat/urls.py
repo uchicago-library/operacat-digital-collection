@@ -1,11 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
-from django.conf.urls import include, url, i18n, static
+from django.conf.urls import include, url, i18n
+from django.conf.urls.i18n import i18n_patterns
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.base import RedirectView
-from django.conf.urls.i18n import i18n_patterns
 import os
 
 from search import views as search_views
@@ -33,6 +35,9 @@ urlpatterns = [
     url('^logout/', auth_views.LogoutView, name='logout'),
 
 ]
+
+#urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.STATIC_ROOT)
 
 urlpatterns += i18n_patterns(url(r'^search/$', search_views.search, name='search'),
                              url(r'^advanced_search/', search_views.advanced_search, name="advanced_search"),

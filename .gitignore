@@ -2,6 +2,7 @@
 *~
 *pyc
 media/*
+/operacat/static
 operacat/operacat/settings/local.py
 build/*
 dist/*

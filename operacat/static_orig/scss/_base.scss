@@ -1,0 +1,221 @@
+/*------------------------------------------------------------------
+[Table of contents]
+
+"Sticky" Footer
+Colors
+Accessibility
+Fonts and Headers
+Media Queries
+
+-------------------------------------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Tangerine');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700');
+
+$font-large: 2.5em;
+$font-medium: 1.5em;
+$font-small: 1.1em;
+
+/*
+ * "Sticky" Footer
+ * --------------------------------------------------
+ */
+
+html {
+	height: 100%;
+}
+
+body {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	font-family: 'Open Sans', 'Arial', sans-serif;
+}
+
+.site-content {
+	flex: 1;
+}
+
+/*
+ * Colors
+ * --------------------------------------------------
+ */
+
+ $primary: #800000; //maroon
+ $secondary: #565656; //dark gray
+ $background: #F4EDE0; //cream
+ $accent: #B1746F; // light maroon
+ $hover: #eee; // very light gray
+ $link: #337ab7; //bright blue
+
+
+/*
+ * Accessibility
+ * --------------------------------------------------
+ */
+
+#skip  {
+  background: #f5f5f5;
+  color: #222;
+  a { 
+    position:absolute;
+    padding: 1em 0 1em 3em;
+    line-height: 2em;
+    left:-10000px; 
+    top:auto; 
+    width:1px; 
+    height:1px; 
+    overflow:hidden;
+    color: #222;
+    &:focus { 
+      position:static; 
+      width:auto; 
+      height:auto; 
+    } 
+  }
+}
+
+/* Completely remove from the flow but leave available to screen readers. */
+.is-vishidden {
+  position: absolute !important;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+
+/*
+ * Fonts and Headers
+ * --------------------------------------------------
+ */
+
+
+p {
+  margin-bottom: 1em;
+  line-height: 1.5em;
+}
+
+h1 {
+	font-size: 1.4em;
+	color: $primary;
+	font-weight: 300;
+	padding-bottom: 5px;
+	margin: 0 0 0.2em 0;
+	border-bottom: 1px solid $accent;
+}
+
+h2{
+	font-size: 1.2em;
+	color: $primary;
+	font-weight: 600;
+	line-height: 1.4em;
+}
+
+h3 {
+	font-size: 1.1em;
+	color: $secondary;
+	font-weight: 600;
+	font-style: italic;
+	line-height: 1.4em;
+}
+
+a {
+	color: $link;
+	&:hover, &:focus {
+		  color: #5B8FA8;
+		}
+}
+
+/*
+ * Media Queries
+ * --------------------------------------------------
+ *
+ * Use as: @include respond-to(small) { ... }
+ *		@include respond-to(medium) { ... }
+ *		@include respond-to(large) { ... }
+ */
+
+@mixin respond-to($breakpoint) {
+  // Extra small devices (phones, 544px and up)
+  @if $breakpoint == "xsmall" {
+    @media (min-width: 34em) {
+      @content;
+    }
+  }
+
+  // Small devices (landscape phones, 768px and up)
+  @else if $breakpoint == "small" {
+    @media (min-width: 48em) {
+      @content;
+    }
+  }
+  // Medium devices (crappy laptops, tablets, 992px and up)
+  @else if $breakpoint == "medium" {
+    @media (min-width: 62em) {
+      @content;
+    }
+  }
+  // Large devices (desktops, 1200px and up)
+  @else if $breakpoint == "large" {
+    @media (min-width: 75em) {
+      @content;
+    }
+  }
+
+  //Extra large devices (large desktops, 1900px and up)
+  @else if $breakpoint == "xlarge" {
+    @media (min-width: 118em) {
+      @content;
+    }
+  }
+  
+  // Short-cut to target extra small devices *only* (phones, 544px and up)
+  @else if $breakpoint == "smallonly" {
+    @media (max-width: 34em) {
+      @content;
+    }
+  }
+}
+
+
+@media print {
+    @page {
+        size: 330mm 427mm;
+        margin: 1cm;
+    }
+    a[href]:after {
+        content: none !important;
+    }
+    .container {
+        width: 1170px;
+    }
+    .navbar, #footer {
+        display: none;
+    }
+    div.breadcrumbs, div#sidebar, div.jumbotron {
+        display: none;
+    }
+    body {
+        overflow: visible !important; 
+    }
+    div.container, div.container-fluid {
+        margin: none;
+        padding: none;
+    }
+    div.row, div.row-fluid {
+        margin: none;
+        padding: none;
+    }
+    h2, h3, h4, h5, h6 {
+       page-break-after: avoid;
+    }
+    /*img {
+       max-width: 100% !important;
+    }*/
+    ul, img {
+       page-break-inside: avoid;
+    }
+}
