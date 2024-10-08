@@ -1,3 +1,5 @@
+This repository was archived on 2024-10-08. The website is no longer active.
+
 Introduction
 ============
 
